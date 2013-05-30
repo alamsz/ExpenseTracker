@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alignmentMode="alignMargins"
+    android:alpha="1"
+    android:columnCount="3"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/dateFromView"
+            android:layout_width="@dimen/textview_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:text="@string/date_from"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/textSize" />
+
+        <EditText
+            android:id="@+id/dateFrom"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:clickable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:textSize="@dimen/textSize" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/searchDateFrom"
+            android:layout_width="@dimen/datepicker_width"
+            android:layout_height="@dimen/datepicker_height"
+            android:layout_gravity="left"
+            android:contentDescription="@string/app_name"
+            android:onClick="dateFromClick"
+            android:src="@drawable/icon_date_picker"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/dateToView"
+            android:layout_width="@dimen/textview_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:text="@string/date_to"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/textSize" />
+
+        <EditText
+            android:id="@+id/dateTo"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:clickable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:textSize="@dimen/textSize" />
+
+        <ImageButton
+            android:id="@+id/searchDateTo"
+            android:layout_width="@dimen/datepicker_width"
+            android:layout_height="@dimen/datepicker_height"
+            android:contentDescription="@string/app_name"
+            android:onClick="dateToClick"
+            
+            android:src="@drawable/icon_date_picker" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/categoryView"
+            android:layout_width="@dimen/textview_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:text="@string/expense_cat"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/textSize" />
+
+        <Spinner
+            android:id="@+id/categorySpinnerSearch"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:entries="@array/category_input"
+            android:prompt="@string/category_prompt"
+            android:spinnerMode="dialog"
+            android:textSize="@dimen/textSize" />
+    </LinearLayout>
+
+</LinearLayout>

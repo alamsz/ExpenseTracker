@@ -136,7 +136,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 				this.mTabHost.newTabSpec(getString(R.string.transaction))
 						.setIndicator(
 								createTabView(getString(R.string.transaction),
-										R.drawable.apps_mobislenotes)),
+										R.drawable.input_transaction)),
 				(tabInfo = new TabInfo(getString(R.string.transaction), InputTabFragment.class, args)));
 		this.mapTabInfo.put(tabInfo.tag, tabInfo);
 		ExpenseTrackerActivity
@@ -144,7 +144,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 						this.mTabHost,
 						this.mTabHost.newTabSpec(getString(R.string.balance)).setIndicator(
 								createTabView(getString(R.string.balance),
-										R.drawable.apps_scoremobile)),
+										R.drawable.money_bag)),
 						(tabInfo = new TabInfo(getString(R.string.balance),
 								BalanceTabFragment.class, args)));
 		this.mapTabInfo.put(tabInfo.tag, tabInfo);
@@ -153,7 +153,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 				this.mTabHost,
 				this.mTabHost.newTabSpec(getString(R.string.trans_hist)).setIndicator(
 						createTabView(getString(R.string.trans_hist),
-								R.drawable.apps_rootzwiki_smile)),
+								R.drawable.transaction_hist)),
 				(tabInfo = new TabInfo(getString(R.string.trans_hist),
 						TransactionHistoryFragment.class, args)));
 		this.mapTabInfo.put(tabInfo.tag, tabInfo);

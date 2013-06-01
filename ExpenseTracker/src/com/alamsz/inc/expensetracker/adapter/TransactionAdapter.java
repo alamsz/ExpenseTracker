@@ -18,6 +18,8 @@ import com.alamsz.inc.expensetracker.utility.FormatHelper;
 
 
 public class TransactionAdapter extends BaseAdapter {
+	private static final String CREDIT = "K";
+	private static final String DEBET = "D";
 	private Activity activity;
     private List<FinanceHelper>data;
     private static LayoutInflater inflater=null;
@@ -63,16 +65,20 @@ public class TransactionAdapter extends BaseAdapter {
         transaction = data.get(position);
         
         // Setting all values in listview
-        category.setText(FinanceHelper.getCategoryDescription(transaction.getCategory()));
-        description.setText(FormatHelper.formatDateForDisplay(transaction.getDateInput()));
-        String sign =  transaction.getType().equals("D")?"":"-";
-        if(transaction.getType().equals("D")){
-        	debet.setText(transaction.getAmountInCurrency());
+        category.setText(FormatHelper.formatDateForDisplay(transaction.getDateInput()));
+        description.setText(transaction.getDescription());
+        String sign =  transaction.getType().equals(DEBET)?"":"-";
+        String kreditStr = "0";
+        String debitStr = "0";
+		if(transaction.getType().equals(DEBET)){
+			
+			debitStr = FormatHelper.getBalanceInCurrency(transaction.getAmount());
         }
-        if(transaction.getType().equals("K")){
-        	credit.setText(transaction.getAmountInCurrency());
+        if(transaction.getType().equals(CREDIT)){
+        	kreditStr = FormatHelper.getBalanceInCurrency(transaction.getAmount());
         }
-        
+        debet.setText(debitStr);
+        credit.setText(kreditStr);
         return vi;
 	}
 

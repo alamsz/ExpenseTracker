@@ -109,6 +109,7 @@
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:entries="@array/category_input"
+            android:entryValues="@array/category_input_values"
             android:prompt="@string/category_prompt"
             android:spinnerMode="dialog"
             android:textSize="@dimen/textSize" />

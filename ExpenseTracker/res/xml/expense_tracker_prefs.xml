@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory 
+        android:title="Application Setting"
+        android:key="app_setting">
+       
+        <ListPreference 
+            android:key="@+id/currency"
+            android:title="Currency Setting"
+            android:persistent="true"
+            android:summary="Define what currency to be used"
+            android:defaultValue="IDR" 
+            android:entries="@array/currencySetting"
+            android:entryValues="@array/currencySettingValues"
+            
+        />    
+        <ListPreference 
+            android:key="@+id/bg"
+            android:title="Background Setting"
+            android:persistent="true"
+            android:summary="Define what Wallpaper to be used"
+            android:defaultValue="bg1" 
+            android:entries="@array/backgroundSetting"
+            android:entryValues="@array/backgroundSettingValues"
+            
+        />   
+            
+    </PreferenceCategory>
+
+    <PreferenceCategory 
+        android:title="User Setting"
+        android:key="user_setting">
+
+         
+        <EditTextPreference
+            android:key="welcome_message"
+            android:title="Welcome Message" 
+            android:summary="Define the Welcome message to be shown"
+            android:dialogTitle="Welcome Message"
+            android:dialogMessage="Provide a message"    
+            android:defaultValue="Default welcome message" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

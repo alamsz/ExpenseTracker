@@ -9,17 +9,7 @@
     <string name="type_prompt">Pilih Tipe</string>
     <string name="category_prompt">Pilih Kategori</string>
 
-    <string-array name="type_input">
-        <item></item>
-        <item>Pengeluaran</item>
-        <item>Pemasukan</item>
-    </string-array>
-    <string-array name="category_input">
-        <item></item>
-        <item>Tabungan</item>
-        <item>Cash</item>
-    </string-array>
- 	<string name="date_input">Tanggal Masukan</string>
+   	<string name="date_input">Tanggal Masukan</string>
  	<string name="date_to">Sampai</string>
  	<string name="date_from">Dari</string>
  	<string name="description">Deskripsi</string>
@@ -31,4 +21,7 @@
  	<string name="submit">Proses</string>
  	<string name="expense_type">Tipe</string>
  	<string name="show_transaction">Tampilkan Transaksi</string>
+ 	<string name="mustNotEmpty">Field harus diisi</string>
+ 	<string name="expense">Pengeluaran</string>
+ 	<string name="income">Pemasukan</string>
 </resources>

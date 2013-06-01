@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/inputtab"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RelativeLayout 
-    android:id="@+id/inputtab2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alignmentMode="alignMargins"
     android:alpha="1"
+    android:background="@drawable/bg3"
     android:columnCount="3"
     android:orientation="horizontal" >
 
@@ -31,32 +28,24 @@
             android:textSize="@dimen/textSize" />
 
         <EditText
-            android:id="@+id/dateInputText"
+            android:id="@+id/dateInputTextRO"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
-            android:clickable="false"
+            
             android:ems="10"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:clickable="false"
             android:inputType="date"
             android:textSize="@dimen/textSize" >
 
             <requestFocus />
         </EditText>
 
-        <ImageButton
-            android:id="@+id/searchDateInput"
-            android:layout_width="@dimen/datepicker_width"
-            android:layout_height="@dimen/datepicker_height"
-            android:layout_gravity="left"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/app_name"
-            android:onClick="dateInputClick"
-            android:src="@drawable/icon_date_picker" />
+        
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +67,7 @@
             android:textSize="@dimen/textSize" />
 
         <EditText
-            android:id="@+id/descriptionText"
+            android:id="@+id/descriptionTextRO"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -86,6 +75,9 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:inputType="text"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
@@ -109,7 +101,7 @@
             android:textSize="@dimen/textSize" />
 
         <EditText
-            android:id="@+id/amountText"
+            android:id="@+id/amountTextRO"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -118,6 +110,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
@@ -140,7 +135,7 @@
             android:textSize="@dimen/textSize" />
 
         <Spinner
-            android:id="@+id/typeSpinner"
+            android:id="@+id/typeSpinnerRO"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -150,6 +145,9 @@
             android:entryValues="@array/type_inputValues"
             android:prompt="@string/type_prompt"
             android:spinnerMode="dialog"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
@@ -173,7 +171,7 @@
             android:textSize="@dimen/textSize" />
 
         <Spinner
-            android:id="@+id/categorySpinner"
+            android:id="@+id/categorySpinnerRO"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -183,27 +181,12 @@
             android:entryValues="@array/category_input_values"
             android:prompt="@string/category_prompt"
             android:spinnerMode="dialog"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
             android:textSize="@dimen/textSize" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/row6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row5"
-        android:orientation="horizontal" >
+    
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/buttoncustom"
-            android:onClick="onClick"
-            android:text="@string/submit"
-            android:textSize="@dimen/textSize" />
-    </LinearLayout>
 </RelativeLayout>
-</ScrollView>

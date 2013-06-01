@@ -1,9 +1,11 @@
 package com.alamsz.inc.expensetracker.dao;
 
-import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.content.Context;
+
+import com.alamsz.inc.expensetracker.R;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 
 
@@ -37,8 +39,12 @@ public class FinanceHelper {
 	}
 
 
-    public static String getCategoryDescription(String category){
+    public String getCategoryDescription(){
     	return category.equals("T")?"Tabungan":category.equals("C")?"Cash":"";
+    }
+    
+    public static String getCategoryDescription(String category2){
+    	return category2.equals("T")?"Tabungan":category2.equals("C")?"Cash":"";
     }
 
 	public void setCategory(String category) {
@@ -81,12 +87,6 @@ public class FinanceHelper {
 	}
 
 
-	public String getAmountInCurrency(){
-		NumberFormat nf = NumberFormat.getCurrencyInstance();
-		nf.setCurrency(Currency.getInstance("IDR"));
-		return nf.format(getAmount());
-	}
-
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
@@ -120,7 +120,33 @@ public class FinanceHelper {
 	public String toString() {
 		// TODO Auto-generated method stub
 		String sign = this.type.equals("D")?"":"-";
-		return this.id+". "+FormatHelper.formatDateForDisplay(this.dateInput)+ ": "+this.description+"["+sign+getAmountInCurrency()+"]";
+		return this.id+". "+FormatHelper.formatDateForDisplay(this.dateInput)+ ": "+this.description+"["+sign+FormatHelper.getBalanceInCurrency(amount)+"]";
+	}
+
+
+
+
+	public static List<String> getFinanceHelperHeader(Context context) {
+		List<String> listHeader = new ArrayList<String>();
+		listHeader.add(context.getString(R.string.date_input));
+		listHeader.add(context.getString(R.string.description));
+		listHeader.add(context.getString(R.string.expense_cat));
+		listHeader.add(context.getString(R.string.expense_type));
+		listHeader.add(context.getString(R.string.amount));
+		return listHeader;
+	}
+
+
+
+
+	public static List<String> convertFinanceHelperToList(FinanceHelper financeHelper) {
+		List<String> listPenampung = new ArrayList<String>();
+		listPenampung.add(FormatHelper.formatDateForDisplay(financeHelper.getDateInput()));
+		listPenampung.add(financeHelper.getDescription());
+		listPenampung.add(financeHelper.getType());
+		listPenampung.add(financeHelper.getCategoryDescription());
+		listPenampung.add(String.valueOf(financeHelper.getAmount()));
+		return listPenampung;
 	}
 
 }

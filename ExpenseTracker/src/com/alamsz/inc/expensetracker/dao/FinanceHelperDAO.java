@@ -78,7 +78,7 @@ public class FinanceHelperDAO {
 			finHelperList.add(cursorToFinanceHelper(curFinHelper));
 			curFinHelper.moveToNext();
 		}
-
+		curFinHelper.close();
 		return finHelperList;
 
 	}
@@ -125,7 +125,7 @@ public class FinanceHelperDAO {
 			finHelperList.add(cursorToFinanceHelper(curFinHelper));
 			curFinHelper.moveToNext();
 		}
-
+		curFinHelper.close();
 		return finHelperList;
 
 	}
@@ -135,7 +135,9 @@ public class FinanceHelperDAO {
 				"select sum(case when type='K' then -1*amount else amount end) as saldo from "
 						+ DatabaseHandler.FINANCEHELPER_TABLE, null);
 		curSaldo.moveToFirst();
-		return curSaldo.getString(0);
+		String getSaldo = curSaldo.getString(0);
+		curSaldo.close();
+		return getSaldo;
 	}
 
 	/**
@@ -149,7 +151,9 @@ public class FinanceHelperDAO {
 						+ DatabaseHandler.FINANCEHELPER_TABLE
 						+ " where category= '" + category + "'", null);
 		curSaldo.moveToFirst();
-		return curSaldo.getString(0);
+		String getSaldo = curSaldo.getString(0);
+		curSaldo.close();
+		return getSaldo;
 	}
 
 	/**

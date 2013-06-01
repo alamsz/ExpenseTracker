@@ -1,9 +1,12 @@
 package com.alamsz.inc.expensetracker.utility;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 import android.widget.EditText;
 
@@ -12,7 +15,7 @@ public final class FormatHelper {
 	private static int year;
 	private static int month;
 	private static int day;
-
+	public static Currency cur = Currency.getInstance("IDR");
 	public static Date stringToDate(String inputDateStr) {
 		SimpleDateFormat formatDate = new SimpleDateFormat(DD_MM_YYYY);
 		Date inputDate = null;
@@ -56,5 +59,18 @@ public final class FormatHelper {
 		SimpleDateFormat dateFormatter = new SimpleDateFormat(DD_MM_YYYY);
 		return dateFormatter.format(new Date(inputDateLong));
 		
+	}
+	
+	public static String getBalanceInCurrency(String balance){
+		int balanceInt = 0;
+		if(balance != null)
+			balanceInt = Integer.parseInt(balance);
+		return getBalanceInCurrency(balanceInt);
+	}
+	
+	public static String getBalanceInCurrency(int balanceInt){
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.JAPAN);
+		nf.setCurrency(cur);
+		return nf.format(balanceInt);
 	}
 }

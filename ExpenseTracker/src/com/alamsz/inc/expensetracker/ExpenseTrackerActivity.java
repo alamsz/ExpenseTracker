@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -26,9 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AnalogClock;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,7 +60,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 	private static final String KREDIT = "K";
 	private static final String CASH = "C";
 	private static final String TABUNGAN = "T";
-	private FinanceHelperDAO daoFinHelper;
+	public FinanceHelperDAO daoFinHelper;
 	private EditText dateFieldChosen;
 	static final int DATE_DIALOG_ID = 999;
 	private static final int RESULT_SETTINGS = 1;
@@ -126,6 +125,8 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		// Step 2: Setup TabHost
 		initialiseTabHost(savedInstanceState);
 		if (savedInstanceState != null) {
+			Log.d("tag",savedInstanceState.getString("tab"));
+			if(mTabHost!=null)
 			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
 		}
 
@@ -246,9 +247,9 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 			ft.commit();
 			this.getSupportFragmentManager().executePendingTransactions();
 		}
-		if (tag.equals(getString(R.string.balance))) {
-			displayBalance();
-		}
+		/*if (tag.equals(getString(R.string.balance))) {
+			
+		}*/
 		/*
 		 * if (tag.equals(getString(R.string.trans_hist))) {
 		 * refreshListOfTransaction(); }
@@ -443,9 +444,11 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 	}
 
 	private void processTransaction(FinanceHelper financeHelper) {
+		
 		String type = KREDIT;
 		String category = CASH;
 		boolean validForProcess = true;
+	
 		EditText dateInput = (EditText) findViewById(R.id.dateInputText);
 		String strDate = dateInput.getText().toString();
 		if (strDate.equals("")) {
@@ -528,28 +531,8 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		categorySpinner.setSelection(0);
 	}
 
-	private void displayBalance() {
-		TextView saldoTotal = (TextView) findViewById(R.id.saldoView);
-		TextView saldoTabungan = (TextView) findViewById(R.id.saldoTabunganView);
-		TextView saldoCash = (TextView) findViewById(R.id.saldoCashView);
-		saldoTotal.setText(getBalance());
-		saldoCash.setText(getBalancePerCategory(TABUNGAN));
-		saldoTabungan.setText(getBalancePerCategory(CASH));
-	}
-
-	/**
-	 * method to get all transactions and displayed in list view
-	 */
-	private void refreshListOfTransaction() {
-		ListView listPencatatKeuangan;
-		listPencatatKeuangan = (ListView) findViewById(R.id.expandableListView1);
-		List<FinanceHelper> values = daoFinHelper.getAllFinanceHelper();
-
-		TransactionAdapter adapter = new TransactionAdapter(this, values);
-		listPencatatKeuangan.setAdapter(adapter);
-		// getBalance();
-	}
-
+	
+	
 	private void showPopUpSearchCriteria() {
 
 		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
@@ -581,31 +564,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		helpDialog.show();
 	}
 
-	private String getBalance() {
-		String balance = daoFinHelper.getBalance();
-		if (balance == null)
-			balance = "0";
-		String saldoTotal = "Total Saldo : "
-				+ FormatHelper.getBalanceInCurrency(balance);
-		return saldoTotal;
-	}
-
-	/**
-	 * get balance of amount specific per category There are two category
-	 * Tabungan (T) and Cash (C)
-	 * 
-	 * @param category
-	 * @return
-	 */
-	private String getBalancePerCategory(String category) {
-		String balancePerCategory = daoFinHelper
-				.getBalancePerCategory(category);
-		if (balancePerCategory == null)
-			balancePerCategory = "0";
-		return "Saldo " + FinanceHelper.getCategoryDescription(category)
-				+ " : " + FormatHelper.getBalanceInCurrency(balancePerCategory);
-	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -682,5 +641,41 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 				fileName);
 		return generator.generateCSVFile();
 	}
+	
+	public void checkAndReopenDAOFinHelper(){
+	
+	}
+
+	@Override
+	protected void onResume() {
+		checkAndReopenDAOFinHelper();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		
+		// TODO Auto-generated method stub
+		super.onPause();
+	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) 
+	{
+	    super.onConfigurationChanged(newConfig);
+
+	    // Checks the orientation of the screen
+	    DatabaseHandler dbHandler = new DatabaseHandler(getApplicationContext());
+		daoFinHelper = new FinanceHelperDAO(dbHandler);
+		// make sure that the tables are writeable
+		daoFinHelper.open();
+	}
+
+	@Override
+	protected void onDestroy() {
+		daoFinHelper.close();
+		super.onDestroy();
+	}
+	
+	
 
 }

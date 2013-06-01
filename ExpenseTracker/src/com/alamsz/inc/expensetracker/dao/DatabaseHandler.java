@@ -46,7 +46,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase arg0) {
 
 		arg0.execSQL(DB_CREATE_STATEMENT);
-		arg0.execSQL(LOOKUP_CREATE_STATEMENT);
+		//arg0.execSQL(LOOKUP_CREATE_STATEMENT);
 
 	}
 
@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + FINANCEHELPER_TABLE);
-		db.execSQL("DROP TABLE IF EXISTS " + LOOKUP_TABLE);
+		//db.execSQL("DROP TABLE IF EXISTS " + LOOKUP_TABLE);
 		onCreate(db);
 
 	}

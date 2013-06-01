@@ -23,6 +23,11 @@ public class FinanceHelperDAO {
 	}
 
 	public boolean open() {
+		//close it when it still open
+		if(database != null){
+			close();
+		}
+		//open or reopen the database
 		database = dbHandler.getWritableDatabase();
 		if (database.isOpen()) {
 			return true;

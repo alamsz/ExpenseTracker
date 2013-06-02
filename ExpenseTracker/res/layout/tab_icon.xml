@@ -10,7 +10,8 @@
         android:id="@+id/tab_icon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:contentDescription="@string/app_name" />
 
     <TextView
         android:id="@+id/tab_text"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="2dp"
         android:paddingTop="5dp"
-        android:text="asdfads"
+        android:text=""
         android:textColor="#ffffff"
         android:textSize="14sp" />
 

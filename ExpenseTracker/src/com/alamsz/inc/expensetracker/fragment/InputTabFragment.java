@@ -32,6 +32,14 @@ public class InputTabFragment extends Fragment {
 			return layout;
 	    }
 
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onViewCreated(view, savedInstanceState);
+		/*AutomaticScalingLayout at = new AutomaticScalingLayout();
+		at.scaleContents(view);*/
+	}
+
 	private void initializeTabContent(View layout) {
 		FormatHelper.setCurrentDateOnView((EditText) layout.findViewById(R.id.dateInputText));
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity().getApplicationContext(), R.array.category_input,R.layout.spinner_item);

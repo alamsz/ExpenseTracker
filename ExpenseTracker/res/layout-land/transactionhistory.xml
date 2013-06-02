@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="7dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -20,10 +20,10 @@
 
             <TextView
                 android:id="@+id/transaksiView"
-                android:layout_width="200dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/trans_hist"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="@dimen/textSize"
@@ -36,7 +36,7 @@
 
                 <TextView
                     android:id="@+id/dateFromViewHist"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/date_from"
@@ -46,7 +46,7 @@
 
                 <TextView
                     android:id="@+id/dateToViewHist"
-                    android:layout_width="100dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/date_to"
@@ -62,7 +62,7 @@
 
                 <TextView
                     android:id="@+id/categoryViewHist"
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/expense_cat"
@@ -72,7 +72,7 @@
             </LinearLayout>
              <TextView
                     android:id="@+id/totalExpense"
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/total_expense"
@@ -81,7 +81,7 @@
                     android:textStyle="bold" />
               <TextView
                     android:id="@+id/totalIncome"
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/total_income"
@@ -92,22 +92,22 @@
 
         <ImageButton
             android:id="@+id/searchPopUp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:contentDescription="@string/app_name"
             android:onClick="popUpShow"
             android:src="@drawable/search" />
 
         <ImageButton
             android:id="@+id/export"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:contentDescription="@string/app_name"
             android:onClick="exportToCSV"
             android:src="@drawable/docsave" />
@@ -121,9 +121,9 @@
 
         <TextView
             android:id="@+id/category_header"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
+            android:layout_marginLeft="3dip"
             android:text="@string/date_input"
             android:textColor="#343434"
             android:textSize="@dimen/smallSize" />
@@ -131,9 +131,9 @@
 
         <TextView
             android:id="@+id/description_header"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
+            android:layout_marginLeft="3dip"
             android:text="@string/description"
             android:textColor="#343434"
             android:textSize="@dimen/smallSize" />
@@ -141,25 +141,25 @@
 
         <TextView
             android:id="@+id/debet_header"
-            android:layout_width="65dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
+            android:layout_marginLeft="3dip"
             android:text="@string/income"
             android:textColor="#343434"
             android:textSize="@dimen/smallSize" />
 
         <TextView
             android:id="@+id/credit_header"
-            android:layout_width="65dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
+            android:layout_marginLeft="3dip"
             android:text="@string/expense"
             android:textColor="#343434"
             android:textSize="@dimen/smallSize" />
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="10dp"
+            android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/app_name"
             android:src="@drawable/next" />
@@ -175,9 +175,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:divider="#b5b5b5"
-            android:dividerHeight="2dp"
+            android:dividerHeight="3dp"
             android:listSelector="@drawable/list_selector"
             android:textSize="@dimen/textSize" >
         </ListView>

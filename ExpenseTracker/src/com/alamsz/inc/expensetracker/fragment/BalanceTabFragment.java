@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
-import com.alamsz.inc.expensetracker.dao.FinanceHelper;
-import com.alamsz.inc.expensetracker.dao.FinanceHelperDAO;
+import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
+import com.alamsz.inc.expensetracker.dao.ExpenseTrackerDAO;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
@@ -20,10 +20,9 @@ import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdView;
 
 public class BalanceTabFragment extends Fragment {
-	private FinanceHelperDAO daoFinHelper;
+	private static final String ZERO = "0";
+	private ExpenseTrackerDAO daoExpTracker;
 	private AdView mAdView;
-	private static final String CASH = "C";
-	private static final String TABUNGAN = "T";
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -39,10 +38,10 @@ public class BalanceTabFragment extends Fragment {
 		}
 		View layout = (View) inflater.inflate(R.layout.balance, container,
 				false);
-		//get db connection from parent activity
-		this.daoFinHelper = ((ExpenseTrackerActivity) getActivity()).daoFinHelper;
-		daoFinHelper.open();
-		
+		// get db connection from parent activity
+		this.daoExpTracker = ((ExpenseTrackerActivity) getActivity()).daoFinHelper;
+		daoExpTracker.open();
+
 		// display the balance when this fragment view are called
 		displayBalance(layout);
 		mAdView = (AdView) layout.findViewById(R.id.ad);
@@ -92,13 +91,14 @@ public class BalanceTabFragment extends Fragment {
 
 	private String getBalance() {
 
-		String balance = daoFinHelper == null ? null : daoFinHelper
+		String balance = daoExpTracker == null ? null : daoExpTracker
 				.getBalance();
 		if (balance == null)
-			balance = "0";
-		String saldoTotal = "Total Saldo : "
+			balance = ZERO;
+		String saldoTotal = getResources().getString(R.string.total_balance)
+				+ getResources().getString(R.string.dividerDoubleDot)
 				+ FormatHelper.getBalanceInCurrency(balance);
-		return saldoTotal == null ? "0" : saldoTotal;
+		return saldoTotal == null ? ZERO : saldoTotal;
 	}
 
 	/**
@@ -110,21 +110,26 @@ public class BalanceTabFragment extends Fragment {
 	 */
 	private String getBalancePerCategory(String category) {
 
-		String balancePerCategory = daoFinHelper == null ? null : daoFinHelper
-				.getBalancePerCategory(category);
+		String balancePerCategory = daoExpTracker == null ? null
+				: daoExpTracker.getBalancePerCategory(category);
 		if (balancePerCategory == null)
-			balancePerCategory = "0";
-		return "Saldo " + FinanceHelper.getCategoryDescription(category)
-				+ " : " + FormatHelper.getBalanceInCurrency(balancePerCategory);
+			balancePerCategory = ZERO;
+		String categoryDescription = getResources().getString(R.string.T);
+		if(category.equals(ExpenseTracker.CAT_CASH)){
+			categoryDescription = getResources().getString(R.string.C);
+		}
+		return getResources().getString(R.string.total_balance) + categoryDescription
+				+ getResources().getString(R.string.dividerDoubleDot) + FormatHelper.getBalanceInCurrency(balancePerCategory);
 	}
-	//set display of current balance 
+
+	// set display of current balance
 	private void displayBalance(View view) {
 		TextView saldoTotal = (TextView) view.findViewById(R.id.saldoView);
 		TextView saldoTabungan = (TextView) view
 				.findViewById(R.id.saldoTabunganView);
 		TextView saldoCash = (TextView) view.findViewById(R.id.saldoCashView);
 		saldoTotal.setText(getBalance());
-		saldoCash.setText(getBalancePerCategory(TABUNGAN));
-		saldoTabungan.setText(getBalancePerCategory(CASH));
+		saldoCash.setText(getBalancePerCategory(ExpenseTracker.CAT_SAVING));
+		saldoTabungan.setText(getBalancePerCategory(ExpenseTracker.CAT_CASH));
 	}
 }

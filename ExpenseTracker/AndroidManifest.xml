@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".preference.ExpenseTrackerPreference" />
-        <activity android:name=".utility.activity.FileexplorerActivity" />
+        <activity android:name=".utility.activity.DirectoryChooserActivity" />
         <activity android:name=".utility.DirectoryChooser" />
         <activity
             android:name="com.google.ads.AdActivity"

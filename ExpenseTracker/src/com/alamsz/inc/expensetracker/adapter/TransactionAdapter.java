@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.alamsz.inc.expensetracker.R;
-import com.alamsz.inc.expensetracker.dao.FinanceHelper;
+import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 
 
@@ -21,11 +21,11 @@ public class TransactionAdapter extends BaseAdapter {
 	private static final String CREDIT = "K";
 	private static final String DEBET = "D";
 	private Activity activity;
-    private List<FinanceHelper>data;
+    private List<ExpenseTracker>data;
     private static LayoutInflater inflater=null;
     //public ImageLoader imageLoader;
  
-    public TransactionAdapter(Activity a,List<FinanceHelper> d) {
+    public TransactionAdapter(Activity a,List<ExpenseTracker> d) {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,7 +61,7 @@ public class TransactionAdapter extends BaseAdapter {
         TextView debet = (TextView)vi.findViewById(R.id.debet_list); // duration
         TextView credit = (TextView)vi.findViewById(R.id.credit_list);
         
-        FinanceHelper transaction = new FinanceHelper();
+        ExpenseTracker transaction = new ExpenseTracker();
         transaction = data.get(position);
         
         // Setting all values in listview

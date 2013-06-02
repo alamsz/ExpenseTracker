@@ -13,39 +13,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="30dp"
         android:text="ABCDE"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/textSize" />
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/saldoTabunganView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="5dp"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="14dp"
         android:text="ABCDE"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/textSize" />
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/saldoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="5dp"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
-        android:text="ABCED"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="14dp"
+        android:text="ABCDE"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/textSize" />
+        android:textSize="48sp" />
 
     <com.google.ads.AdView
         xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
@@ -53,8 +47,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:scaleX="1.0"
-        android:scaleY="1.0"
         googleads:adSize="BANNER"
         googleads:adUnitId="a151a83ca554dd1" />
 

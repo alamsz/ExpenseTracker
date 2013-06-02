@@ -11,6 +11,8 @@ import java.util.Locale;
 import android.widget.EditText;
 
 public final class FormatHelper {
+	private static final String ZERO = "0";
+	private static final int BIGGEST_NUM_IN_ONE_DIGIT = 9;
 	private static final String DD_MM_YYYY = "dd-MM-yyyy";
 	private static int year;
 	private static int month;
@@ -47,9 +49,9 @@ public final class FormatHelper {
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH);
 		day = c.get(Calendar.DAY_OF_MONTH);
-		String formattedMonth = (String) (month + 1 > 9 ? month + 1 : "0"
-				+ String.valueOf(month + 1));
-		dateField.setText(new StringBuilder().append(day).append("-")
+		String formattedMonth = FormatHelper.formatTwoDigitsMonth(month);
+		String formattedDay = FormatHelper.formatTwoDigitsDay(day);
+		dateField.setText(new StringBuilder().append(formattedDay).append("-")
 				.append(formattedMonth).append("-").append(year).append(" "));
 
 	}
@@ -72,5 +74,15 @@ public final class FormatHelper {
 		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.JAPAN);
 		nf.setCurrency(cur);
 		return nf.format(balanceInt);
+	}
+	
+	public static String formatTwoDigitsMonth(int month){
+		return month + 1 > BIGGEST_NUM_IN_ONE_DIGIT ? String.valueOf(month + 1) : ZERO
+			+ String.valueOf(month + 1);
+	}
+	
+	public static String formatTwoDigitsDay(int day){
+		return day > BIGGEST_NUM_IN_ONE_DIGIT ? String.valueOf(day) : ZERO
+			+ String.valueOf(day);
 	}
 }

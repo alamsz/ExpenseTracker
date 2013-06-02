@@ -1,11 +1,9 @@
 package com.alamsz.inc.expensetracker;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -14,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -40,42 +37,37 @@ import android.widget.Toast;
 
 import com.alamsz.inc.expensetracker.adapter.TransactionAdapter;
 import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
-import com.alamsz.inc.expensetracker.dao.FinanceHelper;
-import com.alamsz.inc.expensetracker.dao.FinanceHelperDAO;
+import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
+import com.alamsz.inc.expensetracker.dao.ExpenseTrackerDAO;
 import com.alamsz.inc.expensetracker.fragment.BalanceTabFragment;
 import com.alamsz.inc.expensetracker.fragment.DateDialogFragment;
 import com.alamsz.inc.expensetracker.fragment.InputTabFragment;
 import com.alamsz.inc.expensetracker.fragment.TransactionHistoryFragment;
 import com.alamsz.inc.expensetracker.preference.ExpenseTrackerPreference;
-import com.alamsz.inc.expensetracker.utility.CSVFileGenerator;
+import com.alamsz.inc.expensetracker.service.ExpenseTrackerService;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
-import com.alamsz.inc.expensetracker.utility.activity.FileexplorerActivity;
+import com.alamsz.inc.expensetracker.utility.TransactionListWrapper;
+import com.alamsz.inc.expensetracker.utility.activity.DirectoryChooserActivity;
 
 public class ExpenseTrackerActivity extends FragmentActivity implements
 		TabHost.OnTabChangeListener {
-	private static final String PEMASUKAN_DESCRIPTION = "Pemasukan";
-	private static final String TABUNGAN_DESCRIPTION = "Tabungan";
-	private static final String DEBET = "D";
-	private static final String CASH_DESCRIPTION = "Cash";
-	private static final String KREDIT = "K";
-	private static final String CASH = "C";
-	private static final String TABUNGAN = "T";
-	public FinanceHelperDAO daoFinHelper;
+	public ExpenseTrackerDAO daoFinHelper;
 	private EditText dateFieldChosen;
 	static final int DATE_DIALOG_ID = 999;
 	private static final int RESULT_SETTINGS = 1;
 	private static final int REQUEST_PATH = 0;
-
+	private boolean scalingComplete = false;
 	private int year;
 	private int month;
 	private int day;
-
+	private static String tabCurrent = "";
 	private View layout;
 	private TabHost mTabHost;
 	private HashMap mapTabInfo = new HashMap();
 	private TabInfo mLastTab = null;
 	private List<List<String>> transactionHistoryList;
-	static List<FinanceHelper> listHistTransaction = null;
+	static List<ExpenseTracker> listHistTransaction = null;
+	private ExpenseTrackerService expTrackerService;
 
 	private class TabInfo {
 		private String tag;
@@ -125,15 +117,16 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		// Step 2: Setup TabHost
 		initialiseTabHost(savedInstanceState);
 		if (savedInstanceState != null) {
-			Log.d("tag",savedInstanceState.getString("tab"));
-			if(mTabHost!=null)
-			mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
+			Log.d("tag", savedInstanceState.getString("tab"));
+			if (mTabHost != null)
+				mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
 		}
 
 		DatabaseHandler dbHandler = new DatabaseHandler(getApplicationContext());
-		daoFinHelper = new FinanceHelperDAO(dbHandler);
+		daoFinHelper = new ExpenseTrackerDAO(dbHandler);
 		// make sure that the tables are writeable
 		daoFinHelper.open();
+		expTrackerService = new ExpenseTrackerService();
 	}
 
 	protected void onSaveInstanceState(Bundle outState) {
@@ -242,18 +235,11 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 					ft.attach(newTab.fragment);
 				}
 			}
-
+			tabCurrent = tag;
 			mLastTab = newTab;
 			ft.commit();
 			this.getSupportFragmentManager().executePendingTransactions();
 		}
-		/*if (tag.equals(getString(R.string.balance))) {
-			
-		}*/
-		/*
-		 * if (tag.equals(getString(R.string.trans_hist))) {
-		 * refreshListOfTransaction(); }
-		 */
 
 	}
 
@@ -273,7 +259,8 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 	}
 
 	public void exportToCSV(View view) {
-		Intent intentDirChooser = new Intent(this, FileexplorerActivity.class);
+		Intent intentDirChooser = new Intent(this,
+				DirectoryChooserActivity.class);
 		startActivityForResult(intentDirChooser, REQUEST_PATH);
 
 	}
@@ -302,12 +289,10 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 	OnDateSetListener ondate = new OnDateSetListener() {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-
-			dateFieldChosen.setText(new StringBuilder()
-					.append(day)
-					.append("-")
-					.append(month > 9 ? String.valueOf(month + 1) : "0"
-							+ String.valueOf(month + 1)).append("-")
+			String formattedDay = FormatHelper.formatTwoDigitsDay(day);
+			String formattedMonth = FormatHelper.formatTwoDigitsMonth(month);
+			dateFieldChosen.setText(new StringBuilder().append(formattedDay)
+					.append("-").append(formattedMonth).append("-")
 					.append(year).append(" "));
 			Log.d(getClass().getName(), String.valueOf(day));
 			Log.d(getClass().getName(), month > 9 ? String.valueOf(month + 1)
@@ -323,7 +308,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 	}
 
 	public void onClick(View view) {
-		FinanceHelper financeHelper = new FinanceHelper();
+		ExpenseTracker financeHelper = new ExpenseTracker();
 
 		switch (view.getId()) {
 		case R.id.button1:
@@ -343,42 +328,73 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		Spinner categorySpinner = (Spinner) layout
 				.findViewById(R.id.categorySpinnerSearch);
 		String category = "";
-		if (!categorySpinner.getSelectedItem().toString().equals("")) {
-			category = categorySpinner.getSelectedItem().toString()
-					.equals(CASH_DESCRIPTION) ? CASH : TABUNGAN;
+		TextView dateFromViewHist = (TextView) findViewById(R.id.dateFromViewHist);
+		TextView dateToViewHist = (TextView) findViewById(R.id.dateToViewHist);
+		TextView categoryViewHist = (TextView) findViewById(R.id.categoryViewHist);
+		TextView totalExpenseView = (TextView) findViewById(R.id.totalExpense);
+		TextView totalIncomeView = (TextView) findViewById(R.id.totalIncome);
+		String dateFromValue = dateFrom.getText().toString();
+		String dateToValue = dateTo.getText().toString();
+
+		String categorySpinnerValue = categorySpinner.getSelectedItem()
+				.toString();
+		if (!categorySpinnerValue.equals("")) {
+			category = categorySpinnerValue.equals(getString(R.string.C)) ? ExpenseTracker.CAT_CASH
+					: ExpenseTracker.CAT_SAVING;
 		}
 
-		if (!dateFrom.getText().toString().equals("")
-				|| !dateTo.getText().toString().equals("")
+		if (!dateFromValue.equals("") || !dateToValue.equals("")
 				|| !category.equals("")) {
-			listHistTransaction = daoFinHelper.getListPerPeriod(dateFrom
-					.getText().toString(), dateTo.getText().toString(),
-					category);
+			listHistTransaction = daoFinHelper.getListPerPeriod(dateFromValue,
+					dateToValue, category);
 		} else {
 			listHistTransaction = daoFinHelper.getAllFinanceHelper();
 
 		}
+		dateFromViewHist.setText(getString(R.string.date_from)
+				+ getString(R.string.dividerDoubleDot) + dateFromValue);
+		dateToViewHist.setText(getString(R.string.date_to)
+				+ getString(R.string.dividerDoubleDot) + dateToValue);
+		categoryViewHist.setText(getString(R.string.expense_cat)
+				+ getString(R.string.dividerDoubleDot) + categorySpinnerValue);
+
 		ListView listPencatatKeuangan;
 		listPencatatKeuangan = (ListView) findViewById(R.id.expandableListView1);
 
 		TransactionAdapter adapter = new TransactionAdapter(this,
 				listHistTransaction);
 		listPencatatKeuangan.setAdapter(adapter);
-		transactionHistoryList = prepareCSVList(listHistTransaction);
-		listPencatatKeuangan.setOnItemClickListener(new OnItemClickListener() {
+		TransactionListWrapper tlw = expTrackerService
+				.getTotalTransactionAndprepareCSVList(listHistTransaction);
+		transactionHistoryList = tlw.getExpenseTrackerList();
+		totalExpenseView.setText(getString(R.string.total_expense)
+				+ getString(R.string.dividerDoubleDot)
+				+ FormatHelper.getBalanceInCurrency(tlw.getTotalExpense()));
+		totalIncomeView.setText(getString(R.string.total_income)
+				+ getString(R.string.dividerDoubleDot)
+				+ FormatHelper.getBalanceInCurrency(tlw.getTotalIncome()));
+		listPencatatKeuangan
+				.setOnItemClickListener(onTransactionDetailResultClick());
+
+	}
+
+	private OnItemClickListener onTransactionDetailResultClick() {
+		return new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				AlertDialog.Builder helpBuilder = new AlertDialog.Builder(arg1
-						.getContext());
-				helpBuilder.setTitle("Detil Transaksi");
+
+				AlertDialog.Builder helpBuilder = new AlertDialog.Builder(
+						arg1.getContext());
+				helpBuilder.setTitle(getString(R.string.transaction_detail));
 				LayoutInflater inflater = getLayoutInflater();
 				View searchCriteriaLayout = inflater.inflate(
 						R.layout.transaction_detail, null);
 				helpBuilder.setView(searchCriteriaLayout);
 				layout = searchCriteriaLayout;
-				FinanceHelper financehelper = listHistTransaction.get(position);
+				ExpenseTracker financehelper = listHistTransaction
+						.get(position);
 				EditText dateInput = (EditText) searchCriteriaLayout
 						.findViewById(R.id.dateInputTextRO);
 				dateInput.setText(FormatHelper
@@ -389,20 +405,22 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 				Spinner catSpin = (Spinner) searchCriteriaLayout
 						.findViewById(R.id.categorySpinnerRO);
 				ArrayAdapter test = (ArrayAdapter) catSpin.getAdapter();
-				catSpin.setSelection(test.getPosition(financehelper
-						.getCategoryDescription()));
+				String categoryDescription = financehelper.getCategory()
+						.equals(ExpenseTracker.CAT_SAVING) ? getString(R.string.T)
+						: getString(R.string.C);
+				catSpin.setSelection(test.getPosition(categoryDescription));
 				Spinner typeSpin = (Spinner) searchCriteriaLayout
 						.findViewById(R.id.typeSpinnerRO);
 				ArrayAdapter test2 = (ArrayAdapter) typeSpin.getAdapter();
 				typeSpin.setSelection(test2
 						.getPosition(financehelper.getType().equals(
-								getString(R.string.income)) ? getString(R.string.income)
+								ExpenseTracker.TYPE_DEBET) ? getString(R.string.income)
 								: getString(R.string.expense)));
 				EditText amount = (EditText) searchCriteriaLayout
 						.findViewById(R.id.amountTextRO);
 				amount.setText(FormatHelper.getBalanceInCurrency(financehelper
 						.getAmount()));
-				helpBuilder.setPositiveButton("Close",
+				helpBuilder.setPositiveButton(getString(R.string.close),
 						new DialogInterface.OnClickListener() {
 
 							public void onClick(DialogInterface dialog,
@@ -410,49 +428,37 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 
 							}
 						});
-				/*helpBuilder.setNegativeButton("Delete",
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								
-								// TODO Auto-generated method stub
-
-							}
-						});
-*/
+				/*
+				 * helpBuilder.setNegativeButton("Delete", new
+				 * DialogInterface.OnClickListener() {
+				 * 
+				 * @Override public void onClick(DialogInterface dialog, int
+				 * which) {
+				 * 
+				 * // TODO Auto-generated method stub
+				 * 
+				 * } });
+				 */
 				// Remember, create doesn't show the dialog
 				AlertDialog helpDialog = helpBuilder.create();
-				//((Button) helpDialog.findViewById(android.R.id.button1)).setBackgroundResource(R.drawable.buttoncustom);
+				// ((Button)
+				// helpDialog.findViewById(android.R.id.button1)).setBackgroundResource(R.drawable.buttoncustom);
 				helpDialog.show();
 
 			}
-		});
-
+		};
 	}
 
-	private List<List<String>> prepareCSVList(List<FinanceHelper> list) {
-		List<List<String>> listOfObject = new ArrayList<List<String>>();
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			FinanceHelper financeHelper = (FinanceHelper) iterator.next();
-			List<String> listPenampung = FinanceHelper
-					.convertFinanceHelperToList(financeHelper);
-			listOfObject.add(listPenampung);
-		}
-		return listOfObject;
-	}
+	private void processTransaction(ExpenseTracker financeHelper) {
 
-	private void processTransaction(FinanceHelper financeHelper) {
-		
-		String type = KREDIT;
-		String category = CASH;
+		String type = ExpenseTracker.TYPE_CREDIT;
+		String category = ExpenseTracker.CAT_CASH;
 		boolean validForProcess = true;
-	
+
 		EditText dateInput = (EditText) findViewById(R.id.dateInputText);
 		String strDate = dateInput.getText().toString();
 		if (strDate.equals("")) {
-			dateInput.setError("Tanggal Diperlukan");
+			dateInput.setError(getString(R.string.date_required));
 			validForProcess = false;
 		} else {
 			Date inputDate = FormatHelper.stringToDate(strDate);
@@ -462,7 +468,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 
 		EditText description = (EditText) findViewById(R.id.descriptionText);
 		if (description.getText().toString().equals("")) {
-			description.setError("Deskripsi Diperlukan");
+			description.setError(getString(R.string.emptyTextValidation));
 			validForProcess = false;
 		} else {
 			financeHelper.setDescription(description.getText().toString());
@@ -470,7 +476,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		EditText amount = (EditText) findViewById(R.id.amountText);
 		if (amount.getText().toString().equals("")
 				|| Integer.parseInt(amount.getText().toString()) <= 0) {
-			amount.setError("Jumlah diperlukan dan harus lebih besar dari 0");
+			amount.setError(getString(R.string.emptyTextValidation));
 			validForProcess = false;
 		} else {
 			financeHelper.setAmount(Integer.parseInt(amount.getText()
@@ -479,27 +485,27 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		Spinner debet = (Spinner) findViewById(R.id.typeSpinner);
 		if (debet.getSelectedItem().toString().equals("")) {
 			validForProcess = false;
-		} else if (debet.getSelectedItem().equals(PEMASUKAN_DESCRIPTION)) {
-			type = DEBET;
+		} else if (debet.getSelectedItem().equals(getString(R.string.D))) {
+			type = ExpenseTracker.TYPE_DEBET;
 		}
 		financeHelper.setType(type);
 		Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		if (categorySpinner.getSelectedItem().toString().equals("")) {
 			validForProcess = false;
 		} else if (categorySpinner.getSelectedItem().equals(
-				TABUNGAN_DESCRIPTION)) {
-			category = TABUNGAN;
+				getString(R.string.T))) {
+			category = ExpenseTracker.CAT_SAVING;
 		}
 		financeHelper.setCategory(category);
-		String processMessage = "Semua inputan harus diisi, silahkan cek inputan";
+		String processMessage = getString(R.string.allFieldValidation);
 		int messageDuration = Toast.LENGTH_LONG;
 		if (validForProcess) {
 
 			String saldo = daoFinHelper.getBalancePerCategory(category);
 			Log.d(getClass().getName(), type);
 			Log.d(getClass().getName(), saldo == null ? "error" : saldo);
-			if (type.equals(DEBET)
-					|| (saldo != null && type.equals(KREDIT)
+			if (type.equals(ExpenseTracker.TYPE_DEBET)
+					|| (saldo != null && type.equals(getString(R.string.D))
 							&& !saldo.equals("") && Integer.parseInt(amount
 							.getText().toString()) <= Integer.parseInt(saldo))) {
 				financeHelper = daoFinHelper.addFinanceHelper(financeHelper);
@@ -511,8 +517,9 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 						categorySpinner);
 
 			} else {
-				processMessage = "Jumlah "
-						+ financeHelper.getCategoryDescription()
+				String category2 = category.equals(ExpenseTracker.CAT_SAVING) ? getString(R.string.T)
+						: getString(R.string.C);
+				processMessage = "Jumlah " + category2
 						+ " lebih kecil dari jumlah masukan";
 				amount.setError(processMessage);
 			}
@@ -531,13 +538,11 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		categorySpinner.setSelection(0);
 	}
 
-	
-	
 	private void showPopUpSearchCriteria() {
 
 		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-		helpBuilder.setTitle("Cari Transaksi");
-		helpBuilder.setMessage("Kriteria Pencarian");
+		helpBuilder.setTitle(getString(R.string.searchTransaction));
+		helpBuilder.setMessage(getString(R.string.searchCriteria));
 
 		LayoutInflater inflater = getLayoutInflater();
 		View searchCriteriaLayout = inflater.inflate(R.layout.searchcriteria,
@@ -557,14 +562,14 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 						showTransactionHistory();
 					}
 				});
-		
+
 		// Remember, create doesn't show the dialog
 		AlertDialog helpDialog = helpBuilder.create();
-		//((Button) helpDialog.findViewById(android.R.id.button1)).setBackgroundResource(R.drawable.buttoncustom);
+		// ((Button)
+		// helpDialog.findViewById(android.R.id.button1)).setBackgroundResource(R.drawable.buttoncustom);
 		helpDialog.show();
 	}
 
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -590,7 +595,8 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		case REQUEST_PATH:
 			if (resultCode == RESULT_OK) {
 				String curFileName = data.getStringExtra("getFullPathName");
-				saveResultFile(curFileName);
+				expTrackerService.saveResultFile(curFileName,
+						getApplicationContext(), transactionHistoryList);
 				Toast.makeText(getApplicationContext(),
 						curFileName + " sukses dibuat", Toast.LENGTH_SHORT)
 						.show();
@@ -617,7 +623,7 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 
 	}
 
-	private void setAppTheme(SharedPreferences sharedPrefs) {
+	public void setAppTheme(SharedPreferences sharedPrefs) {
 		String bg = sharedPrefs.getString(getString(R.id.bg), "bg1");
 		int themeId = 0;
 		if (bg.equals("bg1")) {
@@ -629,45 +635,21 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 			themeId = R.style.bg3;
 
 		}
-		Log.d("test",bg);
+		Log.d("test", bg);
 		getApplication().setTheme(themeId);
-	}
-
-	private boolean saveResultFile(String fileName) {
-
-		CSVFileGenerator generator = new CSVFileGenerator(
-				transactionHistoryList,
-				FinanceHelper.getFinanceHelperHeader(getApplicationContext()),
-				fileName);
-		return generator.generateCSVFile();
-	}
-	
-	public void checkAndReopenDAOFinHelper(){
-	
 	}
 
 	@Override
 	protected void onResume() {
-		checkAndReopenDAOFinHelper();
+
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		
+
 		// TODO Auto-generated method stub
 		super.onPause();
-	}
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) 
-	{
-	    super.onConfigurationChanged(newConfig);
-
-	    // Checks the orientation of the screen
-	    DatabaseHandler dbHandler = new DatabaseHandler(getApplicationContext());
-		daoFinHelper = new FinanceHelperDAO(dbHandler);
-		// make sure that the tables are writeable
-		daoFinHelper.open();
 	}
 
 	@Override
@@ -675,7 +657,5 @@ public class ExpenseTrackerActivity extends FragmentActivity implements
 		daoFinHelper.close();
 		super.onDestroy();
 	}
-	
-	
 
 }

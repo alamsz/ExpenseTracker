@@ -9,7 +9,7 @@
     <string name="type_prompt">Pilih Tipe</string>
     <string name="category_prompt">Pilih Kategori</string>
 
-   	<string name="date_input">Tanggal Masukan</string>
+   	<string name="date_input">Tanggal Transaksi</string>
  	<string name="date_to">Sampai</string>
  	<string name="date_from">Dari</string>
  	<string name="description">Deskripsi</string>
@@ -24,4 +24,22 @@
  	<string name="mustNotEmpty">Field harus diisi</string>
  	<string name="expense">Pengeluaran</string>
  	<string name="income">Pemasukan</string>
+ 	<string name="filename_textview">Filename:</string>
+ 	<string name="cancel">Batal</string>
+ 	<string name="save">Simpan</string>
+ 	<string name="close">Tutup</string>
+ 	<string name="total_expense">Total Pengeluaran</string>
+ 	<string name="total_income">Total Pemasukan</string>
+ 	<string name="total_balance">Jumlah Saldo</string>
+ 	<string name="C">Tunai</string>
+ 	<string name="T">Tabungan</string>
+ 	<string name="D">Pemasukan</string>
+ 	<string name="K">Pengeluaran</string>
+ 	<string name="transaction_detail">Detil Transaksi</string>
+ 	<string name="date_required">Tanggal Dibutuhkan, tidak boleh kosong!</string>
+ 	<string name="dividerDoubleDot">&#160;:&#160; </string>
+ 	<string name="emptyTextValidation">Field diperlukan, tidak boleh kosong!</string>
+ 	<string name="allFieldValidation">Semua Field diperlukan, tolong cek kembali</string>
+ 	<string name="searchTransaction">Cari Transaksi</string>
+ 	<string name="searchCriteria">Kriteria Pencarian</string>
 </resources>

@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 
-public class FinanceHelperDAO {
+public class ExpenseTrackerDAO {
 	// Database fields
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHandler;
@@ -18,7 +18,7 @@ public class FinanceHelperDAO {
 			DatabaseHandler.AMOUNT, DatabaseHandler.TYPE,
 			DatabaseHandler.CATEGORY };
 
-	public FinanceHelperDAO(DatabaseHandler dbHandlerInput) {
+	public ExpenseTrackerDAO(DatabaseHandler dbHandlerInput) {
 		dbHandler = dbHandlerInput;
 	}
 
@@ -39,7 +39,7 @@ public class FinanceHelperDAO {
 		dbHandler.close();
 	}
 
-	public FinanceHelper addFinanceHelper(FinanceHelper finHelp) {
+	public ExpenseTracker addFinanceHelper(ExpenseTracker finHelp) {
 
 		ContentValues values = new ContentValues();
 		values.put(DatabaseHandler.DATE_INPUT, finHelp.getDateInput());
@@ -53,14 +53,14 @@ public class FinanceHelperDAO {
 				allColumns, DatabaseHandler.ID + " = " + insertId, null, null,
 				null, null);
 		cursor.moveToFirst();
-		FinanceHelper finHelper = cursorToFinanceHelper(cursor);
+		ExpenseTracker finHelper = cursorToFinanceHelper(cursor);
 		cursor.close();
 
 		return finHelper;
 
 	}
 
-	public boolean deleteFinanceHelper(FinanceHelper finHelper) {
+	public boolean deleteFinanceHelper(ExpenseTracker finHelper) {
 
 		try {
 			long id = finHelper.getId();
@@ -72,8 +72,8 @@ public class FinanceHelperDAO {
 		return true;
 	}
 
-	public List<FinanceHelper> getAllFinanceHelper() {
-		List<FinanceHelper> finHelperList = new ArrayList<FinanceHelper>();
+	public List<ExpenseTracker> getAllFinanceHelper() {
+		List<ExpenseTracker> finHelperList = new ArrayList<ExpenseTracker>();
 
 		Cursor curFinHelper = database.query(
 				DatabaseHandler.FINANCEHELPER_TABLE, allColumns, null, null,
@@ -88,9 +88,9 @@ public class FinanceHelperDAO {
 
 	}
 
-	public List<FinanceHelper> getListPerPeriod(String dateFrom, String dateTo,
+	public List<ExpenseTracker> getListPerPeriod(String dateFrom, String dateTo,
 			String category) {
-		List<FinanceHelper> finHelperList = new ArrayList<FinanceHelper>();
+		List<ExpenseTracker> finHelperList = new ArrayList<ExpenseTracker>();
 		long dateFromLong = 0;
 		long dateToFromLong = 0;
 		String argCat = category == null ? ""
@@ -167,8 +167,8 @@ public class FinanceHelperDAO {
 	 * @param cursor
 	 * @return
 	 */
-	private FinanceHelper cursorToFinanceHelper(Cursor cursor) {
-		FinanceHelper finHelper = new FinanceHelper();
+	private ExpenseTracker cursorToFinanceHelper(Cursor cursor) {
+		ExpenseTracker finHelper = new ExpenseTracker();
 		finHelper.setId(cursor.getLong(0));
 		finHelper.setDateInput(cursor.getLong(1));
 		finHelper.setDescription(cursor.getString(2));

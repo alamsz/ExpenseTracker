@@ -6,6 +6,7 @@
 	<dimen name="textSize">16sp</dimen>
 	<dimen name="smallSize">11sp</dimen>
 	<dimen name="textview_width">80dp</dimen>
+	<dimen name="textview_land_width">160dp</dimen>
 	<dimen name="datepicker_width">30dp</dimen>
 	<dimen name="datepicker_height">30dp</dimen>
 </resources>

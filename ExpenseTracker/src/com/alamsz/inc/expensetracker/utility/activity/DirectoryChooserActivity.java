@@ -24,11 +24,11 @@ import com.alamsz.inc.expensetracker.utility.FileItem;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import com.google.ads.AdRequest.ErrorCode;
+import com.google.ads.AdView;
 
-public class FileexplorerActivity extends Activity {
-
+public class DirectoryChooserActivity extends Activity {
+	private boolean scalingComplete = false;
 	private static final String SLASH = "/";
 
 	private static final int REQUEST_PATH = 1;
@@ -94,6 +94,17 @@ public class FileexplorerActivity extends Activity {
 	    
 	    
 	    return v;
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		/*AutomaticScalingLayout at = new AutomaticScalingLayout();
+		if (!scalingComplete) // only do this once
+		{
+	        at.scaleContents(findViewById(R.id.directoryChooserContainer));
+	        scalingComplete = true;
+		}*/
+		super.onWindowFocusChanged(hasFocus);
 	}
 
 	private void fill(File f) {

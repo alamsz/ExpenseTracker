@@ -35,15 +35,18 @@ public class CSVFileGenerator {
 				}
 			}
 			writer.append(NEW_LINE);
-			for (Iterator iterator = listOfObject.iterator(); iterator.hasNext();) {
-				List<String> type = (List<String>) iterator.next();
-				for (int i = 0; i < listHeader.size(); i++) {
-					writer.append(type.get(i));
-					if(i<listHeader.size()-1){
-						writer.append(COMMA);
+			if(listOfObject != null){
+				for (Iterator iterator = listOfObject.iterator(); iterator
+						.hasNext();) {
+					List<String> type = (List<String>) iterator.next();
+					for (int i = 0; i < listHeader.size(); i++) {
+						writer.append(type.get(i));
+						if (i < listHeader.size() - 1) {
+							writer.append(COMMA);
+						}
 					}
+					writer.append(NEW_LINE);
 				}
-				writer.append(NEW_LINE);
 			}
 			writer.flush();
 			writer.close();

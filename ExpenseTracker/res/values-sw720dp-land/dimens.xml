@@ -1,9 +1,5 @@
 <resources>
- <dimen name="textSize">48sp</dimen>
-    <dimen name="smallSize">33sp</dimen>
-    <dimen name="textview_width">240dp</dimen>
-    <dimen name="datepicker_width">90dp</dimen>
-    <dimen name="datepicker_height">90dp</dimen>
+ 
     <!--
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.

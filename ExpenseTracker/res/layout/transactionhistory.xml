@@ -39,7 +39,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/date_from"
+                    android:text="@string/date_from_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize" 
                     android:textStyle="bold"/>
@@ -49,7 +49,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/date_to"
+                    android:text="@string/date_to_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize" 
                     android:textStyle="bold"/>
@@ -65,7 +65,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/expense_cat"
+                    android:text="@string/expense_cat_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
                     android:textStyle="bold" />

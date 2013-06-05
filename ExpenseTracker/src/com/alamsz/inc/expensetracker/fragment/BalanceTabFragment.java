@@ -50,7 +50,7 @@ public class BalanceTabFragment extends Fragment {
 			@Override
 			public void onReceiveAd(Ad arg0) {
 				if (arg0 != null)
-					Log.d(getClass().getName(),
+					Log.d("balanceTab",
 							"Receiving ad : " + arg0.toString());
 
 			}
@@ -70,7 +70,7 @@ public class BalanceTabFragment extends Fragment {
 			@Override
 			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
 				if (arg1 != null)
-					Log.d(getActivity().getApplicationInfo().name,
+					Log.d("balanceTab",
 							"failed to revceive ad : " + arg1.toString());
 
 			}
@@ -95,10 +95,8 @@ public class BalanceTabFragment extends Fragment {
 				.getBalance();
 		if (balance == null)
 			balance = ZERO;
-		String saldoTotal = getResources().getString(R.string.total_balance)
-				+ getResources().getString(R.string.dividerDoubleDot)
-				+ FormatHelper.getBalanceInCurrency(balance);
-		return saldoTotal == null ? ZERO : saldoTotal;
+		String totalBalance = FormatHelper.getBalanceInCurrency(balance);
+		return totalBalance == null ? ZERO : totalBalance;
 	}
 
 	/**
@@ -118,18 +116,17 @@ public class BalanceTabFragment extends Fragment {
 		if(category.equals(ExpenseTracker.CAT_CASH)){
 			categoryDescription = getResources().getString(R.string.C);
 		}
-		return getResources().getString(R.string.total_balance) + categoryDescription
-				+ getResources().getString(R.string.dividerDoubleDot) + FormatHelper.getBalanceInCurrency(balancePerCategory);
+		return FormatHelper.getBalanceInCurrency(balancePerCategory);
 	}
 
 	// set display of current balance
 	private void displayBalance(View view) {
-		TextView saldoTotal = (TextView) view.findViewById(R.id.saldoView);
+		TextView saldoTotal = (TextView) view.findViewById(R.id.saldoViewValue);
 		TextView saldoTabungan = (TextView) view
-				.findViewById(R.id.saldoTabunganView);
-		TextView saldoCash = (TextView) view.findViewById(R.id.saldoCashView);
+				.findViewById(R.id.saldoTabunganViewValue);
+		TextView saldoCash = (TextView) view.findViewById(R.id.saldoCashViewValue);
 		saldoTotal.setText(getBalance());
-		saldoCash.setText(getBalancePerCategory(ExpenseTracker.CAT_SAVING));
-		saldoTabungan.setText(getBalancePerCategory(ExpenseTracker.CAT_CASH));
+		saldoCash.setText(getBalancePerCategory(ExpenseTracker.CAT_CASH));
+		saldoTabungan.setText(getBalancePerCategory(ExpenseTracker.CAT_SAVING));
 	}
 }

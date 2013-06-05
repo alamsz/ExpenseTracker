@@ -3,35 +3,48 @@
  */
 package com.alamsz.inc.expensetracker.dao;
 
+import java.util.List;
+
 import android.database.sqlite.SQLiteDatabase;
 
 /**
  * @author AchmadA
- *
+ * 
  */
-public class LookupDAO  {
+public class ConfigurationDAO {
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHandler;
 	private String[] allColumns = { DatabaseHandler.TABLE_TYPE,
-			DatabaseHandler.TABLE_CODE, DatabaseHandler.EN_DESC,
-			DatabaseHandler.LOC_DESC, DatabaseHandler.STATUS,
-			};
-	
-	public LookupDAO(DatabaseHandler dbHandlerInput) {
+			DatabaseHandler.TABLE_CODE, DatabaseHandler.LOC_DESC,
+			DatabaseHandler.STATUS, };
+
+	public ConfigurationDAO(DatabaseHandler dbHandlerInput) {
 		dbHandler = dbHandlerInput;
 	}
 
 	public boolean open() {
-		database = dbHandler.getWritableDatabase();
+		boolean isOpen = false;
 		if (database.isOpen()) {
-			return true;
+			isOpen = true;
+		} else {
+			database = dbHandler.getWritableDatabase();
+			isOpen = true;
 		}
-		return false;
+		return isOpen;
 	}
 
 	public void close() {
 		dbHandler.close();
 	}
+
+	public List<?> getConfiguration(String tableType) {
+		return null;
+	}
+
+	public void addNewConfiguration(Configuration conf) {
+
+	}
+
 	/**
 	 * @param args
 	 */

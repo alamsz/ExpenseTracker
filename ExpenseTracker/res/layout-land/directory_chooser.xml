@@ -43,22 +43,18 @@
 
                 <TextView
                     android:id="@+id/fileName"
-                    android:layout_width="@dimen/textview_width"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
                     android:text="@string/filename_textview"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/textSize" />
 
                 <EditText
                     android:id="@+id/fileNameText"
-                    android:layout_width="200dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginTop="7dp"
                     android:ems="10"
                     android:inputType="text"
                     android:textSize="@dimen/textSize" >
@@ -76,8 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="4dp"
+                 
                     android:background="@drawable/buttoncustom"
                     android:onClick="clickCancel"
                     android:text="@string/cancel"
@@ -87,8 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="4dp"
+                 
                     android:background="@drawable/buttoncustom"
                     android:onClick="clickSave"
                     android:text="@string/save"
@@ -108,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="2dp"
+                    android:gravity="center"
                     googleads:adSize="BANNER"
                     googleads:adUnitId="a151a83ca554dd1" />
                 <!-- googleads:testDevices="TEST_EMULATOR, TEST_DEVICE_ID" -->

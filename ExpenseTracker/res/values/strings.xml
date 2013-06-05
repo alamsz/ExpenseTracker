@@ -28,18 +28,34 @@
  	<string name="cancel">Batal</string>
  	<string name="save">Simpan</string>
  	<string name="close">Tutup</string>
- 	<string name="total_expense">Total Pengeluaran</string>
- 	<string name="total_income">Total Pemasukan</string>
+ 	<string name="total_expense">Total Pengeluaran :&#160;</string>
+ 	<string name="total_income">Total Pemasukan :&#160;</string>
  	<string name="total_balance">Jumlah Saldo</string>
+ 	<string name="total_balance_saving">Jumlah Saldo Tabungan</string>
+ 	<string name="total_balance_cash">Jumlah Saldo Tunai</string>
+ 	<string name="delimiter_doubledot">&#160;:&#160;</string>
  	<string name="C">Tunai</string>
  	<string name="T">Tabungan</string>
  	<string name="D">Pemasukan</string>
  	<string name="K">Pengeluaran</string>
  	<string name="transaction_detail">Detil Transaksi</string>
- 	<string name="date_required">Tanggal Dibutuhkan, tidak boleh kosong!</string>
- 	<string name="dividerDoubleDot">&#160;:&#160; </string>
- 	<string name="emptyTextValidation">Field diperlukan, tidak boleh kosong!</string>
- 	<string name="allFieldValidation">Semua Field diperlukan, tolong cek kembali</string>
  	<string name="searchTransaction">Cari Transaksi</string>
  	<string name="searchCriteria">Kriteria Pencarian</string>
+ 	<string name="cur_dir">Direktori &#160;:</string>
+ 	<string name="transfer">Transfer</string>
+ 	<!-- Display -->
+ 	<string name="date_from_display">Dari :</string>
+ 	<string name="date_to_display">Sampai :</string>
+ 	<string name="expense_cat_display">Kategori :</string>
+ 	<!--  process message -->
+ 	<string name="emptyTextValidation">%1$s diperlukan, tidak boleh kosong!</string>
+ 	<string name="allFieldValidation">Semua Field diperlukan, tolong cek kembali</string>
+ 	<string name="expense_should_be_lower_than_balance">Jumlah masukan harus lebih kecil dari jumlah %1$s</string>
+ 	<string name="transaction_success">Penambahan transaksi Id %1$s sukses.</string>
+ 	<string name="file_saved">%1$s sukses dibuat.</string>
+ 	<string name="balance_empty_validation">Saldo &#160;%1$s&#160; kosong. Anda harus membuat pemasukan dulu</string>
+ 	<string name="transfer_success">Transfer sukses dari &#160;%1$s&#160; ke &#160;%2$s&#160; dengan jumlah &#160;%3$s</string>
+ 	<string name="transfer_invalid">Transfer Dari dan Transfer ke harus memiliki kategori berbeda</string>
+ 	<string name="transfer_from">Transfer dari</string>
+ 	<string name="transfer_to">Transfer ke</string>
 </resources>

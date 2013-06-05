@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/inputtab"
+    android:id="@+id/transfertab"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <LinearLayout
-        android:id="@+id/inputContainer"
+        android:id="@+id/inputTransferContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/inputContent"
+            android:id="@+id/inputTransferContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:id="@+id/column1"
+                android:id="@+id/columnTransfer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -32,14 +32,6 @@
                     android:textSize="@dimen/textSize" />
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="left"
-                    android:text="@string/description"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -48,31 +40,31 @@
                     android:textSize="@dimen/textSize" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/categoryFromView"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
-                    android:text="@string/expense_type"
+                    android:text="@string/transfer_from"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
-                    android:id="@+id/categoryView"
+                    android:id="@+id/categoryToView"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
-                    android:text="@string/expense_cat"
+                    android:text="@string/transfer_to"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/column2"
+                android:id="@+id/columnTransfer2"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" 
                 android:padding="10dp">
 
                 <EditText
-                    android:id="@+id/dateInputText"
+                    android:id="@+id/dateTransferText"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
@@ -87,15 +79,7 @@
                 </EditText>
 
                 <EditText
-                    android:id="@+id/descriptionText"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="left"
-                    android:inputType="text"
-                    android:textSize="@dimen/textSize" />
-
-                <EditText
-                    android:id="@+id/amountText"
+                    android:id="@+id/transferAmountText"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
@@ -104,18 +88,18 @@
                     android:textSize="@dimen/textSize" />
 
                 <Spinner
-                    android:id="@+id/typeSpinner"
+                    android:id="@+id/categoryFromSpinner"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
-                    android:entries="@array/type_input"
-                    android:entryValues="@array/type_inputValues"
-                    android:prompt="@string/type_prompt"
+                   android:entries="@array/category_input"
+                    android:entryValues="@array/category_input_values"
+                    android:prompt="@string/category_prompt"	
                     android:spinnerMode="dialog"
                     android:textSize="@dimen/textSize" />
 
                 <Spinner
-                    android:id="@+id/categorySpinner"
+                    android:id="@+id/categoryToSpinner"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
                     android:layout_gravity="left"
@@ -131,26 +115,26 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="10dp" >
+                android:paddingTop="10dp">
 
                 <ImageButton
-                    android:id="@+id/searchDateInput"
+                    android:id="@+id/searchDateTransfer"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center|top"
                     android:contentDescription="@string/app_name"
-                    android:onClick="dateInputClick"
+                    android:onClick="dateTransferClick"
                     android:src="@drawable/icon_date_picker" />
             </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonTransfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/buttoncustom"
-            android:onClick="onClick"
+            android:onClick="transferBalance"
             android:padding="10dp"
             android:text="@string/submit"
             android:textSize="@dimen/textSize" />

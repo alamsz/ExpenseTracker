@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/directoryChooserContent" >
+        android:id="@+id/directoryChooserContent" 
+        android:padding="5dp">
 
         <ListView
             android:id="@+id/listDir"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_gravity="left"
-            android:layout_marginTop="5dp"
             android:divider="#b5b5b5"
             android:dividerHeight="2dp"
             android:listSelector="@drawable/list_selector"
@@ -39,26 +39,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal" 
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/fileName"
-                    android:layout_width="@dimen/textview_width"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
                     android:text="@string/filename_textview"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/textSize" />
 
                 <EditText
                     android:id="@+id/fileNameText"
-                    android:layout_width="145dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
                     android:ems="10"
                     android:inputType="text"
                     android:textSize="@dimen/textSize" >
@@ -107,7 +104,8 @@
                     android:id="@+id/ad"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
+                    android:paddingTop="20dp"
+                    android:gravity="center"
                     googleads:adSize="BANNER"
                     googleads:adUnitId="a151a83ca554dd1" />
                 <!-- googleads:testDevices="TEST_EMULATOR, TEST_DEVICE_ID" -->

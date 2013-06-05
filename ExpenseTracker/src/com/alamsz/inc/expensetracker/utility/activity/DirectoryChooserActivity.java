@@ -109,7 +109,7 @@ public class DirectoryChooserActivity extends Activity {
 
 	private void fill(File f) {
 		File[] dirs = f.listFiles();
-		this.setTitle("Current Dir: " + f.getName());
+		this.setTitle(getString(R.string.cur_dir) + f.getName());
 		List<FileItem> dir = new ArrayList<FileItem>();
 		List<FileItem> fls = new ArrayList<FileItem>();
 		try {

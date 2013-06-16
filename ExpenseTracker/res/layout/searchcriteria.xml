@@ -37,11 +37,29 @@
                 android:textSize="@dimen/textSize" />
 
             <TextView
+                android:id="@+id/transType"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:text="@string/expense_type"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
+                android:id="@+id/transCategoryView"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:text="@string/transaction_category"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/textSize" />
+
+            <TextView
                 android:id="@+id/categoryView"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="left"
-                android:text="@string/expense_cat"
+                android:text="@string/fund_source"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="@dimen/textSize" />
         </LinearLayout>
@@ -76,6 +94,25 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:inputType="date"
+                android:textSize="@dimen/textSize" />
+
+            <Spinner
+                android:id="@+id/typeSpinnerSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:entries="@array/type_input"
+                android:prompt="@string/type_prompt"
+                android:spinnerMode="dialog"
+                android:textSize="@dimen/textSize" />
+
+            <Spinner
+                android:id="@+id/transCatSpinnerSearch"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:prompt="@string/category_prompt"
+                android:spinnerMode="dialog"
                 android:textSize="@dimen/textSize" />
 
             <Spinner

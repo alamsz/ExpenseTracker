@@ -7,9 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 public class ExpenseCategoryBudgetDAO {
 	private SQLiteDatabase database;
 	private DatabaseHandler dbHandler;
-	private String[] allColumns = { DatabaseHandler.TABLE_TYPE,
-			DatabaseHandler.TABLE_CODE, DatabaseHandler.LOC_DESC,
-			DatabaseHandler.STATUS, };
+	private String[] allColumns = { ConfigurationDAO.TABLE_TYPE,
+			ConfigurationDAO.TABLE_CODE, ConfigurationDAO.LOC_DESC,
+			ConfigurationDAO.STATUS, };
+	public static final String BUDGET_AMOUNT = "budget_amount";
+	/////
+	// Expense category budget
+	public static final String EXPENSE_CATEGORY_BUDGET_TABLE = "expense_budget";
 
 	public ExpenseCategoryBudgetDAO(DatabaseHandler dbHandlerInput) {
 		dbHandler = dbHandlerInput;

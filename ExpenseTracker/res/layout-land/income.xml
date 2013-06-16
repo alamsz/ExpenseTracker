@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/inputtab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         >
+
+        <RelativeLayout
+            android:id="@+id/inputContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/inputContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/column1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="@string/date_input"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="@string/description"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="@string/amount"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="@string/inc_category"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/categoryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:text="@string/fund_desc"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/column2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <EditText
+                            android:id="@+id/dateInputText"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="left"
+                            android:clickable="false"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:inputType="date"
+                            android:textSize="@dimen/textSize" >
+
+                            <requestFocus />
+                        </EditText>
+
+                        <ImageButton
+                            android:id="@+id/searchDateInput"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center|top"
+                            android:contentDescription="@string/app_name"
+                            android:onClick="dateInputClick"
+                            android:src="@drawable/icon_date_picker" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/descriptionText"
+                        android:layout_width="190dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:inputType="text"
+                        android:textSize="@dimen/textSize" />
+
+                    <EditText
+                        android:id="@+id/amountText"
+                        android:layout_width="190dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:textSize="@dimen/textSize" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <Spinner
+                            android:id="@+id/incomeCategorySpinner"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="left"
+                            android:entries="@array/type_input"
+                            android:prompt="@string/inc_category_prompt"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/textSize" />
+
+                        <ImageButton
+                            android:id="@+id/modifyIncCategory"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center|top"
+                            android:contentDescription="@string/app_name"
+                            android:onClick="modifyIncCategory"
+                            android:src="@drawable/modify" />
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/categorySpinner"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:entries="@array/category_input"
+                        android:entryValues="@array/category_input_values"
+                        android:prompt="@string/category_prompt"
+                        android:spinnerMode="dialog"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputContent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="10dp" >
+
+                <Button
+                    android:id="@+id/incomeButtonProcess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:background="@drawable/buttoncustom"
+                    android:onClick="processIncome"
+                    android:text="@string/btn_submit"
+                    android:textSize="@dimen/textSize" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+   
+</RelativeLayout>

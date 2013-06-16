@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory 
-        android:title="Application Setting"
-        android:key="app_setting">
-       
-        <ListPreference 
-            android:key="@+id/currency"
-            android:title="Currency Setting"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+     >
+
+    <PreferenceCategory
+        android:key="app_setting"
+        android:title="Application Setting" >
+        <ListPreference
+            android:defaultValue="inID"
+            android:entries="@array/localeSetting"
+            android:entryValues="@array/localeSettingValues"
+            android:key="currency"
             android:persistent="true"
-            android:summary="Define what currency to be used"
-            android:defaultValue="IDR" 
-            android:entries="@array/currencySetting"
-            android:entryValues="@array/currencySettingValues"
-            
-        />    
-        <ListPreference 
-            android:key="@+id/bg"
-            android:title="Background Setting"
-            android:persistent="true"
-            android:summary="Define what Wallpaper to be used"
-            android:defaultValue="bg1" 
-            android:entries="@array/backgroundSetting"
-            android:entryValues="@array/backgroundSettingValues"
-            
-        />   
-            
+            android:summary="@string/define_what_currency_to_be_used"
+            android:title="@string/currency_setting" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="user_setting"
+        android:title="User Setting" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="enable_delete"
+            android:summary="@string/enable_deleting_transaction_summary"
+            android:title="@string/enable_delete_transaction_" >
+        </CheckBoxPreference>
 
-    <PreferenceCategory 
-        android:title="User Setting"
-        android:key="user_setting">
-
-         
         <EditTextPreference
-            android:key="welcome_message"
-            android:title="Welcome Message" 
-            android:summary="Define the Welcome message to be shown"
-            android:dialogTitle="Welcome Message"
-            android:dialogMessage="Provide a message"    
-            android:defaultValue="Default welcome message" />
-
+            android:defaultValue="@string/finance_tips_good"
+            android:key="finance_tips_good"
+            android:summary="@string/define_good_finance_condition"
+            android:title="@string/set_tips_for_good_finance_condition" />
+        <EditTextPreference
+            android:defaultValue="1000000"
+            android:key="finance_tips_good_limit"
+            android:summary="@string/define_amount_limit_good_finance_condition"
+            android:title="@string/set_limit_for_good_finance_condition" />
+        <EditTextPreference
+            android:defaultValue="@string/finance_tips_warning"
+            android:key="finance_tips_moderate"
+            android:summary="@string/define_moderate_finance_condition"
+            android:title="@string/set_tips_for_moderate_finance_condition" />
+        <EditTextPreference
+            android:defaultValue="100000"
+            android:key="finance_tips_moderate_limit"
+            android:summary="@string/define_the_amount_limit_moderate_finance_condition"
+            android:title="@string/set_limit_for_moderate_finance_condition" />
+        <EditTextPreference
+            android:defaultValue="@string/finance_tips_critical"
+            android:key="finance_tips_bad"
+            android:summary="@string/define_bad_finance_condition"
+            android:title="@string/set_tips_for_bad_finance_condition" />
     </PreferenceCategory>
+    
 
 </PreferenceScreen>

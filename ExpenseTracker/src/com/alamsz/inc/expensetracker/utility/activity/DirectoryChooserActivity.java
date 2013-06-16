@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,17 +18,22 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.dao.ConfigurationDAO;
 import com.alamsz.inc.expensetracker.utility.FileArrayAdapter;
 import com.alamsz.inc.expensetracker.utility.FileItem;
+import com.alamsz.inc.expensetracker.utility.StaticVariables;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
 import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdView;
 
-public class DirectoryChooserActivity extends Activity {
+public class DirectoryChooserActivity extends SherlockFragmentActivity {
 	private boolean scalingComplete = false;
 	private static final String SLASH = "/";
 
@@ -44,7 +50,7 @@ public class DirectoryChooserActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.directory_chooser);
 		currentDir = new File("/sdcard/");
-		fill(currentDir);
+		generateFolderView(currentDir);
 		
 		
 		mAdView = (AdView) this.findViewById(R.id.ad);
@@ -84,6 +90,7 @@ public class DirectoryChooserActivity extends Activity {
 	    AdRequest adRequest = new AdRequest();
 	    adRequest.addKeyword("sporting goods");
 	    mAdView.loadAd(adRequest);
+	    getSupportActionBar().setDisplayShowHomeEnabled(true);
 	}
 
 	@Override
@@ -98,16 +105,11 @@ public class DirectoryChooserActivity extends Activity {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		/*AutomaticScalingLayout at = new AutomaticScalingLayout();
-		if (!scalingComplete) // only do this once
-		{
-	        at.scaleContents(findViewById(R.id.directoryChooserContainer));
-	        scalingComplete = true;
-		}*/
+		
 		super.onWindowFocusChanged(hasFocus);
 	}
 
-	private void fill(File f) {
+	private void generateFolderView(File f) {
 		File[] dirs = f.listFiles();
 		this.setTitle(getString(R.string.cur_dir) + f.getName());
 		List<FileItem> dir = new ArrayList<FileItem>();
@@ -141,7 +143,8 @@ public class DirectoryChooserActivity extends Activity {
 				}
 			}
 		} catch (Exception e) {
-
+			Toast.makeText(getApplicationContext(),
+					"no external storage found", Toast.LENGTH_SHORT).show();
 		}
 		Collections.sort(dir);
 		Collections.sort(fls);
@@ -164,7 +167,7 @@ public class DirectoryChooserActivity extends Activity {
 			if (o.getImage().equalsIgnoreCase("directory_icon")
 					|| o.getImage().equalsIgnoreCase("directory_up")) {
 				currentDir = new File(o.getPath());
-				fill(currentDir);
+				generateFolderView(currentDir);
 			}
 
 		}
@@ -185,5 +188,20 @@ public class DirectoryChooserActivity extends Activity {
 
 	public void clickCancel(View view) {
 		finish();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(
+			com.actionbarsherlock.view.MenuItem item) {
+		 switch (item.getItemId()) {
+		    case android.R.id.home:
+		        // app icon in action bar clicked; go home
+		    	
+		    	Intent intent = new Intent(this, ExpenseTrackerActivity.class);
+		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        startActivity(intent);
+		        break;
+		    }
+		    return true;
 	}
 }

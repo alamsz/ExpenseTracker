@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<!--  Label -->
+	<string name="fund_source">Fund Source</string>
+ 	<string name="fund_desc">Fund Destination</string>
+ 	<string name="exp_category_prompt">Choose Expense Category</string>
+ 	<string name="inc_category_prompt">Choose Income Category</string>
+ 	<string name="exp_category">Expense Category</string>
+ 	<string name="inc_category">Income Category</string>
     <string name="app_name">ExpenseTracker</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="home">Home</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Expense Tracker</string>
     <string name="type_prompt">Choose Type</string>
@@ -17,16 +24,14 @@
     <string name="expense_cat">Category</string>
     <string name="balance">Balance</string>
     <string name="transaction">Transaction</string>
-    <string name="submit">Process</string>
+    
     <string name="expense_type">Type</string>
     <string name="show_transaction">Show Transaction</string>
     <string name="mustNotEmpty">Field Must be Filled in</string>
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="filename_textview">Filename:</string>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="close">Close</string>
+    
     <string name="total_expense">Total Expenses :&#160;</string>
     <string name="total_income">Total Incomes :&#160;</string>
     <string name="total_balance">Total Balance</string>
@@ -44,11 +49,35 @@
     <string name="transfer_from">Transfer from</string>
  	<string name="transfer_to">Transfer to</string>
  	<string name="transfer">Transfer</string>
+ 	
+ 	 	<string name="setting">Setting</string>
+ 	<string name="report">Report</string>
+ 	<string name="about">About</string>
+ 	<string name="today_text">Today</string>
+ 	<string name="finance_tips">Finance Tips</string>
+ 	<string name="finance_tips_good">Your finance condition is good</string>
+ 	<string name="finance_tips_warning">Your finance condition is currently okay, only spend on priority needs</string>
+ 	<string name="finance_tips_critical">Your finance condition is bad, stop spending on not needed items</string>
     <!-- Display -->
  	<string name="date_from_display">From :&#160;</string>
  	<string name="date_to_display">To :&#160;</string>
  	<string name="expense_cat_display">Category :&#160;</string>
-    
+    <string name="expense_category_setting">Expense Category Setting</string>
+ 	<string name="enable_delete_transaction_">Enable Delete Transaction ?</string>
+ 	<string name="enable_deleting_transaction_summary">Enable deleting transaction</string>
+ 	<string name="define_good_finance_condition">Define good finance condition</string>
+ 	<string name="set_tips_for_good_finance_condition">Set Tips for good Finance Condition</string>
+ 	<string name="define_amount_limit_good_finance_condition">Define amount limit good finance condition</string>
+ 	<string name="set_limit_for_good_finance_condition">Set Limit for good Finance Condition</string>
+ 	<string name="define_moderate_finance_condition">Define moderate finance condition</string>
+ 	<string name="set_tips_for_moderate_finance_condition">Set Tips for Moderate Finance Condition</string>
+ 	<string name="define_the_amount_limit_moderate_finance_condition">Define the amount limit moderate finance condition</string>
+ 	<string name="set_limit_for_moderate_finance_condition">Set Limit for moderate Finance Condition</string>
+ 	<string name="define_bad_finance_condition">Define bad finance condition</string>
+ 	<string name="set_tips_for_bad_finance_condition">Set Tips for bad Finance Condition</string>
+ 	<string name="define_what_currency_to_be_used">Define what currency to be used</string>
+ 	<string name="currency_setting">Currency Setting</string>
+ 	<string name="transaction_category">Transaction Kategori</string>
     <!-- Process Message -->
     <string name="expense_should_be_lower_than_balance">Transaction amount must be lower than %1$s balance</string>
     <string name="transaction_success">Transaction Id %1$s Successfully added.</string>
@@ -56,6 +85,27 @@
     <string name="allFieldValidation">All field required, please recheck</string>
     <string name="emptyTextValidation">%1$s required, must not empty!</string>
     <string name="balance_empty_validation">Zero balance on &#160;%1$s&#160;. You must process income first</string>
-	<string name="transfer_success">Successfully transfered from &#160;%1$s&#160; to &#160;%2$s&#160; with amount &#160;%3$s</string>
+	<string name="transfer_success">Successfully transferred from &#160;%1$s&#160; to &#160;%2$s&#160; with amount &#160;%3$s</string>
 	<string name="transfer_invalid">Transfer from and Transfer to should have different category</string>
+	<string name="add_config_success">Category &#160;%1$s&#160; has been successfully added</string>
+ 	<string name="add_config_fails">Category &#160;%1$s&#160; failed to be added</string>
+ 	<string name="cat_code_required">Code required and must be 3 characters</string>
+ 	<string name="loc_desc_required">Indonesian Description Required</string>
+ 	<string name="en_desc_required">English Description Required</string>
+	<!--  button name -->
+	<string name="btn_submit">Process</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_delete">Delete</string>
+    
+    <!--  configuration -->
+ 	<string name="preflang">en_US</string>
+ 	 	<string name="expense_category_list">Expense Category List</string>
+ 	<string name="income_category_list">Income Category List</string>
+ 	<string name="add">Add</string>
+ 	<string name="en_desc">English Desc</string>
+ 	<string name="loc_desc">Indonesian Desc</string>
+ 	<string name="code">Code</string>
+ 	<string name="diff">Difference :&#160;</string>
 </resources>

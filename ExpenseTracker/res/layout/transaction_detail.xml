@@ -48,6 +48,13 @@
                 android:layout_gravity="left"
                 android:text="@string/expense_type"
                 android:textSize="@dimen/textSize" />
+             <TextView
+                android:id="@+id/transDetailTransCat"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:text="@string/exp_category"
+                android:textSize="@dimen/textSize" />
 
             <TextView
                 android:id="@+id/transDetailCategory"
@@ -115,6 +122,18 @@
                 android:focusableInTouchMode="false"
                 android:prompt="@string/type_prompt"
                 android:spinnerMode="dialog"
+                android:textSize="@dimen/smallSize" />
+            <Spinner
+                android:id="@+id/transCatSpinnerRO"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:clickable="false"
+                android:entries="@array/type_input"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:prompt="@string/type_prompt"
+                android:spinnerMode="dialog"
                 android:textSize="@dimen/textSize" />
 
             <Spinner
@@ -129,7 +148,7 @@
                 android:focusableInTouchMode="false"
                 android:prompt="@string/category_prompt"
                 android:spinnerMode="dialog"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/smallSize" />
         </LinearLayout>
     </LinearLayout>
 

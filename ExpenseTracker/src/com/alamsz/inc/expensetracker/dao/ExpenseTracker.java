@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.alamsz.inc.expensetracker.R;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
+import com.alamsz.inc.expensetracker.utility.StaticVariables;
 
 public class ExpenseTracker {
 	private long id;
@@ -15,6 +16,9 @@ public class ExpenseTracker {
 	private int amount;
 	private String type;
 	private String category;
+	private String transCategory;
+	
+
 	public static final String CAT_SAVING = "T";
 	public static final String CAT_CASH = "C";
 	public static final String TYPE_CREDIT = "K";
@@ -86,14 +90,24 @@ public class ExpenseTracker {
 				+ this.description + "[" + sign
 				+ FormatHelper.getBalanceInCurrency(amount) + "]";
 	}
+	
+
+	public String getTransCategory() {
+		return transCategory;
+	}
+
+	public void setTransCategory(String exp_category) {
+		this.transCategory = exp_category;
+	}
 
 	public static List<String> getFinanceHelperHeader(Context context) {
 		List<String> listHeader = new ArrayList<String>();
 		listHeader.add(context.getString(R.string.date_input));
 		listHeader.add(context.getString(R.string.description));
-		listHeader.add(context.getString(R.string.expense_cat));
-		listHeader.add(context.getString(R.string.expense_type));
-		listHeader.add(context.getString(R.string.amount));
+		listHeader.add(context.getString(R.string.fund_source));
+		listHeader.add(context.getString(R.string.exp_category));
+		listHeader.add(context.getString(R.string.expense));
+		listHeader.add(context.getString(R.string.income));
 		return listHeader;
 	}
 
@@ -103,9 +117,20 @@ public class ExpenseTracker {
 		listPenampung.add(FormatHelper.formatDateForDisplay(financeHelper
 				.getDateInput()));
 		listPenampung.add(financeHelper.getDescription());
-		listPenampung.add(financeHelper.getType());
-		listPenampung.add(financeHelper.getCategory());
-		listPenampung.add(String.valueOf(financeHelper.getAmount()));
+		listPenampung.add(StaticVariables.mapOfFundCategory.get(financeHelper.getCategory()));
+		ConfigurationExpTracker confTrans = null;
+		if(financeHelper.getType().equals(TYPE_DEBET)){
+			confTrans= (ConfigurationExpTracker) StaticVariables.mapOfExpenseCatBasedOnTableCode.get(financeHelper.getTransCategory());
+		} else{
+			confTrans= (ConfigurationExpTracker) StaticVariables.mapOfIncomeCatBasedOnTableCode.get(financeHelper.getTransCategory());
+		}
+		String transCategory = confTrans==null?"":confTrans.getLocDesc();
+		listPenampung.add(transCategory);
+		int amountExpense = financeHelper.getType().equals(TYPE_DEBET)?0:financeHelper.getAmount();
+		int amountIncome = financeHelper.getType().equals(TYPE_CREDIT)?0:financeHelper.getAmount();
+		listPenampung.add(String.valueOf(amountExpense));
+		listPenampung.add(String.valueOf(amountIncome));
+		
 		return listPenampung;
 	}
 

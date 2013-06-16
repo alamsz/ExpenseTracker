@@ -5,27 +5,30 @@
     android:alignmentMode="alignMargins"
     android:alpha="1"
     android:columnCount="5"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="10dp" 
+         android:background="#DCF945">
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/transaksiView"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="@string/trans_hist"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/textSizeLand"
+                android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -35,53 +38,76 @@
 
                 <TextView
                     android:id="@+id/dateFromViewHist"
-                    android:layout_width="110dp"
+                    android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/date_from_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="@dimen/smallSizeLand"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/smallSize" 
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/dateToViewHist"
-                    android:layout_width="110dp"
+                    android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/date_to_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="@dimen/smallSizeLand"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/smallSize" 
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
                 <TextView
                     android:id="@+id/categoryViewHist"
-                    android:layout_width="130dp"
+                    android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/expense_cat_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="@dimen/smallSizeLand"
+                    android:textSize="@dimen/smallSize"
+                    android:textStyle="bold" />
+                  <TextView
+                    android:id="@+id/typeCatHist"
+                    android:layout_width="185dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@string/expense_type"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/smallSize"
                     android:textStyle="bold" />
             </LinearLayout>
-         
-            <TextView
-                android:id="@+id/totalExpense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="@string/total_expense"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/smallSizeLand"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/totalIncome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:text="@string/total_income"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/smallSizeLand"
-                android:textStyle="bold" />
+             <TextView
+                    android:id="@+id/totalExpense"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@string/total_expense"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/smallSize"
+                    android:textStyle="bold" />
+              <TextView
+                    android:id="@+id/totalIncome"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@string/total_income"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/smallSize"
+                    android:textStyle="bold" />
+               <TextView
+                    android:id="@+id/diffView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@string/diff"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="@dimen/smallSize"
+                    android:textStyle="bold" />
         </LinearLayout>
 
         <ImageButton
@@ -89,6 +115,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:contentDescription="@string/app_name"
             android:onClick="popUpShow"
             android:src="@drawable/search" />
@@ -98,6 +126,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:contentDescription="@string/app_name"
             android:onClick="exportToCSV"
             android:src="@drawable/docsave" />
@@ -107,16 +137,17 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp" >
+        android:orientation="horizontal" 
+        android:paddingLeft="10dp">
 
         <TextView
             android:id="@+id/category_header"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
             android:text="@string/date_input"
             android:textColor="#343434"
-            android:textSize="@dimen/smallSizeLand" />
+            android:textSize="@dimen/smallSize" />
         <!-- City -->
 
         <TextView
@@ -126,24 +157,26 @@
             android:layout_marginLeft="2dip"
             android:text="@string/description"
             android:textColor="#343434"
-            android:textSize="@dimen/smallSizeLand" />
+            android:textSize="@dimen/smallSize" />
         <!-- Weather Information -->
 
         <TextView
             android:id="@+id/debet_header"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
             android:text="@string/income"
             android:textColor="#343434"
-            android:textSize="@dimen/smallSizeLand" />
+            android:textSize="@dimen/smallSize" />
 
         <TextView
             android:id="@+id/credit_header"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
             android:text="@string/expense"
             android:textColor="#343434"
-            android:textSize="@dimen/smallSizeLand" />
+            android:textSize="@dimen/smallSize" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -156,14 +189,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal" >
 
         <ListView
             android:id="@+id/expandableListView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginTop="5dp"
             android:divider="#b5b5b5"
             android:dividerHeight="2dp"
             android:listSelector="@drawable/list_selector"

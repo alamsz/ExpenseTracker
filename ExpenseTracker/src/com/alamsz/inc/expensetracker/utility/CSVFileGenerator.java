@@ -1,9 +1,15 @@
 package com.alamsz.inc.expensetracker.utility;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
 
 
 public class CSVFileGenerator {
@@ -14,7 +20,9 @@ public class CSVFileGenerator {
 	private List<?> listHeader;
 	private String fullPathFileName;
 	
-	
+	public CSVFileGenerator(String fullPathFileName){
+		super();
+	}
 	public CSVFileGenerator(List<List<String>> listOfObject, List<?> listHeader,
 			String fullPathFileName) {
 		super();
@@ -58,4 +66,43 @@ public class CSVFileGenerator {
 		return false;
 	}
 	
+	public List<ExpenseTracker> importCSVFileToList() {
+		FileReader fr;
+		try {
+			fr = new FileReader(fullPathFileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		BufferedReader br = new BufferedReader(fr);
+		String data = "";
+		List<ExpenseTracker> expTrackerList = new ArrayList<ExpenseTracker>();
+		try {
+			while ((data = br.readLine()) != null) {
+
+				String[] sarray = data.split(",");
+				ExpenseTracker expTrackerTemp = new ExpenseTracker();
+				expTrackerTemp.setDateInput(FormatHelper.formatDateToLong(sarray[0]));
+				expTrackerTemp.setDescription(sarray[1]);
+				expTrackerTemp.setCategory(sarray[2]);
+				expTrackerTemp.setTransCategory(sarray[3]);
+				String transType = sarray[4].equals("0")?ExpenseTracker.TYPE_DEBET:ExpenseTracker.TYPE_CREDIT;
+				int amount = 0;
+				if (transType.equals(ExpenseTracker.TYPE_CREDIT)) {
+					amount = Integer.parseInt(sarray[4]);
+				} else {
+					amount = Integer.parseInt(sarray[5]);
+				}
+				
+				expTrackerTemp.setAmount(amount);
+				expTrackerTemp.setType(transType);
+				expTrackerList.add(expTrackerTemp);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return expTrackerList;
+	}
 }

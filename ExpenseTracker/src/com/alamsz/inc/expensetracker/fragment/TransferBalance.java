@@ -1,7 +1,9 @@
 package com.alamsz.inc.expensetracker.fragment;
 
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.utility.AdUtility;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
+import com.google.ads.AdView;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,6 +38,8 @@ public class TransferBalance extends Fragment {
 		categorySpinner.setAdapter(adapter);
 		Spinner typeSpinner = (Spinner) layout.findViewById(R.id.categoryToSpinner);
 		typeSpinner.setAdapter(adapter2);
+		AdView mAdView = (AdView) layout.findViewById(R.id.adTransferView);
+		AdUtility.displayAd(mAdView);
 		
 	}
 

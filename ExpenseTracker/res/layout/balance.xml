@@ -1,126 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/balanceContainer"
+        android:id="@+id/headerBalanceCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:alignmentMode="alignMargins"
-        android:orientation="vertical" >
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:padding="10dp" >
 
-        <LinearLayout
-            android:id="@+id/balanceContent"
+        <TextView
+            android:id="@+id/balanceTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alignmentMode="alignMargins"
-                android:orientation="vertical"
-                android:padding="5dp" >
-
-                <TextView
-                    android:id="@+id/saldoCashView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/total_balance_cash"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:id="@+id/saldoTabunganView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/total_balance_saving"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:id="@+id/saldoView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/total_balance"
-                    android:textSize="@dimen/textSize" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alignmentMode="alignMargins"
-                android:orientation="vertical"
-                android:padding="5dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/delimiter_doubledot"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/delimiter_doubledot"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="@string/delimiter_doubledot"
-                    android:textSize="@dimen/textSize" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:alignmentMode="alignMargins"
-                android:orientation="vertical"
-                android:padding="5dp" >
-
-                <TextView
-                    android:id="@+id/saldoCashViewValue"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/total_balance"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:id="@+id/saldoTabunganViewValue"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/total_balance"
-                    android:textSize="@dimen/textSize" />
-
-                <TextView
-                    android:id="@+id/saldoViewValue"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/total_balance"
-                    android:textSize="@dimen/textSize" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <com.google.ads.AdView
-            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-            android:id="@+id/ad"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:paddingTop="20dp"
-            googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            android:gravity="center"
+            android:text="@string/expense_category_list"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
     </LinearLayout>
 
-</ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerBalanceCategory" >
+
+        <LinearLayout
+            android:id="@+id/balanceContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/balanceContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alignmentMode="alignMargins"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/saldoCashView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/total_balance_cash"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/saldoTabunganView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/total_balance_saving"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/saldoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/total_balance"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/delimiter_doubledot"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/delimiter_doubledot"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/delimiter_doubledot"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:orientation="vertical"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:id="@+id/saldoCashViewValue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/total_balance"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/saldoTabunganViewValue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/total_balance"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:id="@+id/saldoViewValue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="@string/total_balance"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.ads.AdView
+                xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+                android:id="@+id/ad"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:paddingTop="20dp"
+                googleads:adSize="BANNER"
+                googleads:adUnitId="a151a83ca554dd1" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

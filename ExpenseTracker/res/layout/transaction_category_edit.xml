@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/headerExpCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/transCatTitle"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/expense_category_list"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/addnew"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:onClick="createNewCategory"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listoftranscat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerExpCategory" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/footerTransCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
+        <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adTransCategoryView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a151a83ca554dd1" />
+    </LinearLayout>
+
+</RelativeLayout>

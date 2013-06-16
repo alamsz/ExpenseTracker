@@ -8,6 +8,8 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.Locale;
 
+
+import android.util.Log;
 import android.widget.EditText;
 
 public final class FormatHelper {
@@ -42,6 +44,22 @@ public final class FormatHelper {
 		return timeInMilis;
 	}
 	
+
+	public static long formatDateToLong(String inputDateStr) {
+		SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
+		
+		long timeInMilis;
+		try {
+			timeInMilis = sdf.parse(inputDateStr).getTime();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		return timeInMilis;
+	}
+	
 	// display current date
 	public static void setCurrentDateOnView(EditText dateField) {
 
@@ -51,6 +69,7 @@ public final class FormatHelper {
 		day = c.get(Calendar.DAY_OF_MONTH);
 		String formattedMonth = FormatHelper.formatTwoDigitsMonth(month);
 		String formattedDay = FormatHelper.formatTwoDigitsDay(day);
+		if(dateField != null)
 		dateField.setText(new StringBuilder().append(formattedDay).append("-")
 				.append(formattedMonth).append("-").append(year).append(" "));
 
@@ -71,8 +90,17 @@ public final class FormatHelper {
 	}
 	
 	public static String getBalanceInCurrency(int balanceInt){
-		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.JAPAN);
-		nf.setCurrency(cur);
+		Locale curLocale = StaticVariables.currencyLocale;
+		//somehow the locale always set to in_
+		if(curLocale.toString().equals("in_ID")){
+			curLocale = Locale.ITALY;
+		} else{
+			curLocale = Locale.US;
+		}
+		NumberFormat nf = NumberFormat.getCurrencyInstance(curLocale);
+		Log.d("curLocale",curLocale.toString() + " "+StaticVariables.currencyLocale);
+		nf.setCurrency(Currency.getInstance(StaticVariables.currencyLocale));
+		
 		return nf.format(balanceInt);
 	}
 	
@@ -84,5 +112,11 @@ public final class FormatHelper {
 	public static String formatTwoDigitsDay(int day){
 		return day > BIGGEST_NUM_IN_ONE_DIGIT ? String.valueOf(day) : ZERO
 			+ String.valueOf(day);
+	}
+	
+	public static String getSystemDate(){
+		Date sysDate = new Date();
+		SimpleDateFormat dateFormatter = new SimpleDateFormat(DD_MM_YYYY);
+		return dateFormatter.format(sysDate);
 	}
 }

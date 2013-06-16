@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="currencySetting">
-        <item name="IDR">Indonesian Rupiah</item>
-        <item name="USD">US Dollar</item>
-        <item name="GBP">Poundsterling</item>
-        <item name="JPY">Japan Yen</item>
+    <string-array name="localeSetting">
+        <item name="ID">Indonesian Rupiah</item>
+        <item name="US">US Dollar</item>
+        <item name="GB">Poundsterling</item>
+        
        
     </string-array>
-    <string-array name="currencySettingValues">
-        <item name="IDR">IDR</item>
-        <item name="USD">USD</item>
-        <item name="GBP">GBP</item>
-        <item name="JPY">JPY</item>
+    <string-array name="localeSettingValues">
+        <item name="ID">inID</item>
+        <item name="US">idUS</item>
+        <item name="GB">enGB</item>
+       
     </string-array>
     <string-array name="backgroundSetting">
         <item name="grn">Green</item>

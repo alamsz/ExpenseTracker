@@ -1,7 +1,6 @@
 package com.alamsz.inc.expensetracker.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
 import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
-import com.alamsz.inc.expensetracker.dao.ExpenseTrackerDAO;
+import com.alamsz.inc.expensetracker.service.ExpenseTrackerService;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
@@ -19,9 +18,9 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdView;
 
-public class BalanceTabFragment extends Fragment {
+public class BalanceTabFragment extends ExpenseTrackerFragment {
 	private static final String ZERO = "0";
-	private ExpenseTrackerDAO daoExpTracker;
+	private ExpenseTrackerService expTrackerService;
 	private AdView mAdView;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,8 +38,7 @@ public class BalanceTabFragment extends Fragment {
 		View layout = (View) inflater.inflate(R.layout.balance, container,
 				false);
 		// get db connection from parent activity
-		this.daoExpTracker = ((ExpenseTrackerActivity) getActivity()).daoFinHelper;
-		daoExpTracker.open();
+		expTrackerService = ((ExpenseTrackerActivity) getActivity()).expTrackerService;
 
 		// display the balance when this fragment view are called
 		displayBalance(layout);
@@ -50,8 +48,7 @@ public class BalanceTabFragment extends Fragment {
 			@Override
 			public void onReceiveAd(Ad arg0) {
 				if (arg0 != null)
-					Log.d("balanceTab",
-							"Receiving ad : " + arg0.toString());
+					Log.d("balanceTab", "Receiving ad : " + arg0.toString());
 
 			}
 
@@ -91,7 +88,7 @@ public class BalanceTabFragment extends Fragment {
 
 	private String getBalance() {
 
-		String balance = daoExpTracker == null ? null : daoExpTracker
+		String balance = expTrackerService == null ? null : expTrackerService
 				.getBalance();
 		if (balance == null)
 			balance = ZERO;
@@ -108,12 +105,12 @@ public class BalanceTabFragment extends Fragment {
 	 */
 	private String getBalancePerCategory(String category) {
 
-		String balancePerCategory = daoExpTracker == null ? null
-				: daoExpTracker.getBalancePerCategory(category);
+		String balancePerCategory = expTrackerService == null ? null
+				: expTrackerService.getBalancePerCategory(category);
 		if (balancePerCategory == null)
 			balancePerCategory = ZERO;
 		String categoryDescription = getResources().getString(R.string.T);
-		if(category.equals(ExpenseTracker.CAT_CASH)){
+		if (category.equals(ExpenseTracker.CAT_CASH)) {
 			categoryDescription = getResources().getString(R.string.C);
 		}
 		return FormatHelper.getBalanceInCurrency(balancePerCategory);
@@ -124,7 +121,8 @@ public class BalanceTabFragment extends Fragment {
 		TextView saldoTotal = (TextView) view.findViewById(R.id.saldoViewValue);
 		TextView saldoTabungan = (TextView) view
 				.findViewById(R.id.saldoTabunganViewValue);
-		TextView saldoCash = (TextView) view.findViewById(R.id.saldoCashViewValue);
+		TextView saldoCash = (TextView) view
+				.findViewById(R.id.saldoCashViewValue);
 		saldoTotal.setText(getBalance());
 		saldoCash.setText(getBalancePerCategory(ExpenseTracker.CAT_CASH));
 		saldoTabungan.setText(getBalancePerCategory(ExpenseTracker.CAT_SAVING));

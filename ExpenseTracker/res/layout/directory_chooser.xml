@@ -75,10 +75,9 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/buttoncustom"
                     android:onClick="clickCancel"
                     android:text="@string/btn_cancel"
-                    android:textSize="@dimen/textSize" />
+                     />
                 <Button
                     android:id="@+id/buttonSave"
                     android:layout_width="wrap_content"
@@ -86,10 +85,10 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/buttoncustom"
+                    
                     android:onClick="clickSave"
                     android:text="@string/btn_save"
-                    android:textSize="@dimen/textSize" />
+                     />
 
                
             </LinearLayout>

@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/total_balance_cash"
+                    android:text="@string/total_category"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/total_balance_saving"
+                    android:text="@string/total_category"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -64,8 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alignmentMode="alignMargins"
-                android:orientation="vertical"
-                 >
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -143,7 +142,7 @@
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="vertical"
-            android:padding="5dp" >
+            android:paddingTop="5dp" >
 
             <TextView
                 android:id="@+id/tipsView"
@@ -153,201 +152,279 @@
                 android:text="@string/finance_tips"
                 android:textSize="@dimen/textSize" />
 
-            <TextView
-                android:id="@+id/tipsValue"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text=""
-                android:textSize="@dimen/textSize"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:background="#FFFFFF"
+                android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:orientation="vertical"
-            android:paddingTop="5dp" >
+                <ImageView
+                    android:id="@+id/prevNews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:onClick="getPrevNews"
+                    android:src="@drawable/arrow_left" />
 
-            <com.google.ads.AdView
-                xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-                android:id="@+id/adHomeView"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                googleads:adSize="BANNER"
-                googleads:adUnitId="a151a83ca554dd1" />
-        </LinearLayout>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tipsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textSize="@dimen/textSize"
+                    android:textStyle="bold" />
 
-    <ScrollView
-        android:id="@+id/menulist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/homeTipsContainer" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+                <ImageView
+                    android:id="@+id/nextNews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:onClick="getNextNews"
+                    android:src="@drawable/arrow_right" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ABCDEF"
-                android:onClick="openExpenseTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="5dp" >
 
-                <ImageView
-                    android:layout_width="50dp"
+                <com.google.ads.AdView
+                    xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+                    android:id="@+id/adHomeView"
+                    android:layout_width="fill_parent"
                     android:layout_height="50dp"
+                    android:gravity="center"
+                    googleads:adSize="BANNER"
+                    googleads:adUnitId="a151a83ca554dd1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/menulist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/homeTipsContainer" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ABCDEF"
+                    android:onClick="openExpenseTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/transaction"
+                        android:src="@drawable/expense" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/expense"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#BCDEFA"
                     android:contentDescription="@string/transaction"
-                    android:src="@drawable/expense" />
+                    android:onClick="openIncomeTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/expense"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/setting"
+                        android:src="@drawable/income" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#BCDEFA"
-                android:contentDescription="@string/transaction"
-                android:onClick="openIncomeTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/income"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#CDEFAB"
+                    android:contentDescription="@string/transfer"
+                    android:onClick="openTransferTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/setting"
+                        android:src="@drawable/transfer" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/transfer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#DEFABC"
+                    android:contentDescription="@string/trans_hist"
+                    android:onClick="openTransactionHistTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/setting"
+                        android:src="@drawable/history" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/trans_hist"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#CAADEF"
+                    android:contentDescription="@string/payable"
+                    android:onClick="openPayableTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/payable"
+                        android:src="@drawable/payable" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/payable"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#CABDEF"
+                    android:contentDescription="@string/receivable"
+                    android:onClick="openReceivableTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/receivable"
+                        android:src="@drawable/receivable" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/receivable"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EFABCD"
+                    android:contentDescription="@string/transaction"
+                    android:onClick="openReportTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/setting"
+                        android:src="@drawable/report" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/report"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FABCDE"
                     android:contentDescription="@string/setting"
-                    android:src="@drawable/income" />
+                    android:onClick="openSettingTab"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/income"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/setting"
+                        android:src="@drawable/setting" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/setting"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#CDEFAB"
-                android:contentDescription="@string/transfer"
-                android:onClick="openTransferTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/setting"
-                    android:src="@drawable/transfer" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/transfer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#DEFABC"
-                android:contentDescription="@string/trans_hist"
-                android:onClick="openTransactionHistTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/setting"
-                    android:src="@drawable/history" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/trans_hist"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#EFABCD"
-                android:contentDescription="@string/transaction"
-                android:onClick="openReportTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/setting"
-                    android:src="@drawable/report" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/report"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FABCDE"
-                android:contentDescription="@string/setting"
-                android:onClick="openSettingTab"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/setting"
-                    android:src="@drawable/setting" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/setting"
-                    android:textSize="20sp"
-                    android:textStyle="bold" >
-                </TextView>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
 </RelativeLayout>

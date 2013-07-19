@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/payRecDetailHeaderTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/payRecDetailTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/payable"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/payRecdetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/payRecDetailHeaderTitle" >
+
+        <LinearLayout
+            android:id="@+id/payRecDetailContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/row0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:text="@string/date_input"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/payRecEdDateInput"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:textSize="@dimen/textSize" />
+
+                <ImageButton
+                    android:id="@+id/payRecBtnDateInput"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|top"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="payRecDateInputClick"
+                    android:src="@drawable/icon_date_picker" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:text="@string/description"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/payRecEdDescription"
+                    android:layout_width="170dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:inputType="text"
+                    android:textSize="@dimen/textSize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:text="@string/amount"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/payRecEdAmount"
+                    android:layout_width="170dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:inputType="number"
+                    android:textSize="@dimen/textSize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:text="@string/due_date"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/payRecEdDueDate"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:textSize="@dimen/textSize" />
+
+                <ImageButton
+                    android:id="@+id/payRecBtnDueDate"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|top"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="payRecDueDateClick"
+                    android:src="@drawable/icon_date_picker" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rowPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textViewAmountPaid"
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@string/amount_paid"
+                    android:textSize="@dimen/textSize" />
+
+                <EditText
+                    android:id="@+id/payRecEdAmountPaid"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:focusable="false"
+                    android:inputType="text"
+                    android:textSize="@dimen/textSize" />
+
+                <ImageButton
+                    android:id="@+id/payRecBtnAmountPaidPopUp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|top"
+                    android:contentDescription="@string/app_name"
+                    android:onClick="openPaymentList"
+                    android:src="@drawable/list" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rowComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp" >
+
+                <TextView
+                    android:id="@+id/textMarkComplete"
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:text="@string/mark_complete"
+                    android:textSize="@dimen/textSize" />
+
+                <CheckBox
+                    android:id="@+id/payRecCheckMarkComplete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left" >
+                </CheckBox>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/confDetailButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="2dp" >
+
+                <Button
+                    android:id="@+id/payRecBtnAddorUpdPayRec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttoncustom"
+                    android:onClick="addOrModPayRec"
+                    android:shadowColor="#7740A8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="@string/add"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/textSize" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/row4"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footerConfDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/payRecdetail"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:paddingTop="5dp" >
+
+        <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adConfDetailView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a151a83ca554dd1" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -19,7 +19,7 @@ import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
 import com.google.ads.AdView;
 
-public class IncomeFragment extends Fragment {
+public class IncomeFragment extends ExpenseTrackerFragment {
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	            Bundle savedInstanceState) {
 	        if (container == null) {
@@ -53,9 +53,9 @@ public class IncomeFragment extends Fragment {
 		if(dateInputText!=null){
 			ExpenseTrackerActivity expActivity = (ExpenseTrackerActivity) getActivity();
 			FormatHelper.setCurrentDateOnView(dateInputText);
-			ArrayAdapter<CharSequence> fundDestAdapter = ArrayAdapter
-					.createFromResource(this.getActivity().getApplicationContext(),
-							R.array.category_input, R.layout.spinner_item);
+			ArrayAdapter<String> fundDestAdapter = new ArrayAdapter<String>(
+					expActivity.getApplicationContext(), R.layout.spinner_item,
+					StaticVariables.fundCatList);
 			fundDestAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
 			List<String> incomeCategoryList = StaticVariables.listOfIncCat;

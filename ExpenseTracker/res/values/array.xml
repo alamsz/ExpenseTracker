@@ -2,15 +2,15 @@
 <resources>
 
     <string-array name="localeSetting">
-        <item name="ID">Rupiah Indonesia</item>
-        <item name="US">Dollar Amerika</item>
+        <item name="ID">Indonesian Rupiah</item>
+        <item name="US">US Dollar</item>
         <item name="GB">Poundsterling</item>
-      
+        
        
     </string-array>
     <string-array name="localeSettingValues">
         <item name="ID">inID</item>
-        <item name="US">enUS</item>
+        <item name="US">idUS</item>
         <item name="GB">enGB</item>
        
     </string-array>
@@ -28,8 +28,8 @@
 
      <string-array name="type_input">
         <item name="B"></item>
-        <item name="C">Pengeluaran</item>
-        <item name="D">Pemasukan</item>
+        <item name="C">Expense</item>
+        <item name="D">Income</item>
     </string-array>
      <string-array name="type_inputValues">
         <item name="B"></item>
@@ -38,12 +38,27 @@
     </string-array>
     <string-array name="category_input">
         <item name="B"></item>
-        <item name="S">Tabungan</item>
-        <item name="C">Tunai</item>
+        <item name="S">Bank Saving</item>
+        <item name="C">Cash</item>
     </string-array>
     <string-array name="category_input_values">
         <item name="B"></item>
         <item name="S">T</item>
         <item name="C">C</item>
+    </string-array>
+    
+    <string-array name="months">
+        <item name="1">January</item>
+        <item name="2">February</item>
+        <item name="3">March</item>
+        <item name="4">April</item>
+        <item name="5">May</item>
+        <item name="6">June</item>
+        <item name="7">July</item>
+        <item name="8">August</item>
+        <item name="9">September</item>
+        <item name="10">October</item>
+        <item name="11">November</item>
+        <item name="12">December</item>
     </string-array>
 </resources>

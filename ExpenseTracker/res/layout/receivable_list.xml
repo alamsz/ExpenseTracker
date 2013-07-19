@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/headerPayRecList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCF945"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/payRecTitle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/list_of_payable"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/payRecBtnAddNew"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/addnew"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:onClick="createNewReceivable"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+"
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listofPayRec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerPayRecList"
+        android:divider="#b5b5b5"
+        android:dividerHeight="2dp"
+        android:listSelector="@drawable/list_selector" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/footerPayRecList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
+        <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adPayRecView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a151a83ca554dd1" />
+    </LinearLayout>
+
+</RelativeLayout>

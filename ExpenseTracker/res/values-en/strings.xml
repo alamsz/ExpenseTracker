@@ -7,7 +7,10 @@
  	<string name="inc_category_prompt">Choose Income Category</string>
  	<string name="exp_category">Expense Category</string>
  	<string name="inc_category">Income Category</string>
-    <string name="app_name">ExpenseTracker</string>
+ 	<string name="exp_category_detail">Expense Category Detail</string>
+ 	<string name="inc_category_detail">Income Category Detail</string>
+ 	<string name="config_detail">Configuration Detail</string>
+    <string name="app_name">PencatatKeuangan</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="home">Home</string>
@@ -24,7 +27,8 @@
     <string name="expense_cat">Category</string>
     <string name="balance">Balance</string>
     <string name="transaction">Transaction</string>
-    
+    <string name="weekly_budget">Weekly Budget</string>
+ 	<string name="monthly_budget">Monthly Budget</string>
     <string name="expense_type">Type</string>
     <string name="show_transaction">Show Transaction</string>
     <string name="mustNotEmpty">Field Must be Filled in</string>
@@ -37,6 +41,7 @@
     <string name="total_balance">Total Balance</string>
  	<string name="total_balance_saving">Total Balance Bank Saving</string>
  	<string name="total_balance_cash">Total Balance Cash</string>
+ 	<string name="total_category">Total Balance %1$s</string>
  	<string name="delimiter_doubledot">&#160;:&#160;</string>
     <string name="C">Cash</string>
     <string name="T">Bank Saving</string>
@@ -78,6 +83,14 @@
  	<string name="define_what_currency_to_be_used">Define what currency to be used</string>
  	<string name="currency_setting">Currency Setting</string>
  	<string name="transaction_category">Transaction Kategori</string>
+ 	<string name="weekly_report">Weekly</string>
+ 	<string name="monthly_report">Monthly</string>
+ 	<string name="yearly_report">Yearly</string>
+ 	<string name="week_prefix">Week</string>
+ 	<string name="not_set">Not set</string>
+ 	<string name="over_budget_expense">%1$s Expenses has been over budget for month %2$s. Expense amount %3$s, Monthly Budget %4$s</string>
+ 	<string name="okay_budget_expense">%1$s Expenses still good for month %2$s. Expense amount %3$s, Monthly Budget %4$s</string>
+ 	<string name="notset_budget_expense">%1$s Expenses for month %2$s is %3$s, Monthly Budget %4$s, recommended to add budget in expense category</string>
     <!-- Process Message -->
     <string name="expense_should_be_lower_than_balance">Transaction amount must be lower than %1$s balance</string>
     <string name="transaction_success">Transaction Id %1$s Successfully added.</string>
@@ -88,24 +101,66 @@
 	<string name="transfer_success">Successfully transferred from &#160;%1$s&#160; to &#160;%2$s&#160; with amount &#160;%3$s</string>
 	<string name="transfer_invalid">Transfer from and Transfer to should have different category</string>
 	<string name="add_config_success">Category &#160;%1$s&#160; has been successfully added</string>
+	<string name="mod_config_success">Category &#160;%1$s&#160; has been successfully modified</string>
  	<string name="add_config_fails">Category &#160;%1$s&#160; failed to be added</string>
+ 	<string name="mod_config_fails">Category &#160;%1$s&#160; failed to be modified</string>
+ 	<string name="add_success">%1$s&#160; has been successfully added</string>
+	<string name="mod_success">%1$s&#160; has been successfully modified</string>
+ 	<string name="add_fails">%1$s&#160; failed to be added</string>
+ 	<string name="mod_fails">%1$s&#160; failed to be modified</string>
+ 		<string name="del_success">%1$s&#160; has been successfully deleted</string>
+ 	<string name="del_fails">%1$s&#160; failed to be deleted</string>
  	<string name="cat_code_required">Code required and must be 3 characters</string>
- 	<string name="loc_desc_required">Indonesian Description Required</string>
+ 	<string name="loc_desc_required">Local Description Required</string>
  	<string name="en_desc_required">English Description Required</string>
+ 	<string name="over_budget_title">Over Budget Confirmation</string>
+ 	<string name="over_budget_confirmation">The amount of expense will cause over budget to your %1s monthly budget, do you want to continue?</string>
+	<string name="period">Period</string>
 	<!--  button name -->
 	<string name="btn_submit">Process</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_save">Save</string>
     <string name="btn_close">Close</string>
     <string name="btn_delete">Delete</string>
+    <string name="btn_yes">Yes</string>
+ 	<string name="btn_no">No</string>
+ 	<string name="btn_show">Show</string>
+ 	<string name="btn_show_graph">Show in Chart</string>
+ 	<string name="btn_show_list">Show in List</string>
+ 	<string name="btn_add">Add</string>
+ 	<string name="btn_mod">Modify</string>
     
     <!--  configuration -->
  	<string name="preflang">en_US</string>
  	 	<string name="expense_category_list">Expense Category List</string>
  	<string name="income_category_list">Income Category List</string>
+ 	<string name="configuration_list">Configuration List</string>
  	<string name="add">Add</string>
  	<string name="en_desc">English Desc</string>
- 	<string name="loc_desc">Indonesian Desc</string>
+ 	<string name="loc_desc">Local Desc</string>
  	<string name="code">Code</string>
  	<string name="diff">Difference :&#160;</string>
+ 	<string name="status">Status</string>
+ 	<string name="due_date">Due Date</string>
+ 	<string name="receivable">Receivable</string>
+ 	<string name="payable">Payable</string>
+ 	<string name="list_of_payable">List of Payable</string>
+ 	<string name="list_of_receivable">List of Receivable</string>
+ 	<string name="income_per_category">Income Per Category</string>
+ 	<string name="expense_per_category">Expense Per Category</string>
+ 	<string name="summary">Summary</string>
+ 	<string name="amount_paid">Amount paid</string>
+ 	<string name="mark_complete">Mark as Complete</string>
+ 	<string name="mark_as_transaction">Mark as Transaction?</string>
+ 	<string name="other_than_cash">Others</string>
+ 	<string name="config_record_exist">Record with code %1$s exist, please use other code</string>
+ 	<string name="payable_payment_list">Payable Payment List</string>
+ 	<string name="receivable_payment_list">Receivable Payment List</string>
+ 	<string name="payable_total">Payable %1$s Total : </string>
+ 	<string name="receivable_total">Receivable %1$s Total : </string>
+ 	<string name="payable_payment">Payable Payment</string>
+ 	<string name="receivable_payment">Receivable Payment</string>
+ 	<string name="payment_complete">Complete</string>
+ 	<string name="payment_not_complete">Not Complete</string>
+ 	<string name="fund_type">Fund Type</string>
 </resources>

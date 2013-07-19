@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
-public class DirectoryChooserFragment extends Fragment {
+public class DirectoryChooserFragment extends ExpenseTrackerFragment {
 	private boolean scalingComplete = false;
 	private static final String SLASH = "/";
 

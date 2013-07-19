@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/headerPayRecList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:background="#DCF945"
+            android:orientation="vertical"
+             >
+
+            <TextView
+                android:id="@+id/payRecTitle"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/payable_payment_list"
+                android:textAppearance="@style/TextAppearance.Sherlock"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/payRecTotalPayRec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/payable_payment_list"
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/addnew"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:onClick="createNewPayRecPayment"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listofPayRecPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerPayRecList"
+        android:divider="#b5b5b5"
+        android:dividerHeight="2dp"
+        android:listSelector="@drawable/list_selector" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/footerPayRecList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DCF945"
+        android:orientation="horizontal"
+        android:paddingTop="10dp" >
+
+        <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adPayRecView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a151a83ca554dd1" />
+    </LinearLayout>
+
+</RelativeLayout>

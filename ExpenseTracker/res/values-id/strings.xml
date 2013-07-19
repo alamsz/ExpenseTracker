@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ExpenseTracker</string>
+    <string name="app_name">PencatatKeuangan</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="home">Rumah</string>
@@ -33,6 +33,7 @@
  	<string name="total_balance">Jumlah Saldo</string>
  	<string name="total_balance_saving">Jumlah Saldo Tabungan</string>
  	<string name="total_balance_cash">Jumlah Saldo Tunai</string>
+ 	<string name="total_category">Jumlah Saldo %1$s</string>
  	<string name="delimiter_doubledot">&#160;:&#160;</string>
  	<string name="C">Tunai</string>
  	<string name="T">Tabungan</string>
@@ -53,6 +54,13 @@
  	<string name="inc_category_prompt">Pilih Kategori Pemasukan</string>
  	<string name="exp_category">Kat. Pengeluaran</string>
  	<string name="inc_category">Kat. Pemasukan</string>
+ 	<string name="exp_category_detail">Detil Kategori Pengeluaran</string>
+ 	<string name="inc_category_detail">Detil Kategori Pemasukan</string>
+ 	<string name="config_detail">Detil Konfigurasi</string>
+ 	<string name="not_set">Belum ada</string>
+ 	<string name="over_budget_expense">Pengeluaran %1$s over budget untuk bulan %2$s. Jumlah Pengeluaran %3$s, Budget Bulanan %4$s</string>
+ 	<string name="okay_budget_expense">Pengeluaran %1$s masih baik untuk bulan %2$s. Jumlah Pengeluaran %3$s, Budget Bulanan %4$s</string>
+ 	<string name="notset_budget_expense">Pengeluaran %1$s untuk bulan %2$s sebesar %3$s, Budget Bulanan %4$s, direkomendasikan untuk menambahkan budget bulanan di kategori pengeluaran</string>
  	<!--  process message -->
  	<string name="emptyTextValidation">%1$s diperlukan, tidak boleh kosong!</string>
  	<string name="allFieldValidation">Semua Field diperlukan, tolong cek kembali</string>
@@ -72,26 +80,47 @@
  	<string name="finance_tips_good">Kondisi keuangan anda masih baik</string>
  	<string name="finance_tips_warning">Kondisi keuangan anda masih cukup, mulai berhemat</string>
  	<string name="finance_tips_critical">Kondisi keuangan anda sudah buruk, jangan melakukan pengeluaran tidak perlu</string>
- 	<string name="add_config_success">Penambahan Kategori &#160;%1$s&#160; sukses</string>
- 	<string name="add_config_fails">Penambahan Kategori&#160;%1$s&#160; gagal</string>
+ 	<string name="add_config_success">Kategori &#160;%1$s&#160; telah berhasil ditambahkan</string>
+ 	<string name="mod_config_success">Kategori &#160;%1$s&#160; telah berhasil diubah</string>
+ 	<string name="mod_config_fails">Kategori &#160;%1$s&#160; gagal diubah</string>
+ 	<string name="add_config_fails">Kategori&#160;%1$s&#160; gagal ditambahkan</string>
+ 	<string name="add_success">%1$s&#160; telah berhasil ditambahkan</string>
+ 	<string name="mod_success">%1$s&#160; telah berhasil diubah</string>
+ 	<string name="mod_fails">%1$s&#160; gagal diubah</string>
+ 	<string name="del_success">%1$s&#160; telah berhasil dihapus</string>
+ 	<string name="del_fails">%1$s&#160; gagal dihapus</string>
+ 	<string name="add_fails">%1$s&#160; gagal ditambahkan</string>
  	<string name="cat_code_required">Kode diperlukan dan harus 3 karakter</string>
- 	<string name="loc_desc_required">Deskripsi Indonesia Diperlukan</string>
+ 	<string name="loc_desc_required">Deskripsi Lokal Diperlukan</string>
  	<string name="en_desc_required">Deskripsi Inggris Diperlukan</string>
- 	
+ 	<string name="over_budget_title">Konfirmasi Over Budget</string>
+ 	<string name="over_budget_confirmation">Jumlah Pengeluaran akan mengakibatkan over budget untuk budget bulanan %1s , apakah anda ingin melanjutkan?</string>
+ 	<string name="weekly_report">Mingguan</string>
+ 	<string name="monthly_report">Bulanan</string>
+ 	<string name="yearly_report">Tahunan</string>
+ 	<string name="week_prefix">Minggu</string>
  	<!-- button name -->
  	<string name="btn_submit">Proses</string>
  	<string name="btn_cancel">Batal</string>
  	<string name="btn_save">Simpan</string>
  	<string name="btn_close">Tutup</string>
  	<string name="btn_delete">Hapus</string>
+ 	<string name="btn_yes">Ya</string>
+ 	<string name="btn_no">Tidak</string>
  	<string name="add">Tambah</string>
+ 	<string name="btn_show">Tampilkan</string>
+ 	<string name="btn_show_graph">Tampilkan dalam Grafik</string>
+ 	<string name="btn_show_list">Tampilkan dalam List</string>
+ 	<string name="btn_add">Add</string>
+ 	<string name="btn_mod">Modify</string>
+ 	
  	<!--  configuration -->
  	<string name="preflang">in_ID</string>
  	<string name="expense_category_list">Daftar Kategori Pengeluaran</string>
  	<string name="income_category_list">Daftar Kategori Pemasukan</string>
- 	
+ 	<string name="configuration_list">Daftar Konfigurasi</string>
  	<string name="en_desc">Deskripsi Inggris</string>
- 	<string name="loc_desc">Deskripsi Indonesia</string>
+ 	<string name="loc_desc">Deskripsi Lokal</string>
  	<string name="code">Kode</string>
  	<string name="diff">Selisih :&#160;</string>
  	<string name="expense_category_setting">Pengaturan Kategory Pengeluaran</string>
@@ -110,4 +139,30 @@
  	<string name="define_what_currency_to_be_used">Definisikan Tipe Mata Uang Yang Dipakai</string>
  	<string name="currency_setting">Pengaturan Mata Uang</string>
  	<string name="transaction_category">Kategori Transaksi</string>
+ 	<string name="weekly_budget">Budget Mingguan</string>
+ 	<string name="monthly_budget">Budget Bulanan</string>
+ 	<string name="status">Status</string>
+ 	<string name="due_date">Tgl Jatuh Tempo</string>
+ 	<string name="receivable">Piutang</string>
+ 	<string name="payable">Hutang</string>
+ 	<string name="list_of_payable">Daftar Hutang</string>
+ 	<string name="list_of_receivable">Daftar Piutang</string>
+ 	<string name="period">Periode</string>
+ 	<string name="income_per_category">Pemasukan per Kategori</string>
+ 	<string name="expense_per_category">Pengeluaran per Kategori</string>
+ 	<string name="summary">Rekapitulasi</string>
+ 	<string name="amount_paid">Jumlah bayar</string>
+ 	<string name="mark_complete">Tandai sbg Lunas</string>
+ 	<string name="mark_as_transaction">Rekam Sebagai Transaksi?</string>
+ 	<string name="other_than_cash">Lainnya</string>
+ 	<string name="config_record_exist">Data dengan kode %1$s sudah ada, mohon gunakan kode lain</string>
+ 	<string name="payable_payment_list">Daftar Pembayaran Hutang</string>
+ 	<string name="receivable_payment_list">Daftar Pembayaran Piutang</string>
+ 	<string name="payable_total">Total Hutang %1$s : </string>
+ 	<string name="receivable_total">Total Piutang %1$s : </string>
+ 	<string name="payable_payment">Pembayaran Hutang</string>
+ 	<string name="receivable_payment">Pembayaran Piutang</string>
+ 	<string name="payment_complete">Lunas</string>
+ 	<string name="payment_not_complete">Belum Lunas</string>
+ 	<string name="fund_type">Tipe Dana</string>
 </resources>

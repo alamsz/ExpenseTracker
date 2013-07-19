@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alignmentMode="alignMargins"
+    android:alpha="1"
+    android:columnCount="5"
+    android:orientation="vertical" >
+ <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp" 
+        android:layout_gravity="center">
+		
+        <ImageButton
+            android:id="@+id/export"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:onClick="exportReportDetailToCSV"
+            android:src="@drawable/xls" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/incomeDetailHeaderTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/incomeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/income_per_category"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/incomePeriod"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:text="@string/period"
+            android:textColor="#343434"
+            android:textSize="@dimen/smallSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/expandableListViewIncomeDetail"
+            android:layout_width="0dip"
+            android:layout_height="150dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="5dp"
+            android:layout_weight="5"
+            android:divider="#b5b5b5"
+            android:dividerHeight="2dp"
+            android:listSelector="@drawable/list_selector"
+            android:textSize="@dimen/textSize" >
+        </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/expenseDetailHeaderTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/expenseDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/expense_per_category"
+            android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/expensePeriod"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dip"
+            android:text="@string/period"
+            android:textColor="#343434"
+            android:textSize="@dimen/smallSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:baselineAligned="false"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/expandableListViewExpenseDetail"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:layout_marginTop="5dp"
+            android:layout_weight="5"
+            android:divider="#b5b5b5"
+            android:dividerHeight="2dp"
+            android:listSelector="@drawable/list_selector"
+            android:textSize="@dimen/textSize" >
+        </ListView>
+          <com.google.ads.AdView
+            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+            android:id="@+id/adReportView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            googleads:adSize="BANNER"
+            googleads:adUnitId="a151a83ca554dd1"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

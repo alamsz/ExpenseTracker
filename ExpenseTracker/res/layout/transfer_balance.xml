@@ -79,8 +79,7 @@
                         android:id="@+id/column3"
                         android:layout_width="170dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal" >
 
                         <EditText
                             android:id="@+id/dateTransferText"
@@ -124,20 +123,35 @@
                         android:inputType="number"
                         android:textSize="@dimen/textSize" />
 
-                    <Spinner
-                        android:id="@+id/categoryFromSpinner"
-                        android:layout_width="170dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="left"
-                        android:entries="@array/category_input"
-                        android:entryValues="@array/category_input_values"
-                        android:prompt="@string/category_prompt"
-                        android:spinnerMode="dialog"
-                        android:textSize="@dimen/textSize" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <Spinner
+                            android:id="@+id/categoryFromSpinner"
+                            android:layout_width="130dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="left"
+                            android:entries="@array/category_input"
+                            android:entryValues="@array/category_input_values"
+                            android:prompt="@string/category_prompt"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/textSize" />
+
+                        <ImageButton
+                            android:id="@+id/modifyFndSrc"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/app_name"
+                            android:onClick="modifyFundCategory"
+                            android:src="@drawable/modify" />
+                    </LinearLayout>
 
                     <Spinner
                         android:id="@+id/categoryToSpinner"
-                        android:layout_width="170dp"
+                        android:layout_width="130dp"
                         android:layout_height="40dp"
                         android:layout_gravity="left"
                         android:entries="@array/category_input"
@@ -153,11 +167,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/buttoncustom"
                 android:onClick="transferBalance"
                 android:padding="10dp"
-                android:text="@string/btn_submit"
-                android:textSize="@dimen/textSize" />
+                android:text="@string/btn_submit" />
         </LinearLayout>
     </ScrollView>
 

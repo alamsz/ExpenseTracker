@@ -15,9 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alamsz.inc.expensetracker.R;
-import com.alamsz.inc.expensetracker.dao.ConfigurationDAO;
 import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
-import com.alamsz.inc.expensetracker.utility.StaticVariables;
+import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
 
 public class ConfigurationExpAdapter extends BaseAdapter {
 
@@ -27,6 +26,13 @@ public class ConfigurationExpAdapter extends BaseAdapter {
 	private List<ConfigurationExpTracker> data;
 	private static LayoutInflater inflater = null;
 
+	static class ViewHolder
+	{
+		public Button btnCode;
+		public TextView txtDesc;
+		public Switch swtStatus;
+		
+	}
 	// public ImageLoader imageLoader;
 	public ConfigurationExpAdapter(Activity a, List<ConfigurationExpTracker> d) {
 		activity = a;
@@ -35,6 +41,8 @@ public class ConfigurationExpAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// imageLoader=new ImageLoader(activity.getApplicationContext());
 	}
+	
+	
 
 	@Override
 	public int getCount() {
@@ -60,26 +68,39 @@ public class ConfigurationExpAdapter extends BaseAdapter {
 		View vi = convertView;
 		if (convertView == null) {
 			vi = inflater.inflate(R.layout.trans_category_list, null);
-
+			ViewHolder viewHolder = new ViewHolder();
+			viewHolder.btnCode = (Button) vi.findViewById(R.id.btnCode);
+			viewHolder.txtDesc = (TextView) vi.findViewById(R.id.description);
+			viewHolder.swtStatus = (Switch) vi.findViewById(R.id.customSwitchOnOff);
+			vi.setTag(viewHolder);
 		}
-
+		ViewHolder vHold = (ViewHolder) vi.getTag();
 		ConfigurationExpTracker transaction = new ConfigurationExpTracker();
 		transaction = data.get(position);
-
+		vHold.swtStatus.setVisibility(Button.VISIBLE);
+		String[] keyword = DatabaseHandler.persistentConfig;
+		// to make sure config persistent not erased
+		for (int i = 0; i < keyword.length; i++) {
+			String value = keyword[i];
+			String confValue = transaction.getTableType()+transaction.getTableCode();
+			if(value.equals(confValue)){
+				vHold.swtStatus.setVisibility(Button.INVISIBLE);
+				break;
+			}
+			
+		}
 		// Setting all values in listview
-		Button btnCode = (Button) vi.findViewById(R.id.btnCode);
-		TextView txtDesc = (TextView) vi.findViewById(R.id.description);
-		btnCode.setText(transaction.getTableCode());
-		txtDesc.setText(transaction.getLocDesc());
-		Switch onOffSwitch = (Switch) vi.findViewById(R.id.customSwitchOnOff);
-		onOffSwitch.setChecked(transaction.getStatus() == 1);
-		onOffSwitch.setTag(transaction.getTableCode() + "_"
+		
+		vHold.btnCode.setText(transaction.getTableCode());
+		vHold.txtDesc.setText(transaction.getLocDesc());
+		vHold.swtStatus.setChecked(transaction.getStatus() == 1);
+		vHold.swtStatus.setTag(transaction.getTableCode() + "_"
 				+ transaction.getLocDesc());
-
+		
 		int r = Character.getNumericValue(transaction.getTableCode().charAt(0)) * 5 + 50;
-		int g = Character.getNumericValue(transaction.getTableCode().charAt(1)) * 3 + 50;
-		int b = Character.getNumericValue(transaction.getTableCode().charAt(2)) * 2 + 50;
-		btnCode.setBackgroundColor(Color.rgb(r, g, b));
+		int g = Character.getNumericValue(transaction.getTableCode().charAt(0)) * 50 + 150;
+		int b = Character.getNumericValue(transaction.getTableCode().charAt(0)) * 30 + 100;
+		vHold.btnCode.setBackgroundColor(Color.rgb(r, g, b));
 		// btnCode.setOnClickListener();
 		return vi;
 	}

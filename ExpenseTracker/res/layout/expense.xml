@@ -4,13 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    
-
     <ScrollView
         android:id="@+id/expenseTab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         >
+        android:layout_height="match_parent" >
 
         <RelativeLayout
             android:id="@+id/expenseContainer"
@@ -153,16 +150,32 @@
                             android:src="@drawable/modify" />
                     </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/expenseFundSourceSpinner"
-                        android:layout_width="130dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="left"
-                        android:entries="@array/category_input"
-                        android:entryValues="@array/category_input_values"
-                        android:prompt="@string/category_prompt"
-                        android:spinnerMode="dialog"
-                        android:textSize="@dimen/textSize" />
+                    <LinearLayout
+                        android:id="@+id/fndTransactLayout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <Spinner
+                            android:id="@+id/expenseFundSourceSpinner"
+                            android:layout_width="130dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="left"
+                            android:entries="@array/category_input"
+                            android:entryValues="@array/category_input_values"
+                            android:prompt="@string/category_prompt"
+                            android:spinnerMode="dialog"
+                            android:textSize="@dimen/textSize" />
+
+                        <ImageButton
+                            android:id="@+id/modifyFndSrc"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/app_name"
+                            android:onClick="modifyFundCategory"
+                            android:src="@drawable/modify" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -178,10 +191,8 @@
                     android:id="@+id/expenseButtonProcess"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttoncustom"
                     android:onClick="processExpense"
-                    android:text="@string/btn_submit"
-                    android:textSize="@dimen/textSize" />
+                    android:text="@string/btn_submit" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
@@ -192,16 +203,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#DCF945"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:gravity="center" >
+        android:paddingTop="10dp" >
 
         <com.google.ads.AdView
             xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
             android:id="@+id/adExpenseView"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            
             googleads:adSize="BANNER"
             googleads:adUnitId="a151a83ca554dd1" />
     </LinearLayout>

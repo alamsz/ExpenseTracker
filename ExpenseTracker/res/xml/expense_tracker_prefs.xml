@@ -32,6 +32,7 @@
         <EditTextPreference
             android:defaultValue="1000000"
             android:key="finance_tips_good_limit"
+            android:inputType="number"
             android:summary="@string/define_amount_limit_good_finance_condition"
             android:title="@string/set_limit_for_good_finance_condition" />
         <EditTextPreference
@@ -42,6 +43,7 @@
         <EditTextPreference
             android:defaultValue="100000"
             android:key="finance_tips_moderate_limit"
+            android:inputType="number"
             android:summary="@string/define_the_amount_limit_moderate_finance_condition"
             android:title="@string/set_limit_for_moderate_finance_condition" />
         <EditTextPreference

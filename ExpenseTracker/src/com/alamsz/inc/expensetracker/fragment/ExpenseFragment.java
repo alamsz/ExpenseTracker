@@ -3,10 +3,7 @@ package com.alamsz.inc.expensetracker.fragment;
 import java.util.List;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,7 +17,7 @@ import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
 import com.google.ads.AdView;
 
-public class ExpenseFragment extends Fragment {
+public class ExpenseFragment extends ExpenseTrackerFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (container == null) {
@@ -63,12 +60,7 @@ public class ExpenseFragment extends Fragment {
 	}
 
 	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.expense_category_setting, menu);
-	}
+	
 
 	
 
@@ -80,9 +72,10 @@ public class ExpenseFragment extends Fragment {
 		if(expenseDateInputText !=null){
 			ExpenseTrackerActivity expActivity = (ExpenseTrackerActivity) getActivity();
 			FormatHelper.setCurrentDateOnView(expenseDateInputText);
-			ArrayAdapter<CharSequence> fundSourceAdapter = ArrayAdapter.createFromResource(
+			
+			ArrayAdapter<String> fundSourceAdapter = new ArrayAdapter<String>(
 					expActivity.getApplicationContext(),
-					R.array.category_input, R.layout.spinner_item);
+					R.layout.spinner_item, StaticVariables.fundCatList); 
 			fundSourceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 			
 			

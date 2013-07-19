@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +22,8 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
-import com.alamsz.inc.expensetracker.dao.ConfigurationDAO;
 import com.alamsz.inc.expensetracker.utility.FileArrayAdapter;
 import com.alamsz.inc.expensetracker.utility.FileItem;
-import com.alamsz.inc.expensetracker.utility.StaticVariables;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
@@ -34,7 +31,7 @@ import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdView;
 
 public class DirectoryChooserActivity extends SherlockFragmentActivity {
-	private boolean scalingComplete = false;
+
 	private static final String SLASH = "/";
 
 	private static final int REQUEST_PATH = 1;
@@ -45,12 +42,14 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 	File currentDir;
 	FileArrayAdapter adapter;
 	AdView mAdView;
+	Class callingActivity;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.directory_chooser);
 		currentDir = new File("/sdcard/");
 		generateFolderView(currentDir);
+		
 		
 		
 		mAdView = (AdView) this.findViewById(R.id.ad);
@@ -180,7 +179,7 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 			fileNameEdit.setError(getString(R.string.mustNotEmpty));
 		} else {
 			this.getIntent().putExtra("getFullPathName",
-					currentDir +SLASH+ fileName + ".csv");
+					currentDir +SLASH+ fileName + ".xls");
 			setResult(RESULT_OK, this.getIntent());
 			finish();
 		}
@@ -197,7 +196,8 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 		    case android.R.id.home:
 		        // app icon in action bar clicked; go home
 		    	
-		    	Intent intent = new Intent(this, ExpenseTrackerActivity.class);
+		    	//finish();
+		    	Intent intent = new Intent(this, getCallingActivity().getClass());
 		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		        startActivity(intent);
 		        break;

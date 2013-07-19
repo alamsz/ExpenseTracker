@@ -9,6 +9,7 @@
        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="switchStyle">@style/Widget.Holo.Light.CompoundButton.Switch</item>
         <item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+       <item name="android:buttonStyle">@style/ButtonStyle</item>
     </style>
     
     <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -28,4 +29,18 @@
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">17dip</item>
     </style>
+    
+     <!--  button style -->
+     <style name="ButtonStyle">
+         
+         <item name="android:background">@drawable/buttoncustom</item>
+         <item name="android:textColor">@color/WhiteSmoke</item>
+         <item name="android:shadowColor">#7740A8</item>
+         <item name="android:shadowDx">0</item>
+         <item name="android:shadowDy">0</item>
+         <item name="android:shadowRadius">5</item>
+         <item name="android:gravity">center</item>
+         <item name="android:textSize">15sp</item>     
+         <item name="android:clickable">true</item>
+     </style>
 </resources>

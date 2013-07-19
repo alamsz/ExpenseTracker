@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Pencatat Keuangan v1.3" 
+        android:text="Pencatat Keuangan v1.4" 
         android:textStyle="bold">
     </TextView>
 

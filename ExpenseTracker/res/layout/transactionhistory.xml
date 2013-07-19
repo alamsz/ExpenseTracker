@@ -128,7 +128,7 @@
            
             android:contentDescription="@string/app_name"
             android:onClick="exportToCSV"
-            android:src="@drawable/docsave" />
+            android:src="@drawable/xls" />
     </LinearLayout>
 
     <LinearLayout

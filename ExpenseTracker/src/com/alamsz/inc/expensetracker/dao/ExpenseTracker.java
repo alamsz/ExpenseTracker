@@ -17,7 +17,43 @@ public class ExpenseTracker {
 	private String type;
 	private String category;
 	private String transCategory;
+	private int weekinmonth;
+	private int weekinyear;
+	private int month;
+	private int year;
 	
+
+	public int getWeekinmonth() {
+		return weekinmonth;
+	}
+
+	public void setWeekinmonth(int weekinmonth) {
+		this.weekinmonth = weekinmonth;
+	}
+
+	public int getWeekinyear() {
+		return weekinyear;
+	}
+
+	public void setWeekinyear(int weekinyear) {
+		this.weekinyear = weekinyear;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
 
 	public static final String CAT_SAVING = "T";
 	public static final String CAT_CASH = "C";
@@ -77,7 +113,7 @@ public class ExpenseTracker {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -133,5 +169,10 @@ public class ExpenseTracker {
 		
 		return listPenampung;
 	}
+	
+
+		
+	
+	
 
 }

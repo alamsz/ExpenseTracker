@@ -3,14 +3,18 @@ package com.alamsz.inc.expensetracker.utility;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
-
+import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
+
+import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
 
 public final class FormatHelper {
 	private static final String ZERO = "0";
@@ -44,6 +48,12 @@ public final class FormatHelper {
 		return timeInMilis;
 	}
 	
+	public static DatabaseHandler getDBHandler(DatabaseHandler dbHandler, Context context){
+		if(dbHandler == null){
+			dbHandler = new DatabaseHandler(context);
+		}
+		return dbHandler;
+	}
 
 	public static long formatDateToLong(String inputDateStr) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DD_MM_YYYY);
@@ -74,11 +84,19 @@ public final class FormatHelper {
 				.append(formattedMonth).append("-").append(year).append(" "));
 
 	}
+	
+	
 
 	
 	public static String formatDateForDisplay(long inputDateLong){
 		SimpleDateFormat dateFormatter = new SimpleDateFormat(DD_MM_YYYY);
 		return dateFormatter.format(new Date(inputDateLong));
+		
+	}
+	
+	public static String formatDateForDisplay(Date dateInput){
+		SimpleDateFormat dateFormatter = new SimpleDateFormat(DD_MM_YYYY);
+		return dateFormatter.format(dateInput);
 		
 	}
 	
@@ -118,5 +136,90 @@ public final class FormatHelper {
 		Date sysDate = new Date();
 		SimpleDateFormat dateFormatter = new SimpleDateFormat(DD_MM_YYYY);
 		return dateFormatter.format(sysDate);
+	}
+	
+	
+	public static List<Date> getWeekStartAndEndDateFromDate(int date, int month, int year){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DATE, date);
+		cal.set(Calendar.YEAR, year);
+		//cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+		return getWeekStartDateAndEndDate(cal);//System.out.println( + " -> "
+			//	+ df.format(last.getTime()));
+	}
+	
+	public static String[] getWeeksDatesFromDate(Date now){
+		String[] dates = new String[7];
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		//cal.add(Calendar.DATE, -1);
+		for(int i=0;i <7;i++){
+			dates[i] = formatDateForDisplay(cal.getTime());
+			cal.add(Calendar.DATE, 1);
+		}
+		return dates;
+	}
+	
+	public static List<Date> getWeekStartAndEndDateFromDate(Date now){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		return getWeekStartDateAndEndDate(cal);
+	}
+	
+	public static List<Date> getWeekStartAndEndDateFromWeekInAMonth(int week, int month, int year){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.WEEK_OF_MONTH, week);
+		cal.set(Calendar.YEAR, year);
+		//cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+		return getWeekStartDateAndEndDate(cal);//System.out.println( + " -> "
+			//	+ df.format(last.getTime()));
+	}
+	
+	
+	public static List<Date> getWeekStartAndEndDateFromWeekInAYear(int week, int year){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.WEEK_OF_YEAR, week);
+		cal.set(Calendar.YEAR, year);
+		//cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+		return getWeekStartDateAndEndDate(cal);//System.out.println( + " -> "
+			//	+ df.format(last.getTime()));
+	}
+
+	private static List<Date> getWeekStartDateAndEndDate(Calendar cal) {
+		Calendar first = (Calendar) cal.clone();
+		while (first.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+			first.add(Calendar.DATE, -1);
+	    }
+		//first.setFirstDayOfWeek(Calendar.MONDAY);
+		//first.add(Calendar.DAY_OF_WEEK,
+		//	first.getFirstDayOfWeek()-first.get(Calendar.DAY_OF_WEEK));
+
+		// and add six days to the end date
+		Calendar last = (Calendar) first.clone();
+		last.add(Calendar.DAY_OF_YEAR, 6);
+
+		// print the result
+	
+		List<Date> listDateRange = new ArrayList<Date>();
+		listDateRange.add(first.getTime());
+		listDateRange.add(last.getTime());
+		return listDateRange;
+	}
+	
+	public static List<Integer> getWeekNoMonthAndYearFromDate(Date now){
+		Calendar first = Calendar.getInstance();
+		first.setTime(now);
+		Calendar clone = (Calendar) first.clone();
+		while (clone.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+			clone.add(Calendar.DATE, -1);
+	    }
+		List<Integer> arrayofWeek = new ArrayList<Integer>();
+		arrayofWeek.add(clone.get(Calendar.WEEK_OF_MONTH));
+		arrayofWeek.add(clone.get(Calendar.WEEK_OF_YEAR));
+		arrayofWeek.add(clone.get(Calendar.MONTH)+1);
+		arrayofWeek.add(clone.get(Calendar.YEAR));
+		return arrayofWeek;
 	}
 }

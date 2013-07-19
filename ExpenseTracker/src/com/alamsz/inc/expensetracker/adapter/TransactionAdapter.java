@@ -24,7 +24,12 @@ public class TransactionAdapter extends BaseAdapter {
     private List<ExpenseTracker>data;
     private static LayoutInflater inflater=null;
     //public ImageLoader imageLoader;
- 
+    static class ViewHolderTransaction{
+    	 public TextView txtCategory; 
+         public TextView txtDescription ; 
+         public TextView txtIncome; 
+         public TextView txtExpense; 
+    }
     public TransactionAdapter(Activity a,List<ExpenseTracker> d) {
         activity = a;
         data=d;
@@ -55,18 +60,20 @@ public class TransactionAdapter extends BaseAdapter {
 		View vi=convertView;
         if(convertView==null){
             vi = inflater.inflate(R.layout.list_row, null);
+            ViewHolderTransaction vHT = new ViewHolderTransaction();
+            vHT.txtCategory = (TextView)vi.findViewById(R.id.category_list);
+            vHT.txtDescription = (TextView)vi.findViewById(R.id.description_list); 
+            vHT.txtIncome = (TextView)vi.findViewById(R.id.debet_list);
+            vHT.txtExpense = (TextView)vi.findViewById(R.id.credit_list);
+            vi.setTag(vHT);
         }
-        TextView category = (TextView)vi.findViewById(R.id.category_list); // title
-        TextView description = (TextView)vi.findViewById(R.id.description_list); // artist name
-        TextView debet = (TextView)vi.findViewById(R.id.debet_list); // duration
-        TextView credit = (TextView)vi.findViewById(R.id.credit_list);
-        
+     
         ExpenseTracker transaction = new ExpenseTracker();
         transaction = data.get(position);
-        
-        // Setting all values in listview
-        category.setText(FormatHelper.formatDateForDisplay(transaction.getDateInput()));
-        description.setText(transaction.getDescription());
+        ViewHolderTransaction vHTItem = (ViewHolderTransaction) vi.getTag();
+         // Setting all values in listview
+        vHTItem.txtCategory.setText(FormatHelper.formatDateForDisplay(transaction.getDateInput()));
+        vHTItem.txtDescription.setText(transaction.getDescription());
         String sign =  transaction.getType().equals(DEBET)?"":"-";
         String kreditStr = "0";
         String debitStr = "0";
@@ -77,8 +84,8 @@ public class TransactionAdapter extends BaseAdapter {
         if(transaction.getType().equals(CREDIT)){
         	kreditStr = FormatHelper.getBalanceInCurrency(transaction.getAmount());
         }
-        debet.setText(debitStr);
-        credit.setText(kreditStr);
+        vHTItem.txtIncome.setText(debitStr);
+        vHTItem.txtExpense.setText(kreditStr);
         return vi;
 	}
 

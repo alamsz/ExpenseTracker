@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reportContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/reportRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="#DCF945"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp" >
+
+            <TextView
+                android:id="@+id/period"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/period"
+                android:textSize="@dimen/textSize" />
+
+            <Spinner
+                android:id="@+id/monthSpinner"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/months"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+
+            <ImageView
+                android:id="@+id/prevYearReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:onClick="getPrevYearReport"
+                android:src="@drawable/arrow_left" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" >
+            </TextView>
+
+            <ImageView
+                android:id="@+id/nextYearReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:onClick="getNextYearReport"
+                android:src="@drawable/arrow_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/reportRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:background="#DCF945"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp" >
+
+            <TextView
+                android:id="@+id/fundSource"
+                android:layout_width="75dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="@string/fund_type"
+                android:textSize="@dimen/textSize" />
+
+            <Spinner
+                android:id="@+id/fundSourceSpinner"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_gravity="left"
+                android:entries="@array/category_input"
+                android:entryValues="@array/category_input_values"
+                android:prompt="@string/category_prompt"
+                android:spinnerMode="dialog"
+                android:textSize="@dimen/textSize" />
+
+            <ImageButton
+                android:id="@+id/buttonChartReport"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/line_chart"
+                android:onClick="getMonthlyReport"
+                android:text="@string/btn_show_graph" />
+
+            <ImageButton
+                android:id="@+id/buttonListReport"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/list"
+                android:onClick="getMonthlyReportList"
+                android:text="@string/btn_show_list" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reportView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/titleView"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</RelativeLayout>

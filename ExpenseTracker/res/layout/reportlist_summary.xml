@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="5dp" 
+    android:background="@drawable/list_selector">
+
+    <TextView
+        android:id="@+id/period"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:text="@string/period"
+        android:textColor="#343434"
+        android:textSize="@dimen/smallSize" />
+
+    <TextView
+        android:id="@+id/amountIncome"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:text="@string/income"
+        android:textColor="#343434"
+        android:textSize="@dimen/smallSize" />
+
+    <TextView
+        android:id="@+id/amountExpense"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dip"
+        android:text="@string/expense"
+        android:textColor="#343434"
+        android:textSize="@dimen/smallSize" />
+
+</LinearLayout>

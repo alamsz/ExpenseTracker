@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -51,6 +50,8 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
          * Set the ViewPager as the content view
          */
         setContentView(mViewPager);
+        
+       
     }
  
     /**
@@ -107,11 +108,8 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
             final TabInfo tabInfo = new TabInfo( fragmentClass, args );
  
             Tab tab = mActionBar.newTab();
-           // ((TextView) findViewById(R.id.tab_text)).setText(title);
+          
             tab.setText( title );
-           // tab.setCustomView(R.layout.tab_icon);
-           // ((TextView)findViewById(R.id.tab_text)).setText(title);
-    		//((ImageView)findViewById(R.id.tab_icons)).setBackground(drawable);  
             tab.setTabListener( this );
             tab.setTag( tabInfo );
             tab.setIcon(drawable);
@@ -148,6 +146,9 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
             mActionBar.setSelectedNavigationItem( position );
             selectInSpinnerIfPresent(position, true);
             ExpenseTrackerActivity.positionTab=position;
+            //ExpenseTrackerFragment frag = (ExpenseTrackerFragment) getItem(position);
+            //frag.initialize();
+            
         }
  
         public void onTabSelected(Tab tab, FragmentTransaction ft) {

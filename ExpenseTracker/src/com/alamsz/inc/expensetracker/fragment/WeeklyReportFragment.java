@@ -1,5 +1,6 @@
 package com.alamsz.inc.expensetracker.fragment;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.dao.ConfigurationDAO;
+import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
+import com.alamsz.inc.expensetracker.service.ConfigurationService;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
-import com.alamsz.inc.expensetracker.utility.StaticVariables;
 
 public class WeeklyReportFragment extends ExpenseTrackerFragment {
 	@Override
@@ -33,9 +37,14 @@ public class WeeklyReportFragment extends ExpenseTrackerFragment {
 		endDate = FormatHelper.formatDateForDisplay(dateList.get(1));
 		edWeekText = startDate + " - " + endDate;
 		edWeek.setText(edWeekText);
-		ArrayAdapter<String> fundSourceAdapter = new ArrayAdapter<String>(
+		List <ConfigurationExpTracker> fundSourceList = new ArrayList<ConfigurationExpTracker>();
+		fundSourceList.add(FormatHelper.initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
+		ConfigurationService confService = new ConfigurationService(FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler, this.getActivity()));
+		fundSourceList.addAll(confService.getConfigurationListFromDB(
+						ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, true));
+		ArrayAdapter<ConfigurationExpTracker> fundSourceAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 				getActivity().getApplicationContext(),
-				R.layout.spinner_item, StaticVariables.fundCatList); 
+				R.layout.spinner_item, fundSourceList); 
 		fundSourceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		
 		

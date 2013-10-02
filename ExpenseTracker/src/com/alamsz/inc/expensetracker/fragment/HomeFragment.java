@@ -25,7 +25,7 @@ import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
 import com.google.ads.AdView;
 
-public class HomeFragment extends ExpenseTrackerFragment {
+public class HomeFragment extends ExpenseTrackerFragment implements OnRefreshListener{
 	public static String financeTipsGood = "";
 	public static String financeTipsGoodLimit = "";
 	public static String financeTipsModerate = "";
@@ -36,7 +36,12 @@ public class HomeFragment extends ExpenseTrackerFragment {
 	private int balance;
 	String[] news;
 	private AdView mAdView;
-
+	View layout;
+	String totalBalance;
+	String cashBalance;
+	String otherBalance;
+	String balanceNext;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (container == null) {
@@ -44,18 +49,24 @@ public class HomeFragment extends ExpenseTrackerFragment {
 			return null;
 		}
 
-		View layout = (View) inflater.inflate(R.layout.home, container, false);
+		layout = (View) inflater.inflate(R.layout.home, container, false);
 		// get db connection from parent activity
 		DatabaseHandler dbHandler = FormatHelper.getDBHandler(
 				ExpenseTrackerActivity.dbHandler, getActivity());
 		expTrackerService = new ExpenseTrackerService(dbHandler);
-
+		StaticVariables.notSet = getString(R.string.not_set);
+		StaticVariables.notSetBudgetExpense = getString(R.string.notset_budget_expense);
+		StaticVariables.expenseOverBudget = getString(R.string.over_budget_expense);
+		StaticVariables.expenseOkayBudget = getString(R.string.okay_budget_expense);
+		StaticVariables.totalCategoryText = getString(R.string.total_category);
 		// display the balance when this fragment view are called
 		displayHomeInformation(layout);
 
 		return layout;
 	}
 
+	
+	
 	private String getBalance() {
 
 		String balance = getTotalBalanceFromDB();
@@ -83,10 +94,7 @@ public class HomeFragment extends ExpenseTrackerFragment {
 				: expTrackerService.getBalancePerCategory(category);
 		if (balancePerCategory == null)
 			balancePerCategory = ZERO;
-		String categoryDescription = getResources().getString(R.string.T);
-		if (category.equals(ExpenseTracker.CAT_CASH)) {
-			categoryDescription = getResources().getString(R.string.C);
-		}
+		
 		return FormatHelper.getBalanceInCurrency(balancePerCategory);
 	}
 
@@ -101,26 +109,31 @@ public class HomeFragment extends ExpenseTrackerFragment {
 		todayDate.setText(FormatHelper.getSystemDate());
 		TextView tipsView = (TextView) view.findViewById(R.id.tipsValue);
 
-		String totalBalance = getTotalBalanceFromDB();
+	    totalBalance = getTotalBalanceFromDB();
 		balance = Integer.parseInt(totalBalance == null ? "-1" : totalBalance);
 		tipsView.setText(getFinanceTips(balance));
-		saldoTotal.setText(getBalance());
+		balanceNext = getBalance();
+		saldoTotal.setText(balanceNext);
 		TextView txtBalanceCash = (TextView) view
 				.findViewById(R.id.saldoCashView);
+		ConfigurationExpTracker configurationExpTrackerCash = StaticVariables.mapOfFundCategory
+				.get(ExpenseTracker.CAT_CASH);
+		String cashDesc = configurationExpTrackerCash==null?"Cash":configurationExpTrackerCash.toString();
 		txtBalanceCash
 				.setText(String.format(getString(R.string.total_category),
-						StaticVariables.mapOfFundCategory
-								.get(ExpenseTracker.CAT_CASH)));
+						cashDesc));
 		TextView txtBalanceSaving = (TextView) view
 				.findViewById(R.id.saldoTabunganView);
 		txtBalanceSaving.setText(String.format(
 				getString(R.string.total_category),
 				getString(R.string.other_than_cash)));
 
-		saldoCash.setText(getBalancePerCategory(ExpenseTracker.CAT_CASH));
-		saldoTabungan.setText(FormatHelper
+		cashBalance = getBalancePerCategory(ExpenseTracker.CAT_CASH);
+		saldoCash.setText(cashBalance);
+		otherBalance = FormatHelper
 				.getBalanceInCurrency(expTrackerService
-						.getBalanceOtherThanCash()));
+						.getBalanceOtherThanCash());
+		saldoTabungan.setText(otherBalance);
 		mAdView = (AdView) view.findViewById(R.id.adHomeView);
 		AdUtility.displayAd(mAdView);
 
@@ -129,15 +142,7 @@ public class HomeFragment extends ExpenseTrackerFragment {
 	public String getFinanceTips(int balanceInput) {
 
 		String financeTips = "";
-		List<ConfigurationExpTracker> confExpCatList = StaticVariables.listOfConfExpCat;
-		List<ConfigurationExpTracker> fndTypeList = StaticVariables.listOfFundSource;
-		int size = StaticVariables.listOfConfExpCat.size();
-		Date nowDate = new Date();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(nowDate);
-
-		int monthInt = cal.get(Calendar.MONTH) + 1;
-		int yearInt = cal.get(Calendar.YEAR);
+		
 		StaticVariables.newsArray = new ArrayList<String>();
 		try {
 			SharedPreferences sharedPrefs = PreferenceManager
@@ -175,9 +180,27 @@ public class HomeFragment extends ExpenseTrackerFragment {
 		} catch (Exception e) {
 			financeTips = "setting tips error, recheck limit input";
 		}
-		
 		// add finance tips no matter what the result
 		StaticVariables.newsArray.add(financeTips);
+		updateNews();
+
+		StaticVariables.newsIndex = 0;
+		return financeTips;
+	}
+
+
+
+	private void updateNews() {
+		List<ConfigurationExpTracker> confExpCatList = StaticVariables.listOfConfExpCat;
+		List<ConfigurationExpTracker> fndTypeList = StaticVariables.listOfFundSource;
+		int size = StaticVariables.listOfConfExpCat.size();
+		Date nowDate = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(nowDate);
+
+		int monthInt = cal.get(Calendar.MONTH) + 1;
+		int yearInt = cal.get(Calendar.YEAR);
+		
 		// has been reported some problem in this area, catch it for now
 		try {
 			for (Iterator iterator = fndTypeList.iterator(); iterator.hasNext();) {
@@ -188,8 +211,9 @@ public class HomeFragment extends ExpenseTrackerFragment {
 					String balance = expTrackerService
 							.getBalancePerCategory(configurationExpTracker
 									.getTableCode());
+					
 					String tips = String.format(
-							getString(R.string.total_category),
+							StaticVariables.totalCategoryText,
 							configurationExpTracker.getLocDesc())
 							+ " \n "
 							+ FormatHelper.getBalanceInCurrency(balance);
@@ -212,26 +236,30 @@ public class HomeFragment extends ExpenseTrackerFragment {
 								.getBalanceInCurrency(expense);
 						int budgetAmountMonthly = configTemp.getExpBudget()
 								.getBudgetAmountMonthly();
-						String budgetStr = budgetAmountMonthly == 0 ? getString(R.string.not_set)
+						
+						String budgetStr = budgetAmountMonthly == 0 ? StaticVariables.notSet
 								: FormatHelper
 										.getBalanceInCurrency(budgetAmountMonthly);
 						String monthStr = StaticVariables.monthStrArr[monthInt - 1]
 								+ " " + yearInt;
 						if (budgetAmountMonthly == 0) {
+							
 							tips = String.format(
-									getString(R.string.notset_budget_expense),
+									StaticVariables.notSetBudgetExpense,
 									new String[] { configTemp.getLocDesc(),
 											monthStr, expenseStr, budgetStr });
 						} else if (budgetAmountMonthly > 0
 								&& expense > budgetAmountMonthly) {
+							
 							tips = String.format(
-									getString(R.string.over_budget_expense),
+									StaticVariables.expenseOverBudget,
 									new String[] { configTemp.getLocDesc(),
 											monthStr, expenseStr, budgetStr });
 
 						} else {
+							
 							tips = String.format(
-									getString(R.string.okay_budget_expense),
+									StaticVariables.expenseOkayBudget,
 									new String[] { configTemp.getLocDesc(),
 											monthStr, expenseStr, budgetStr });
 						}
@@ -245,9 +273,6 @@ public class HomeFragment extends ExpenseTrackerFragment {
 		} catch (Exception e) {
 
 		}
-
-		StaticVariables.newsIndex = 0;
-		return financeTips;
 	}
 
 	@Override
@@ -255,4 +280,37 @@ public class HomeFragment extends ExpenseTrackerFragment {
 		// TODO Auto-generated method stub
 		getFinanceTips(balance);
 	}
+
+	@Override
+	public void onRefresh(TextView txtSaldoOther, TextView txtSaldoCash, TextView txtSaldo, TextView finTips) {
+		DatabaseHandler dbHandler = FormatHelper.getDBHandler(
+				ExpenseTrackerActivity.dbHandler, getActivity());
+		 expTrackerService = new ExpenseTrackerService(dbHandler);
+		 totalBalance = getTotalBalanceFromDB();
+		 balanceNext = getBalance();
+		 cashBalance = getBalancePerCategory(ExpenseTracker.CAT_CASH);
+		 otherBalance = FormatHelper
+					.getBalanceInCurrency(expTrackerService
+							.getBalanceOtherThanCash());
+		if(txtSaldo !=null){
+			try{
+				txtSaldo.setText(balanceNext);
+				txtSaldoCash.setText(cashBalance);
+				txtSaldoOther.setText(otherBalance);
+				String TipsFin = StaticVariables.newsArray.get(0);
+				StaticVariables.newsArray = new ArrayList<String>();
+				StaticVariables.newsArray.add(TipsFin);
+				updateNews();
+				finTips.setText(StaticVariables.newsArray.get(0));
+			}
+			catch(Exception e){
+			}
+	
+		}
+		 
+	}
+
+
+
+	
 }

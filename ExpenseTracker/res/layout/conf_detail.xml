@@ -133,9 +133,7 @@
                     <org.jraf.android.backport.switchwidget.Switch
                         android:id="@+id/switchStatus"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        
-                        />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/weeklyBudgeetText"
@@ -179,28 +177,14 @@
                     android:text="@string/add"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
+
+                <com.appbrain.AppBrainBanner
+                    android:id="@+id/adConfDetailView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:paddingTop="5dp"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/footerConfDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/confdetail"
-        android:background="#DCF945"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingTop="10dp" >
-
-        <com.google.ads.AdView
-            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-            android:id="@+id/adConfDetailView"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
-    </LinearLayout>
 
 </RelativeLayout>

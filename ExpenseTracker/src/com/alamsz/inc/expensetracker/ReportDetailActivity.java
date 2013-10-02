@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.alamsz.inc.expensetracker.adapter.ReportDetailAdapter;
+import com.alamsz.inc.expensetracker.dao.ConfigurationDAO;
 import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
 import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
 import com.alamsz.inc.expensetracker.dao.ExpenseCategoryBudget;
 import com.alamsz.inc.expensetracker.dao.ReportDetail;
+import com.alamsz.inc.expensetracker.service.ConfigurationService;
 import com.alamsz.inc.expensetracker.service.ExpenseTrackerService;
 import com.alamsz.inc.expensetracker.utility.AdUtility;
 import com.alamsz.inc.expensetracker.utility.CSVFile;
@@ -38,6 +40,7 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 	public String fundType;
 	List<ReportDetail> expReportDetailList = new ArrayList<ReportDetail>();
 	List<ReportDetail> incReportDetailList = new ArrayList<ReportDetail>();
+	ConfigurationService confService;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
@@ -45,6 +48,7 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.report_detail_in_list);
 		DatabaseHandler dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler, this);
 		expenseTrackerService = new ExpenseTrackerService(dbHandler);
+		confService = new ConfigurationService(dbHandler);
 		Intent intent = getIntent();
 		setupView(intent);
 		AdView mAdView = (AdView) findViewById(R.id.adReportView);
@@ -53,6 +57,16 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 	}
 
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		DatabaseHandler dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler, this);
+		expenseTrackerService = new ExpenseTrackerService(dbHandler);
+		confService = new ConfigurationService(dbHandler);
+	}
+
+
 	@Override
 	public boolean onOptionsItemSelected(
 			com.actionbarsherlock.view.MenuItem item) {
@@ -88,8 +102,7 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 			String[] detail = expAmount.get(i);
 			Log.d("code", detail[0]);
 
-			ConfigurationExpTracker configTemp = StaticVariables.mapOfExpenseCatBasedOnTableCode
-					.get(detail[1]);
+			ConfigurationExpTracker configTemp = confService.findByPKConfig(ConfigurationDAO.EXPENSE_CATEGORY, detail[1]);
 			if (configTemp != null) {
 				ExpenseCategoryBudget expBudget = configTemp.getExpBudget();
 				repExpense.setPeriod(period);
@@ -114,8 +127,7 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 			String[] detail = incAmount.get(i);
 			Log.d("code", detail[0]);
 
-			ConfigurationExpTracker configTemp = StaticVariables.mapOfIncomeCatBasedOnTableCode
-					.get(detail[1]);
+			ConfigurationExpTracker configTemp = confService.findByPKConfig(ConfigurationDAO.INCOME_CATEGORY, detail[1]);
 			if (configTemp != null) {
 				ExpenseCategoryBudget expBudget = configTemp.getExpBudget();
 				repIncome.setPeriod(period);
@@ -155,7 +167,7 @@ public class ReportDetailActivity extends SherlockFragmentActivity {
 
 		case REQUEST_PATH:
 			if (resultCode == RESULT_OK) {
-				String curFileName = data.getStringExtra("getFullPathName");
+				String curFileName = data.getStringExtra("getFullPathName")+".xls";
 
 				
 				List<List<String>> prepareContentInc = new ArrayList<List<String>>();

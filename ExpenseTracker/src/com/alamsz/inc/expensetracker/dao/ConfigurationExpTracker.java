@@ -60,5 +60,10 @@ public class ConfigurationExpTracker {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	public String toString(){
+		return this.getLocDesc();
+	
+	}
 
 }

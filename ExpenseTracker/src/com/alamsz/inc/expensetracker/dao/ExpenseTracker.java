@@ -150,22 +150,26 @@ public class ExpenseTracker {
 	public static List<String> convertFinanceHelperToList(
 			ExpenseTracker financeHelper) {
 		List<String> listPenampung = new ArrayList<String>();
-		listPenampung.add(FormatHelper.formatDateForDisplay(financeHelper
-				.getDateInput()));
-		listPenampung.add(financeHelper.getDescription());
-		listPenampung.add(StaticVariables.mapOfFundCategory.get(financeHelper.getCategory()));
-		ConfigurationExpTracker confTrans = null;
-		if(financeHelper.getType().equals(TYPE_DEBET)){
-			confTrans= (ConfigurationExpTracker) StaticVariables.mapOfExpenseCatBasedOnTableCode.get(financeHelper.getTransCategory());
-		} else{
-			confTrans= (ConfigurationExpTracker) StaticVariables.mapOfIncomeCatBasedOnTableCode.get(financeHelper.getTransCategory());
+		if(financeHelper != null){
+			listPenampung.add(FormatHelper.formatDateForDisplay(financeHelper
+					.getDateInput()));
+			listPenampung.add(financeHelper.getDescription());
+			ConfigurationExpTracker configurationExpTracker = StaticVariables.mapOfFundCategory.get(financeHelper.getCategory());
+			listPenampung.add(configurationExpTracker==null?"":configurationExpTracker.getLocDesc());
+			ConfigurationExpTracker confTrans = null;
+			if(financeHelper.getType().equals(TYPE_DEBET)){
+				confTrans= (ConfigurationExpTracker) StaticVariables.mapOfExpenseCatBasedOnTableCode.get(financeHelper.getTransCategory());
+			} else{
+				confTrans= (ConfigurationExpTracker) StaticVariables.mapOfIncomeCatBasedOnTableCode.get(financeHelper.getTransCategory());
+			}
+			String transCategory = confTrans==null?"":confTrans.getLocDesc();
+			listPenampung.add(transCategory);
+			int amountExpense = financeHelper.getType().equals(TYPE_DEBET)?0:financeHelper.getAmount();
+			int amountIncome = financeHelper.getType().equals(TYPE_CREDIT)?0:financeHelper.getAmount();
+			listPenampung.add(String.valueOf(amountExpense));
+			listPenampung.add(String.valueOf(amountIncome));
 		}
-		String transCategory = confTrans==null?"":confTrans.getLocDesc();
-		listPenampung.add(transCategory);
-		int amountExpense = financeHelper.getType().equals(TYPE_DEBET)?0:financeHelper.getAmount();
-		int amountIncome = financeHelper.getType().equals(TYPE_CREDIT)?0:financeHelper.getAmount();
-		listPenampung.add(String.valueOf(amountExpense));
-		listPenampung.add(String.valueOf(amountIncome));
+		
 		
 		return listPenampung;
 	}

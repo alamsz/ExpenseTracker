@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.alamsz.inc.expensetracker.utility.SQLOperator;
+import com.alamsz.inc.expensetracker.utility.StaticVariables;
 
 public class ExpenseCategoryBudgetDAO {
 	private SQLiteDatabase database;
@@ -30,12 +31,13 @@ public class ExpenseCategoryBudgetDAO {
 
 	public boolean open() {
 		boolean isOpen = false;
-		if (database.isOpen()) {
+		if (StaticVariables.database!=null && StaticVariables.database.isOpen()) {
 			isOpen = true;
 		} else {
-			database = dbHandler.getWritableDatabase();
+			StaticVariables.database = dbHandler.getWritableDatabase();
 			isOpen = true;
 		}
+		database = StaticVariables.database;
 		return isOpen;
 	}
 

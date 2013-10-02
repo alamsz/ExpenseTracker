@@ -75,6 +75,14 @@ public class PayRecPaymentActivity extends SherlockFragmentActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		DatabaseHandler dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler,this);
+		expenseTrackerService = new ExpenseTrackerService(dbHandler);
+	}
+
 	public void createNewPayRecPayment(View view){
 		Intent intent = new Intent(getApplicationContext(), PayRecPaymentDetailActivity.class);
 		intent.putExtra("trans", type);

@@ -12,6 +12,7 @@ import android.widget.Spinner;
 
 import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
 import com.alamsz.inc.expensetracker.utility.AdUtility;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
@@ -73,16 +74,16 @@ public class ExpenseFragment extends ExpenseTrackerFragment {
 			ExpenseTrackerActivity expActivity = (ExpenseTrackerActivity) getActivity();
 			FormatHelper.setCurrentDateOnView(expenseDateInputText);
 			
-			ArrayAdapter<String> fundSourceAdapter = new ArrayAdapter<String>(
+			ArrayAdapter<ConfigurationExpTracker> fundSourceAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 					expActivity.getApplicationContext(),
-					R.layout.spinner_item, StaticVariables.fundCatList); 
+					R.layout.spinner_item, StaticVariables.listOfFundSource); 
 			fundSourceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 			
 			
-			List<String> expenseCategoryList = StaticVariables.listOfExpCat;
-			ArrayAdapter<String> expCategoryAdapter = new ArrayAdapter<String>(
+			
+			ArrayAdapter<ConfigurationExpTracker> expCategoryAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 					expActivity.getApplicationContext(),
-					R.layout.spinner_item, expenseCategoryList);
+					R.layout.spinner_item, StaticVariables.listOfConfExpCat);
 			expCategoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 			Spinner categorySpinner = (Spinner) layout
 					.findViewById(R.id.expenseFundSourceSpinner);

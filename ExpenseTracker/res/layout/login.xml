@@ -2,16 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical" >
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/pencatat_keuangan" />
+        android:layout_height="200dp"
+        android:background="@drawable/pencatat_keuangan"
+        android:contentDescription="@string/app_name" />
 
-    <ScrollView
+    <EditText
+        android:id="@+id/edPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:padding="5dp"
+        android:text=""
+        android:contentDescription="Password Field"
+        android:textStyle="bold" >
+    </EditText>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="login"
+        android:padding="5dp"
+        android:text="Login"
+        android:textStyle="bold" >
+    </Button>
+ <ScrollView
         android:id="@+id/menulist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -75,5 +96,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

@@ -124,6 +124,15 @@ public class ReportActivity extends SherlockFragmentActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler,
+				this);
+		expenseTrackerService = new ExpenseTrackerService(dbHandler);
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		// save active tab
 		outState.putInt(ACTIVE_TAB, getSupportActionBar()
@@ -324,7 +333,7 @@ public class ReportActivity extends SherlockFragmentActivity {
 		String edWeekText = edWeek.getText().toString();
 		legendTitle = edWeekText;
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		if (!edWeekText.equals("")) {
 			String startDate = edWeekText.substring(0, 10);
 			String endDate = edWeekText.substring(edWeekText.length() - 10,
@@ -420,7 +429,7 @@ public class ReportActivity extends SherlockFragmentActivity {
 		TextView edWeek = (TextView) findViewById(R.id.week);
 		String edWeekText = edWeek.getText().toString();
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		
 		if (!edWeekText.equals("")) {
 			String startDate = edWeekText.substring(0, 10);
@@ -441,7 +450,7 @@ public class ReportActivity extends SherlockFragmentActivity {
 		yearInput = Integer.parseInt(edYear.getText().toString());
 		monthInput = month;
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		
 
 		showMonthlyReport(monthInput, yearInput, fundTypeInput);
@@ -454,7 +463,7 @@ public class ReportActivity extends SherlockFragmentActivity {
 		yearInput = Integer.parseInt(edYear.getText().toString());
 		monthInput = month;
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		legendTitle = StaticVariables.monthStrArr[monthInput - 1] + " "
 				+ yearInput;
 		transList = expenseTrackerService.getMonthlyTransactionSummary(
@@ -506,7 +515,8 @@ public class ReportActivity extends SherlockFragmentActivity {
 		TextView edYear = (TextView) findViewById(R.id.year);
 		yearInput = Integer.parseInt(edYear.getText().toString());
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		int pos = getSpinnerPosition(fndSpin);
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		
 		showYearlyReport(yearInput, fundTypeInput);
 	}
@@ -515,7 +525,8 @@ public class ReportActivity extends SherlockFragmentActivity {
 		TextView edYear = (TextView) findViewById(R.id.year);
 		yearInput = Integer.parseInt(edYear.getText().toString());
 		Spinner fndSpin = (Spinner) findViewById(R.id.fundSourceSpinner);
-		fundTypeInput = StaticVariables.fundCatListCode.get(fndSpin.getSelectedItemPosition());
+		int pos = getSpinnerPosition(fndSpin);
+		fundTypeInput = ((ConfigurationExpTracker)fndSpin.getSelectedItem()).getTableCode();
 		legendTitle = ""+yearInput;
 		transList = expenseTrackerService
 				.getYearlyTransactionSummary(yearInput,fundTypeInput);
@@ -558,6 +569,14 @@ public class ReportActivity extends SherlockFragmentActivity {
 		ll.setBackgroundColor(Color.WHITE);
 		ll.addView(inflater);
 
+	}
+
+	private int getSpinnerPosition(Spinner inputSpinner) {
+		int pos = inputSpinner.getSelectedItemPosition();
+		if(pos < 0){
+			pos = 0;
+		}
+		return pos;
 	}
 
 	public void getNextYearReport(View view) {
@@ -662,8 +681,15 @@ public class ReportActivity extends SherlockFragmentActivity {
 								i == seriesSelection.getPointIndex());
 						if (i == seriesSelection.getPointIndex()) {
 							category = catSeries.getCategory(i);
-							ConfigurationExpTracker config = StaticVariables.mapOfExpenseCatBasedOnDesc
-									.get(category);
+							ConfigurationExpTracker config = new ConfigurationExpTracker();
+							for (Iterator iterator = configService.getExpenseCategoryListFromDB(false).iterator(); iterator
+									.hasNext();) {
+								ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
+								if(category.equals(type.getLocDesc())){
+									config = type;
+									break;
+								}
+							}
 							ExpenseCategoryBudget expBudget = configService
 									.getExpBudget(config.getTableCode());
 							if (expBudget != null) {
@@ -716,7 +742,7 @@ public class ReportActivity extends SherlockFragmentActivity {
 
 		case REQUEST_PATH:
 			if (resultCode == RESULT_OK) {
-				String curFileName = data.getStringExtra("getFullPathName");
+				String curFileName = data.getStringExtra("getFullPathName")+".xls";
 
 				reportSummaryList = getReportSummaryFromTransactionAmountWrapper(
 						transList, period, key);

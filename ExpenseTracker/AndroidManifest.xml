@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alamsz.inc.expensetracker"
-    android:versionCode="7"
-    android:versionName="1.4" >
+    android:versionCode="10"
+    android:versionName="1.4.3" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.VPI" >
         <activity
-            android:name="com.alamsz.inc.expensetracker.ExpenseTrackerActivity"
+            android:name="com.alamsz.inc.expensetracker.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +33,7 @@
         <activity android:name=".utility.activity.AboutActivity" />
         <activity android:name=".ConfigurationListActivity" />
         <activity android:name=".ConfigurationDetailActivity" />
+        <activity android:name=".ExpenseTrackerActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".ReportDetailActivity" />
         <activity android:name=".PayRecActivity" />
@@ -41,6 +42,20 @@
         <activity
             android:name="com.google.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <!-- AppBrain SDK -->
+        <activity
+            android:name="com.appbrain.AppBrainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+        <service android:name="com.appbrain.AppBrainService" />
+
+        <receiver
+            android:name="com.appbrain.ReferrerReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

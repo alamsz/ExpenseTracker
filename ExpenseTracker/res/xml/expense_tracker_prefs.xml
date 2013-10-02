@@ -13,6 +13,15 @@
             android:persistent="true"
             android:summary="@string/define_what_currency_to_be_used"
             android:title="@string/currency_setting" />
+        
+         <ListPreference
+            android:defaultValue="in_ID"
+            android:entries="@array/localeSetup"
+            android:entryValues="@array/localeSetupValues"
+            android:key="preflang"
+            android:persistent="true"
+            android:summary="@string/application_language_preference"
+            android:title="@string/language_preference" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="user_setting"
@@ -23,6 +32,18 @@
             android:summary="@string/enable_deleting_transaction_summary"
             android:title="@string/enable_delete_transaction_" >
         </CheckBoxPreference>
+         <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="active_password"
+            android:summary="@string/make_the_app_password_protected"
+            android:title="@string/enable_password" >
+        </CheckBoxPreference>
+        <EditTextPreference
+            android:defaultValue="1234"
+            android:key="password"
+            android:summary="@string/set_password"
+            android:title="@string/set_password"
+            android:inputType="textVisiblePassword" />
 
         <EditTextPreference
             android:defaultValue="@string/finance_tips_good"

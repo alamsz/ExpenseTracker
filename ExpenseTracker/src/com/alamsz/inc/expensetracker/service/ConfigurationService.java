@@ -112,15 +112,6 @@ public class ConfigurationService {
 		return configDescList;
 	}
 
-	public String getCodeOfExpenseCategoryDesc(String description) {
-		ConfigurationExpTracker config = (ConfigurationExpTracker) StaticVariables.mapOfExpenseCatBasedOnDesc
-				.get(description);
-		if (config == null) {
-			return "";
-		}
-		return config.getTableCode();
-	}
-
 	public ConfigurationExpTracker changeConfigurationStatus(String tableType,
 			String tableCode, int newStatus) {
 		return daoConfig.changeStatus(tableType, tableCode, newStatus);

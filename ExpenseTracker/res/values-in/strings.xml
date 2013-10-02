@@ -165,4 +165,17 @@
  	<string name="payment_complete">Lunas</string>
  	<string name="payment_not_complete">Belum Lunas</string>
  	<string name="fund_type">Tipe Dana</string>
+ 	<string name="application_language_preference">Pilihan Bahasa Aplikasi</string>
+ 	<string name="language_preference">Pilihan Bahasa</string>
+ 	<string name="make_the_app_password_protected">Buat Aplikasi dilindungi password</string>
+ 	<string name="enable_password">Aktifkan Password</string>
+ 	<string name="set_password">Masukkan Password</string>
+ 	
+ 	<string name="restore_db">Restore DB</string>
+ 	<string name="backup_db">Backup DB</string>
+ 	<string name="restore_db_success">Proses restore basis data Pencatat keuangan dari %1s sukses.</string>
+ 	<string name="export_db_success">Proses backup basis data pencatat keuangan sukses, backup tersimpan di %1s</string>
+ 	<string name="db_export_fail">Proses backup basis data gagal, Tolong cek bahwa sdcard/ file valid</string>
+ 	<string name="db_restore_fail">Proses restore basis data gagal, Tolong cek bahwa sdcard/file valid</string>
+ 	<string name="db_restore_confirmation">Restore akan mengganti database sekarang dengan database dari %1s, Apakah anda ingin melanjutkan?</string>
 </resources>

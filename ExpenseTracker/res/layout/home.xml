@@ -165,7 +165,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:onClick="getPrevNews"
-                    android:src="@drawable/arrow_left" />
+                    android:src="@drawable/arrow_left" android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:id="@+id/tipsValue"
@@ -210,7 +210,7 @@
             android:id="@+id/menulist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/homeTipsContainer" >
+             >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -419,6 +419,56 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/setting"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EDFABD"
+                    android:contentDescription="@string/backup_db"
+                    android:onClick="exportDB"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/backup_db"
+                        android:src="@drawable/backup" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/backup_db"
+                        android:textSize="20sp"
+                        android:textStyle="bold" >
+                    </TextView>
+                </LinearLayout>
+                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EDFABC"
+                    android:contentDescription="@string/restore_db"
+                    android:onClick="restoreDB"
+                    android:orientation="horizontal"
+                    android:padding="5dp" >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:contentDescription="@string/restore_db"
+                        android:src="@drawable/restore" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20dp"
+                        android:text="@string/restore_db"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>

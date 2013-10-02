@@ -1,21 +1,29 @@
 package com.alamsz.inc.expensetracker;
 
+import java.util.Calendar;
+import java.util.Iterator;
+
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
 import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
 import com.alamsz.inc.expensetracker.dao.ExpenseTracker;
 import com.alamsz.inc.expensetracker.dao.PayRecMaster;
 import com.alamsz.inc.expensetracker.dao.PayRecPayment;
+import com.alamsz.inc.expensetracker.fragment.DateDialogFragment;
 import com.alamsz.inc.expensetracker.service.ExpenseTrackerService;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
@@ -55,9 +63,9 @@ public class PayRecPaymentDetailActivity extends SherlockFragmentActivity {
 			title.setText(getString(R.string.payable_payment));
 			isReceive = false;
 		}
-		ArrayAdapter<String> fundSourceAdapter = new ArrayAdapter<String>(
+		ArrayAdapter<ConfigurationExpTracker> fundSourceAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 				getApplicationContext(),
-				R.layout.spinner_item, StaticVariables.fundCatList); 
+				R.layout.spinner_item, StaticVariables.listOfFundSource); 
 		fundSourceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		Spinner spinTrans = (Spinner) findViewById(R.id.expenseFundSourceSpinner);
 		spinTrans.setAdapter(fundSourceAdapter);
@@ -92,8 +100,18 @@ public class PayRecPaymentDetailActivity extends SherlockFragmentActivity {
 				if(strMarkTrans){
 					ExpenseTracker expTracker = expenseTrackerService.findByPKTransaction(idTrans);
 					if(expTracker != null){
-						int position = StaticVariables.fundCatListCode.indexOf(expTracker.getCategory());
-						spinTrans.setSelection(position);
+						int i = 0;
+						for (Iterator iterator = StaticVariables.listOfFundSource.iterator(); iterator
+								.hasNext();) {
+							ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
+							if(type.getTableCode().equals(expTracker.getCategory())){
+								spinTrans.setSelection(i);
+								break;
+							}
+							i++;
+							
+						}
+						
 					}else{
 						spinTrans.setSelection(1);
 					}
@@ -103,6 +121,15 @@ public class PayRecPaymentDetailActivity extends SherlockFragmentActivity {
 				
 			}
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		DatabaseHandler dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler,this);
+		expenseTrackerService = new ExpenseTrackerService(dbHandler);
+		
 	}
 
 	public void addOrModPayRecPayment(View view){
@@ -145,7 +172,7 @@ public class PayRecPaymentDetailActivity extends SherlockFragmentActivity {
 			payRec.setAmount(Integer.parseInt(strAmount));
 			payRec.setMarkAsTrans(strMarkTrans);
 			payRec.setDescription(strDescription);
-			payRec.setCategory(StaticVariables.fundCatListCode.get(spinTrans.getSelectedItemPosition()));
+			payRec.setCategory(((ConfigurationExpTracker)spinTrans.getSelectedItem()).getTableCode());
 			payRec.setIdMaster(idPayRec);
 			payRec.setType(transType);
 			
@@ -206,4 +233,46 @@ public class PayRecPaymentDetailActivity extends SherlockFragmentActivity {
 		intent.putExtra("trans", transType);
 		startActivity(intent);
 	}
+	
+	public void payRecPaymentDateInputClick(View view){
+		dateFieldChosen = (EditText) findViewById(R.id.payRecPaymentEdDateInput);
+		showDatePicker();
+	}
+	
+	private void showDatePicker() {
+		DateDialogFragment date = new DateDialogFragment();
+		/**
+		 * Set Up Current Date Into dialog
+		 */
+		// if(dateField.getText().equals("")){
+		Calendar calender = Calendar.getInstance();
+		Bundle args = new Bundle();
+		args.putInt("year", calender.get(Calendar.YEAR));
+		args.putInt("month", calender.get(Calendar.MONTH));
+		args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+
+		date.setArguments(args);
+		// }
+		/**
+		 * Set Call back to capture selected date
+		 */
+		date.setCallBack(ondate);
+		date.show(getSupportFragmentManager(), "Date Picker");
+	}
+
+	OnDateSetListener ondate = new OnDateSetListener() {
+		@Override
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			String formattedDay = FormatHelper.formatTwoDigitsDay(day);
+			String formattedMonth = FormatHelper.formatTwoDigitsMonth(month);
+			dateFieldChosen.setText(new StringBuilder().append(formattedDay)
+					.append("-").append(formattedMonth).append("-")
+					.append(year).append(" "));
+			Log.d(getClass().getName(), formattedDay);
+			Log.d(getClass().getName(), formattedMonth);
+			Log.d(getClass().getName(), String.valueOf(year));
+		}
+	};
+	
+	
 }

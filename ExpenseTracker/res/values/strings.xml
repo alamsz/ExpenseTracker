@@ -164,4 +164,16 @@
  	<string name="payment_complete">Complete</string>
  	<string name="payment_not_complete">Not Complete</string>
  	<string name="fund_type">Fund Type</string>
+ 	<string name="application_language_preference">Application Language Preference</string>
+ 	<string name="language_preference">Language preference</string>
+ 	<string name="make_the_app_password_protected">Make The App Password protected</string>
+ 	<string name="enable_password">Enable Password</string>
+ 	<string name="set_password">Set Password</string>
+ 	<string name="restore_db">Restore DB</string>
+ 	<string name="backup_db">Backup DB</string>
+ 	<string name="restore_db_success">Successfully restore Pencatat Keuangan database from %1s</string>
+ 	<string name="export_db_success">Successfully backup Pencatat Keuangan database to %1s</string>
+ 	<string name="db_export_fail">Backup database failed, Please check sdcard/ file is valid is valid</string>
+ 	<string name="db_restore_fail">Restore database failed, Please check sdcard/ file is valid is valid</string>
+ 	<string name="db_restore_confirmation">Restore will overwrite your current database with %1s, Are you sure to continue?</string>
 </resources>

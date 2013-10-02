@@ -2,6 +2,7 @@ package com.alamsz.inc.expensetracker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jraf.android.backport.switchwidget.Switch;
@@ -23,6 +24,8 @@ import com.alamsz.inc.expensetracker.dao.ExpenseCategoryBudget;
 import com.alamsz.inc.expensetracker.service.ConfigurationService;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
+import com.appbrain.AppBrain;
+import com.appbrain.AppBrainBanner;
 
 public class ConfigurationDetailActivity extends SherlockFragmentActivity {
 	public String confTableType;
@@ -43,8 +46,8 @@ public class ConfigurationDetailActivity extends SherlockFragmentActivity {
 			setContentView(R.layout.conf_detail);
 		}
 		Intent intent = getIntent();
+		AppBrain.init(this);
 		setDetailOnShow(intent);
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
@@ -99,6 +102,7 @@ public class ConfigurationDetailActivity extends SherlockFragmentActivity {
 			}
 
 		}
+		addBanner();
 	}
 
 	public void addConfig(View view) {
@@ -179,78 +183,80 @@ public class ConfigurationDetailActivity extends SherlockFragmentActivity {
 				edLocDesc.setText("");
 				edMonthlyAmount.setText("");
 				edWeeklyAmount.setText("");
-				if (tableType.equals(ConfigurationDAO.INCOME_CATEGORY)) {
-					StaticVariables.listOfIncCat.add(configTemp.getLocDesc());
-					StaticVariables.listOfConfIncCat.add(configTemp);
-					StaticVariables.mapOfIncomeCatBasedOnTableCode.put(
-							configTemp.getTableCode(), configTemp);
-					StaticVariables.mapOfIncomeCatBasedOnDesc.put(
-							configTemp.getLocDesc(), configTemp);
+				if(configTemp.getStatus()==1){
+					if (tableType.equals(ConfigurationDAO.INCOME_CATEGORY)) {
+						
+						StaticVariables.listOfConfIncCat.add(configTemp);
+						StaticVariables.mapOfIncomeCatBasedOnTableCode.put(
+								configTemp.getTableCode(), configTemp);
+						
 
-				} else {
-					StaticVariables.listOfExpCat.add(configTemp.getLocDesc());
-					StaticVariables.listOfConfExpCat.add(configTemp);
-					StaticVariables.mapOfExpenseCatBasedOnTableCode.put(
-							configTemp.getTableCode(), configTemp);
-					StaticVariables.mapOfExpenseCatBasedOnDesc.put(
-							configTemp.getLocDesc(), configTemp);
+					} else if (tableType.equals(ConfigurationDAO.EXPENSE_CATEGORY)){
+						
+						StaticVariables.listOfConfExpCat.add(configTemp);
+						StaticVariables.mapOfExpenseCatBasedOnTableCode.put(
+								configTemp.getTableCode(), configTemp);
+						
 
+					}else {
+						StaticVariables.listOfFundSource.add(configTemp);
+						StaticVariables.mapOfFundCategory.put(
+								configTemp.getTableCode(), configTemp);
+					}
 				}
+				
 			} else {
 				conf.setExpBudget(expBudget);
 				configTemp = confService.updateConfigurationData(conf);
+				String tableCode = configTemp.getTableCode();
+				// check location, then remove and re add the list
+				// check location, then remove and re add the list
 				if (tableType.equals(ConfigurationDAO.EXPENSE_CATEGORY)) {
-					ConfigurationExpTracker configOld = StaticVariables.mapOfExpenseCatBasedOnTableCode
-							.get(configTemp.getTableCode());
-					int positionOfList = StaticVariables.listOfConfExpCat
-							.indexOf(configOld);
-					StaticVariables.listOfConfExpCat.remove(positionOfList);
-					StaticVariables.listOfConfExpCat.add(positionOfList,
-							configTemp);
-					StaticVariables.mapOfExpenseCatBasedOnDesc.remove(configOld
-							.getLocDesc());
-					StaticVariables.mapOfExpenseCatBasedOnTableCode
-							.remove(configOld.getTableCode());
-					StaticVariables.mapOfExpenseCatBasedOnDesc.put(
-							configTemp.getLocDesc(), configTemp);
-					StaticVariables.mapOfExpenseCatBasedOnTableCode.put(
-							configTemp.getTableCode(), configTemp);
-				} else if (tableType.equals(ConfigurationDAO.INCOME_CATEGORY)) {
-					ConfigurationExpTracker configOld = StaticVariables.mapOfIncomeCatBasedOnTableCode
-							.get(configTemp.getTableCode());
-					int positionOfList = StaticVariables.listOfConfIncCat
-							.indexOf(configOld);
-					StaticVariables.listOfConfIncCat.remove(positionOfList);
-					StaticVariables.listOfConfIncCat.add(positionOfList,
-							configTemp);
-					StaticVariables.mapOfIncomeCatBasedOnDesc.remove(configOld
-							.getLocDesc());
-					StaticVariables.mapOfIncomeCatBasedOnTableCode
-							.remove(configOld.getTableCode());
-					StaticVariables.mapOfIncomeCatBasedOnDesc.put(
-							configTemp.getLocDesc(), configTemp);
-					StaticVariables.mapOfIncomeCatBasedOnTableCode.put(
-							configTemp.getTableCode(), configTemp);
-				} else if (tableType.equals(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE)) {
-					
-					StaticVariables.listOfFundSource = new ArrayList<ConfigurationExpTracker>();
-					StaticVariables.fundCatList = new ArrayList<String>();
-					StaticVariables.fundCatListCode = new ArrayList<String>();
-					StaticVariables.mapOfFundCategory = new HashMap<String, String>();
-					StaticVariables.listOfFundSource = confService.getConfigurationListFromDB(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false);
-					
-					//could not find better way to get code from the list;
-					StaticVariables.fundCatList.add("");
-					StaticVariables.fundCatListCode.add("");
-					for (int i = 0; i < StaticVariables.listOfFundSource.size(); i++) {
-						ConfigurationExpTracker configExp = StaticVariables.listOfFundSource.get(i);
-						StaticVariables.mapOfFundCategory.put(configExp.getTableCode(), configExp.getLocDesc());
-						if(configExp.getStatus()==1){
-							StaticVariables.fundCatList.add(configExp.getLocDesc());
-							StaticVariables.fundCatListCode.add(configExp.getTableCode());
-						}
+					StaticVariables.listOfConfExpCat = new ArrayList<ConfigurationExpTracker>();
+					StaticVariables.listOfConfExpCat
+							.add(initConfig(ConfigurationDAO.EXPENSE_CATEGORY));
+					StaticVariables.listOfConfExpCat.addAll(confService
+							.getConfigurationListFromDB(
+									ConfigurationDAO.EXPENSE_CATEGORY,
+									true));
+					StaticVariables.mapOfExpenseCatBasedOnTableCode = new HashMap<String, ConfigurationExpTracker>();
+					for (Iterator iterator = StaticVariables.listOfConfExpCat.iterator(); iterator
+							.hasNext();) {
+						ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
+						StaticVariables.mapOfExpenseCatBasedOnTableCode.put(type.getTableCode(), type);
 					}
-					//Collections.sort(StaticVariables.fundCatList);
+					
+				} else if (tableType
+						.equals(ConfigurationDAO.INCOME_CATEGORY)) {
+					StaticVariables.listOfConfIncCat = new ArrayList<ConfigurationExpTracker>();
+					StaticVariables.listOfConfIncCat
+							.add(initConfig(ConfigurationDAO.INCOME_CATEGORY));
+					StaticVariables.listOfConfIncCat.addAll(confService
+							.getConfigurationListFromDB(
+									ConfigurationDAO.INCOME_CATEGORY,
+									true));
+					StaticVariables.mapOfIncomeCatBasedOnTableCode = new HashMap<String, ConfigurationExpTracker>();
+					for (Iterator iterator = StaticVariables.listOfConfIncCat.iterator(); iterator
+							.hasNext();) {
+						ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
+						StaticVariables.mapOfIncomeCatBasedOnTableCode.put(type.getTableCode(), type);
+					}
+				} else if (tableType
+						.equals(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE)) {
+					StaticVariables.listOfFundSource = new ArrayList<ConfigurationExpTracker>();
+					StaticVariables.listOfFundSource
+							.add(initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
+					StaticVariables.listOfFundSource.addAll(confService
+							.getConfigurationListFromDB(
+									ConfigurationDAO.FUND_SOURCE_TABLE_TYPE,
+									true));
+					StaticVariables.mapOfFundCategory = new HashMap<String, ConfigurationExpTracker>();
+					for (Iterator iterator = StaticVariables.listOfFundSource.iterator(); iterator
+							.hasNext();) {
+						ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
+						StaticVariables.mapOfFundCategory.put(type.getTableCode(), type);
+					}
+				
 				}
 				processMessage = String.format(
 						getString(R.string.mod_config_success), edCodeStr + " "
@@ -283,4 +289,16 @@ public class ConfigurationDetailActivity extends SherlockFragmentActivity {
 		return true;
 	}
 
+	private ConfigurationExpTracker initConfig(String tableType) {
+		ConfigurationExpTracker configIncCat = new ConfigurationExpTracker();
+		configIncCat.setTableType(tableType);
+		configIncCat.setTableCode("");
+		configIncCat.setLocDesc("");
+		return configIncCat;
+	}
+	
+	public void addBanner(){
+		AppBrainBanner banner = new AppBrainBanner(getApplicationContext());
+		banner.requestAd();
+	}
 }

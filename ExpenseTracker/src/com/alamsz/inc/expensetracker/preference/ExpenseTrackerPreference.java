@@ -39,5 +39,12 @@ public class ExpenseTrackerPreference extends SherlockPreferenceActivity  {
 		    return true;
 	}
 
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(this, ExpenseTrackerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+	}
+
 	    
 }

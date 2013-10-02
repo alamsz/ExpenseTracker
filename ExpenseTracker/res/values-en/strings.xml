@@ -163,4 +163,9 @@
  	<string name="payment_complete">Complete</string>
  	<string name="payment_not_complete">Not Complete</string>
  	<string name="fund_type">Fund Type</string>
+ 	<string name="application_language_preference">Application Language Preference</string>
+ 	<string name="language_preference">Language preference</string>
+ 	<string name="make_the_app_password_protected">Make The App Password protected</string>
+ 	<string name="enable_password">Enable Password</string>
+ 	<string name="set_password">Set Password</string>
 </resources>

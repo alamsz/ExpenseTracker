@@ -10,17 +10,19 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.alamsz.inc.expensetracker.ExpenseTrackerActivity;
 import com.alamsz.inc.expensetracker.R;
 import com.alamsz.inc.expensetracker.utility.FileArrayAdapter;
 import com.alamsz.inc.expensetracker.utility.FileItem;
@@ -43,14 +45,39 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 	FileArrayAdapter adapter;
 	AdView mAdView;
 	Class callingActivity;
+	Boolean fileClickable = false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.directory_chooser);
-		currentDir = new File("/sdcard/");
+		currentDir = Environment.getExternalStorageDirectory();
+		Intent intent = getIntent();
+		fileClickable = intent.getBooleanExtra("fileClickable", false);
 		generateFolderView(currentDir);
 		
-		
+		Button saveOrOpenButton = (Button) findViewById(R.id.buttonSave);
+		if(fileClickable){
+			saveOrOpenButton.setText("Open");
+			saveOrOpenButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					clickOpen(v);
+					
+				}
+			});
+		}else{
+			saveOrOpenButton.setText("Save");
+			saveOrOpenButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					clickSave(v);
+					
+				}
+			});
+		}
+	    
 		
 		mAdView = (AdView) this.findViewById(R.id.ad);
 	    mAdView.setAdListener(new AdListener() {
@@ -97,7 +124,6 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		View v =  super.onCreateView(name, context, attrs);
 		
-	    
 	    
 	    return v;
 	}
@@ -167,6 +193,12 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 					|| o.getImage().equalsIgnoreCase("directory_up")) {
 				currentDir = new File(o.getPath());
 				generateFolderView(currentDir);
+			}else {
+				if(fileClickable){
+					currentDir = new File(o.getPath());
+					EditText fileNameEdit = (EditText) findViewById(R.id.fileNameText);
+					fileNameEdit.setText(currentDir.getPath());
+				}
 			}
 
 		}
@@ -179,12 +211,26 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 			fileNameEdit.setError(getString(R.string.mustNotEmpty));
 		} else {
 			this.getIntent().putExtra("getFullPathName",
-					currentDir +SLASH+ fileName + ".xls");
+					currentDir +SLASH+ fileName);
 			setResult(RESULT_OK, this.getIntent());
 			finish();
 		}
 	}
 
+	public void clickOpen(View view){
+		
+		//EditText fileNameEdit = (EditText) findViewById(R.id.fileNameText);
+		//String fileName = fileNameEdit.getText().toString();
+		//if (fileName.equals("")) {
+		//	fileNameEdit.setError(getString(R.string.mustNotEmpty));
+		//} else {
+			this.getIntent().putExtra("getFullPathName",
+					currentDir.getPath());
+			setResult(RESULT_OK, this.getIntent());
+			finish();
+		//}
+	}
+	
 	public void clickCancel(View view) {
 		finish();
 	}

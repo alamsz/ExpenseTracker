@@ -1,15 +1,9 @@
 package com.alamsz.inc.expensetracker;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jraf.android.backport.switchwidget.Switch;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,21 +60,22 @@ public class ConfigurationListActivity extends SherlockFragmentActivity {
 	private void setUpViewContent() {
 		title = getString(R.string.expense_category_list);
 		if (StaticVariables.confType.equals(ConfigurationDAO.INCOME_CATEGORY)) {
-			confExpAdapterlist = StaticVariables.listOfConfIncCat;
+			//confExpAdapterlist = StaticVariables.listOfConfIncCat;
 			title = getString(R.string.income_category_list);
 		} else if (StaticVariables.confType
 				.equals(ConfigurationDAO.EXPENSE_CATEGORY)) {
-			confExpAdapterlist = StaticVariables.listOfConfExpCat;
+			//confExpAdapterlist = StaticVariables.listOfConfExpCat;
 		}/*
 		 * else if
 		 * (StaticVariables.confType.equals(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE
 		 * )){ confExpAdapterlist = StaticVariables.listOfFundSource; }
 		 */
 		else {
-			confExpAdapterlist = confService.getConfigurationListFromDB(
-					StaticVariables.confType, false);
+			
 			title = getString(R.string.configuration_list);
 		}
+		confExpAdapterlist = confService.getConfigurationListFromDB(
+				StaticVariables.confType, false);
 		TextView transcatView = (TextView) this
 				.findViewById(R.id.transCatTitle);
 		transcatView.setText(title);
@@ -104,7 +99,10 @@ public class ConfigurationListActivity extends SherlockFragmentActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		setUpViewContent();
+		//DatabaseHandler dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler, this);
+		//confService = new ConfigurationService(dbHandler);
+
+		//setUpViewContent();
 
 	}
 
@@ -279,83 +277,7 @@ public class ConfigurationListActivity extends SherlockFragmentActivity {
 	}
 
 	public void changeStatus(View view) {
-		Switch statusSwitch = (Switch) view
-				.findViewById(R.id.customSwitchOnOff);
-
-		String textStatus = statusSwitch.getTag().toString();
-		String[] tableCodeDesc = textStatus.split("_");
-		String tableType = StaticVariables.confType;
-		String tableCode = tableCodeDesc[0];
-		int newStatus = 0;
-		String textDescStr = tableCodeDesc[1];
-		List<String> listOfTransCat = StaticVariables.listOfIncCat;
-
-		listOfTransCat = StaticVariables.listOfExpCat;
-
-		if (statusSwitch.isChecked()) {
-			newStatus = 1;
-			statusSwitch.setTextColor(Color.GREEN);
-			listOfTransCat.add(textDescStr);
-			Collections.sort(listOfTransCat);
-
-		} else {
-			statusSwitch.setTextColor(Color.GRAY);
-			listOfTransCat.remove(textDescStr);
-
-		}
-		ConfigurationExpTracker configTemp = confService
-				.changeConfigurationStatus(tableType, tableCode, newStatus);
-		// check location, then remove and re add the list
-		if (tableType.equals(ConfigurationDAO.EXPENSE_CATEGORY)) {
-			ConfigurationExpTracker configOld = StaticVariables.mapOfExpenseCatBasedOnTableCode
-					.get(tableCode);
-			int positionOfList = StaticVariables.listOfConfExpCat
-					.indexOf(configOld);
-			StaticVariables.listOfConfExpCat.remove(positionOfList);
-			StaticVariables.listOfConfExpCat.add(positionOfList, configTemp);
-			StaticVariables.mapOfExpenseCatBasedOnDesc.remove(configOld
-					.getLocDesc());
-			StaticVariables.mapOfExpenseCatBasedOnTableCode.remove(configOld
-					.getTableCode());
-			StaticVariables.mapOfExpenseCatBasedOnDesc.put(
-					configTemp.getLocDesc(), configTemp);
-			StaticVariables.mapOfExpenseCatBasedOnTableCode.put(
-					configTemp.getTableCode(), configTemp);
-		} else if (tableType.equals(ConfigurationDAO.INCOME_CATEGORY)) {
-			ConfigurationExpTracker configOld = StaticVariables.mapOfIncomeCatBasedOnTableCode
-					.get(tableCode);
-			int positionOfList = StaticVariables.listOfConfIncCat
-					.indexOf(configOld);
-			StaticVariables.listOfConfIncCat.remove(positionOfList);
-			StaticVariables.listOfConfIncCat.add(positionOfList, configTemp);
-			StaticVariables.mapOfIncomeCatBasedOnDesc.remove(configOld
-					.getLocDesc());
-			StaticVariables.mapOfIncomeCatBasedOnTableCode.remove(configOld
-					.getTableCode());
-			StaticVariables.mapOfIncomeCatBasedOnDesc.put(
-					configTemp.getLocDesc(), configTemp);
-			StaticVariables.mapOfIncomeCatBasedOnTableCode.put(
-					configTemp.getTableCode(), configTemp);
-		} else if (tableType.equals(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE)) {
-			StaticVariables.listOfFundSource = new ArrayList<ConfigurationExpTracker>();
-			StaticVariables.fundCatList = new ArrayList<String>();
-			StaticVariables.fundCatListCode = new ArrayList<String>();
-			StaticVariables.mapOfFundCategory = new HashMap<String, String>();
-			StaticVariables.listOfFundSource = confService.getConfigurationListFromDB(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false);
-			StaticVariables.fundCatList.add("");
-			StaticVariables.fundCatListCode.add("");
-			for (int i = 0; i < StaticVariables.listOfFundSource.size(); i++) {
-				ConfigurationExpTracker configExp = StaticVariables.listOfFundSource.get(i);
-				StaticVariables.mapOfFundCategory.put(configExp.getTableCode(), configExp.getLocDesc());
-				if(configExp.getStatus()==1){
-					StaticVariables.fundCatList.add(configExp.getLocDesc());
-					StaticVariables.fundCatListCode.add(configExp.getTableCode());
-				}
-					
-				
-			}
-			//Collections.sort(StaticVariables.fundCatList);
-		}
+		
 
 	}
 

@@ -18,7 +18,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final String locale_UK = Locale.UK.toString();
 	public static final String locale_indonesia = "in_ID";
 	public static final String[] persistentConfig = {"FND_SRCC","INC_CATREC","INC_CATTRF","EXP_CATTRF","EXP_CATPAY"};
-	private static final int DB_VERSION = 8;
+	private static final int DB_VERSION = 10;
 	// Configuration table
 	public static final String CONFIGURATION_CREATE_STATEMENT = "CREATE TABLE "
 			+ ConfigurationDAO.CONFIGURATION_TABLE + "( "
@@ -174,35 +174,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion
 						+ ", Adjustment to existing data will be made");
+		Cursor cr;
 		// backup the old table first before the data restore inside new table
-		String upgrade = "ALTER TABLE "
-				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE
-				+ " RENAME TO EXPENSE_TABLE_TEMP";
-		db.execSQL(upgrade);
-		// ensure that the table created
-		Cursor cr = db
-				.rawQuery("select count(*) from EXPENSE_TABLE_TEMP", null);
-		cr.moveToFirst();
-		Log.d("upgrade_old_table", String.valueOf(cr.getInt(0)));
-		cr.close();
+		boolean updateTable = true;
+		String queryCheckColumn = "select * from "+ExpenseTrackerDAO.EXPENSETRACKER_TABLE;
+		Cursor crCheckColumn = db.rawQuery(queryCheckColumn, null);
+		crCheckColumn.moveToFirst();
+		int colCount = crCheckColumn.getColumnCount();
+		crCheckColumn.close();
+		
+		if(colCount == 10 ){
+			updateTable = false;
+		}
+		if(updateTable){
+			String upgrade = "ALTER TABLE "
+					+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE
+					+ " RENAME TO EXPENSE_TABLE_TEMP";
+			db.execSQL(upgrade);
+			// ensure that the table created
+			cr = db
+					.rawQuery("select count(*) from EXPENSE_TABLE_TEMP", null);
+			cr.moveToFirst();
+			Log.d("upgrade_old_table", String.valueOf(cr.getInt(0)));
+			cr.close();
+	
+			// drop all table first
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE);
+			db.execSQL(EXPENSE_TRACKER_CREATE_STATEMENT);
+		}
+		if(oldVersion < 7){
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ ExpenseCategoryBudgetDAO.EXPENSE_CATEGORY_BUDGET_TABLE);
+			db.execSQL(EXPENSE_BUDGET_CREATE_STATEMENT);
 
-		// drop all table first
-		db.execSQL("DROP TABLE IF EXISTS "
-				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE);
-		db.execSQL(EXPENSE_TRACKER_CREATE_STATEMENT);
+			// create the payable and receivable
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ PayRecMaster.PAYABLE_RECEIVABLE_TABLE);
+			db.execSQL("DROP TABLE IF EXISTS "
+					+ PayRecMaster.PAYABLE_RECEIVABLE_DETAIL_TABLE);
+			db.execSQL(PAYABLE_RECEIVABLE_MASTER_CREATE_STATEMENT);
+			db.execSQL(PAYABLE_RECEIVABLE_DETAIL_CREATE_STATEMENT);
 
-		db.execSQL("DROP TABLE IF EXISTS "
-				+ ExpenseCategoryBudgetDAO.EXPENSE_CATEGORY_BUDGET_TABLE);
-		db.execSQL(EXPENSE_BUDGET_CREATE_STATEMENT);
-
-		// create the payable and receivable
-		db.execSQL("DROP TABLE IF EXISTS "
-				+ PayRecMaster.PAYABLE_RECEIVABLE_TABLE);
-		db.execSQL("DROP TABLE IF EXISTS "
-				+ PayRecMaster.PAYABLE_RECEIVABLE_DETAIL_TABLE);
-		db.execSQL(PAYABLE_RECEIVABLE_MASTER_CREATE_STATEMENT);
-		db.execSQL(PAYABLE_RECEIVABLE_DETAIL_CREATE_STATEMENT);
-
+		}
+		
 		// need to insert these tables if the table is not exist yet
 		if (oldVersion < 6) {
 			db.execSQL("DROP TABLE IF EXISTS "
@@ -221,38 +236,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 
 		// insert value to the expense tracker table and expense category
-
-		Cursor crExpenseTable = db.rawQuery("select * from EXPENSE_TABLE_TEMP",
-				null);
-		crExpenseTable.moveToFirst();
-		while (!crExpenseTable.isAfterLast()) {
-			// Calendar calTemp = Calendar.getInstance();
-			long date_input = crExpenseTable.getLong(1);
-			Date dateInput = new Date(date_input);
-			Log.d("date ", dateInput.toString());
-			Log.d(" milis ", String.valueOf(crExpenseTable.getInt(1)));
-			List<Integer> weekmonthyear = FormatHelper
-					.getWeekNoMonthAndYearFromDate(dateInput);
-			// calTemp.setTime(dateINput);
-			// Log.d("time now ", calTemp.getTime().toString());
-			int _id = crExpenseTable.getInt(0);
-
-			String desc = crExpenseTable.getString(2);
-			int amount = crExpenseTable.getInt(3);
-			String type = crExpenseTable.getString(4);
-			String category = crExpenseTable.getString(5);
-			int weekinmonth = weekmonthyear.get(0).intValue();
-			int weekinyear = weekmonthyear.get(1).intValue();
-			int month = weekmonthyear.get(2).intValue();
-			int year = weekmonthyear.get(3).intValue();
-			db.execSQL("INSERT INTO " + ExpenseTrackerDAO.EXPENSETRACKER_TABLE
-					+ " VALUES(" + _id + "," + date_input + ",'" + desc + "',"
-					+ amount + ",'" + type + "','" + category + "',"
-					+ weekinmonth + "," + weekinyear + "," + month + "," + year
-					+ ")");
-			crExpenseTable.moveToNext();
+		if (updateTable) {
+			Cursor crExpenseTable = db.rawQuery("select * from EXPENSE_TABLE_TEMP",
+					null);
+			crExpenseTable.moveToFirst();
+			while (!crExpenseTable.isAfterLast()) {
+				// Calendar calTemp = Calendar.getInstance();
+				long date_input = crExpenseTable.getLong(1);
+				Date dateInput = new Date(date_input);
+				Log.d("date ", dateInput.toString());
+				Log.d(" milis ", String.valueOf(crExpenseTable.getInt(1)));
+				List<Integer> weekmonthyear = FormatHelper
+						.getWeekNoMonthAndYearFromDate(dateInput);
+				// calTemp.setTime(dateINput);
+				// Log.d("time now ", calTemp.getTime().toString());
+				int _id = crExpenseTable.getInt(0);
+	
+				String desc = crExpenseTable.getString(2);
+				int amount = crExpenseTable.getInt(3);
+				String type = crExpenseTable.getString(4);
+				String category = crExpenseTable.getString(5);
+				int weekinmonth = weekmonthyear.get(0).intValue();
+				int weekinyear = weekmonthyear.get(1).intValue();
+				int month = weekmonthyear.get(2).intValue();
+				int year = weekmonthyear.get(3).intValue();
+				db.execSQL("INSERT INTO " + ExpenseTrackerDAO.EXPENSETRACKER_TABLE
+						+ " VALUES(" + _id + "," + date_input + ",'" + desc + "',"
+						+ amount + ",'" + type + "','" + category + "',"
+						+ weekinmonth + "," + weekinyear + "," + month + "," + year
+						+ ")");
+				crExpenseTable.moveToNext();
+			}
+			crExpenseTable.close();
+			
 		}
-		crExpenseTable.close();
 		// set existing transaction category into other if migrate from version
 		// < 1.3
 		if (oldVersion < 6) {
@@ -261,29 +278,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 					+ " select _id,'OTH' from EXPENSE_TABLE_TEMP");
 		}
 
-		// check expense tracker table
-		cr = db.rawQuery("select * from "
-				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE, null);
-		cr.moveToFirst();
-
-		cr.close();
-		// check expense category table
-		cr = db.rawQuery("select *  from "
-				+ ExpenseTrackerDAO.TRANSACTION_CATEGORY_TABLE, null);
-		cr.moveToFirst();
-
-		cr.close();
+		
 		// delete the temporary table
-		db.execSQL("DROP TABLE IF EXISTS EXPENSE_TABLE_TEMP");
+		if (updateTable) {
+			
+			// check expense tracker table
+			cr = db.rawQuery("select * from "
+					+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE, null);
+			cr.moveToFirst();
 
+			cr.close();
+			// check expense category table
+			cr = db.rawQuery("select *  from "
+					+ ExpenseTrackerDAO.TRANSACTION_CATEGORY_TABLE, null);
+			cr.moveToFirst();
+
+			cr.close();
+			db.execSQL("DROP TABLE IF EXISTS EXPENSE_TABLE_TEMP");
+		}
 		Log.i("INFO", "Upgrade process finished");
 		
 		db.setTransactionSuccessful();
 		db.endTransaction();
+		
+		//insert category if not exist, no matter which version installed
 		insertDefaultFundSource(db, true);
-		if (oldVersion < 9)
-			
-			insertPersistentCategoryConfiguration(db, true);
+		insertPersistentCategoryConfiguration(db, true);
+		
 
 		if (oldVersion < 6) {
 			insertDefaultCategoryConfiguration(db, true);
@@ -350,88 +371,119 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String[] incCatIndonesian = { "Transfer","Pembayaran Piutang" };
 		// set expense category
+		int count = 0;
+		Cursor checkFndSrc = db.rawQuery("select count(*) numOfRec from "+ ConfigurationDAO.CONFIGURATION_TABLE + " where "+ ConfigurationDAO.TABLE_CODE +
+				" = 'TRF'", null);
+		if(checkFndSrc != null){
+			checkFndSrc.moveToFirst();
+			count = checkFndSrc.getInt(0);
+			checkFndSrc.close();
+		}
+		if(count == 0 ){
+			for (int i = 0; i < incCatIndonesian.length; i++) {
+				// set income category
+				String incomeconfig = "INSERT INTO "
+						+ ConfigurationDAO.CONFIGURATION_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.LOC_DESC + ", "
+						+ ConfigurationDAO.STATUS + " ) " + "VALUES ( 'INC_CAT', '"
+						+ tableCodeInc[i] + "', '" + incCatIndonesian[i] + "', 1 )";
 
-		for (int i = 0; i < incCatIndonesian.length; i++) {
-			// set income category
-			String incomeconfig = "INSERT INTO "
-					+ ConfigurationDAO.CONFIGURATION_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.LOC_DESC + ", "
-					+ ConfigurationDAO.STATUS + " ) " + "VALUES ( 'INC_CAT', '"
-					+ tableCodeInc[i] + "', '" + incCatIndonesian[i] + "', 1 )";
+				// set default fund source
 
-			// set default fund source
+				// set config description for internationalisation
+				String incomeconfigDescUS = "INSERT INTO "
+						+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.DESC_LOCALE + ","
+						+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'INC_CAT', '"
+						+ tableCodeInc[i] + "', '" + locale_US + "','"
+						+ incCatEnglish[i] + "' )";
 
-			// set config description for internationalisation
-			String incomeconfigDescUS = "INSERT INTO "
-					+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.DESC_LOCALE + ","
-					+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'INC_CAT', '"
-					+ tableCodeInc[i] + "', '" + locale_US + "','"
-					+ incCatEnglish[i] + "' )";
+				// set config description for internationalisation
+				String incomeconfigDescUK = "INSERT INTO "
+						+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.DESC_LOCALE + ","
+						+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'INC_CAT', '"
+						+ tableCodeInc[i] + "', '" + locale_UK + "','"
+						+ incCatEnglish[i] + "' )";
+				try{
+					checkFndSrc = db.rawQuery("select count(*) numOfRec from "+ ConfigurationDAO.CONFIGURATION_TABLE + " where "+ ConfigurationDAO.TABLE_TYPE +
+							" = 'INC_CAT' and "+ConfigurationDAO.TABLE_CODE+" = '"+tableCodeInc[i]+"'", null);
+					count = 0;
+					if(checkFndSrc != null){
+						checkFndSrc.moveToFirst();
+						count = checkFndSrc.getInt(0);
+						checkFndSrc.close();
+					}
+					if(count == 0){
+						db.execSQL(incomeconfig);
+						db.execSQL(incomeconfigDescUS);
+						db.execSQL(incomeconfigDescUK);
+					}
+					
+				}catch(Exception e){
+					
+				}
+				
 
-			// set config description for internationalisation
-			String incomeconfigDescUK = "INSERT INTO "
-					+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.DESC_LOCALE + ","
-					+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'INC_CAT', '"
-					+ tableCodeInc[i] + "', '" + locale_UK + "','"
-					+ incCatEnglish[i] + "' )";
-			try{
-				db.execSQL(incomeconfig);
-				db.execSQL(incomeconfigDescUS);
-				db.execSQL(incomeconfigDescUK);
-			}catch(Exception e){
+			}
+			for (int i = 0; i < expCatIndonesian.length; i++) {
+				
+				String expCatConfig = "INSERT INTO "
+						+ ConfigurationDAO.CONFIGURATION_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.LOC_DESC + ", "
+						+ ConfigurationDAO.STATUS + " ) " + "VALUES ( 'EXP_CAT','"
+						+ tableCodeExp[i] + "', '" + expCatIndonesian[i] + "', 1 )";
+
+				// set default fund source
+
+				// set config description for internationalisation
+				String expCatconfigDescUS = "INSERT INTO "
+						+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.DESC_LOCALE + ","
+						+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'EXP_CAT', '"
+						+ tableCodeExp[i] + "', '" + locale_US + "', '"
+						+ expCatEnglish[i] + "' )";
+
+				// set config description for internationalisation
+				String expCatconfigDescUK = "INSERT INTO "
+						+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
+						+ ConfigurationDAO.TABLE_TYPE + ", "
+						+ ConfigurationDAO.TABLE_CODE + ", "
+						+ ConfigurationDAO.DESC_LOCALE + ","
+						+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'EXP_CAT', '"
+						+ tableCodeExp[i] + "', '" + locale_UK + "', '"
+						+ expCatEnglish[i] + "' )";
+				try{
+					checkFndSrc = db.rawQuery("select count(*) numOfRec from "+ ConfigurationDAO.CONFIGURATION_TABLE + " where "+ ConfigurationDAO.TABLE_TYPE +
+							" = 'EXP_CAT' and "+ConfigurationDAO.TABLE_CODE+" = '"+tableCodeExp[i]+"'", null);
+					count = 0;
+					if(checkFndSrc != null){
+						checkFndSrc.moveToFirst();
+						count = checkFndSrc.getInt(0);
+						checkFndSrc.close();
+					}
+					if(count == 0){
+						db.execSQL(expCatConfig);
+						db.execSQL(expCatconfigDescUS);
+						db.execSQL(expCatconfigDescUK);
+					}
+				}catch(Exception e){
+					
+				}
 				
 			}
-			
-
 		}
-		for (int i = 0; i < expCatIndonesian.length; i++) {
-			
-			String expCatConfig = "INSERT INTO "
-					+ ConfigurationDAO.CONFIGURATION_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.LOC_DESC + ", "
-					+ ConfigurationDAO.STATUS + " ) " + "VALUES ( 'EXP_CAT','"
-					+ tableCodeExp[i] + "', '" + expCatIndonesian[i] + "', 1 )";
-
-			// set default fund source
-
-			// set config description for internationalisation
-			String expCatconfigDescUS = "INSERT INTO "
-					+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.DESC_LOCALE + ","
-					+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'EXP_CAT', '"
-					+ tableCodeExp[i] + "', '" + locale_US + "', '"
-					+ expCatEnglish[i] + "' )";
-
-			// set config description for internationalisation
-			String expCatconfigDescUK = "INSERT INTO "
-					+ ConfigurationDAO.CONFIG_DESC_TABLE + " ( "
-					+ ConfigurationDAO.TABLE_TYPE + ", "
-					+ ConfigurationDAO.TABLE_CODE + ", "
-					+ ConfigurationDAO.DESC_LOCALE + ","
-					+ ConfigurationDAO.DESC + " ) " + "VALUES ( 'EXP_CAT', '"
-					+ tableCodeExp[i] + "', '" + locale_UK + "', '"
-					+ expCatEnglish[i] + "' )";
-			try{
-				db.execSQL(expCatConfig);
-				db.execSQL(expCatconfigDescUS);
-				db.execSQL(expCatconfigDescUK);
-			}catch(Exception e){
-				
-			}
-			
-		}
+		
 
 	}
 	private void insertDefaultCategoryConfiguration(SQLiteDatabase db,

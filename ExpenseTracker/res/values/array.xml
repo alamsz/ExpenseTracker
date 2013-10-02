@@ -14,6 +14,20 @@
         <item name="GB">enGB</item>
        
     </string-array>
+    
+      <string-array name="localeSetup">
+        <item name="ID">Bahasa Indonesia</item>
+        <item name="US">English</item>
+      
+        
+       
+    </string-array>
+    <string-array name="localeSetupValues">
+        <item name="ID">in_ID</item>
+        <item name="US">en_US</item>
+       
+       
+    </string-array>
     <string-array name="backgroundSetting">
         <item name="grn">Green</item>
         <item name="blu">Blue</item>

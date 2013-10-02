@@ -44,16 +44,18 @@ public class ConfigurationDAO {
 
 	public SQLiteDatabase open() {
 		boolean isOpen = false;
-		if (database != null && database.isOpen()) {
+		if (StaticVariables.database != null && StaticVariables.database.isOpen()) {
 			isOpen = true;
+			
 		} else {
-			database = dbHandler.getWritableDatabase();
+			StaticVariables.database = dbHandler.getWritableDatabase();
 			isOpen = true;
 		}
+		database = StaticVariables.database;
 		daoExpCatBudget = new ExpenseCategoryBudgetDAO(database);
-		return database;
+		return StaticVariables.database;
 	}
-
+	
 	public void close() {
 		dbHandler.close();
 	}
@@ -62,7 +64,7 @@ public class ConfigurationDAO {
 			String tableType, String locale, boolean onlyActive) {
 		// get configuration first
 		List<ConfigurationExpTracker> configDescList = new ArrayList<ConfigurationExpTracker>();
-
+		open();
 		String constraintActive = "";
 		if (onlyActive)
 			constraintActive = SQLOperator.AND + STATUS + SQLOperator.EQUAL
@@ -119,6 +121,7 @@ public class ConfigurationDAO {
 	public List<ConfigurationExpTracker> getConfigurationListPerLocale(
 			String tableType, String locale, boolean onlyActive) {
 		// get configuration first
+		open();
 		List<ConfigurationExpTracker> configDescList = new ArrayList<ConfigurationExpTracker>();
 
 		String constraintActive = "";
@@ -158,6 +161,7 @@ public class ConfigurationDAO {
 	public ConfigurationExpTracker getExpenseCatBasedOnDesc(String tableType,
 			String description, String locale, boolean onlyActive) {
 		String constraintActive = "";
+		open();
 		if (onlyActive)
 			constraintActive = SQLOperator.AND + STATUS + SQLOperator.EQUAL
 					+ ACTIVE;
@@ -218,6 +222,7 @@ public class ConfigurationDAO {
 	public ConfigurationExpTracker getExpenseCatBasedOnTableCode(
 			String tableType, String tableCode, String locale,
 			boolean onlyActive) {
+		open();
 		String constraintActive = "";
 		if (onlyActive)
 			constraintActive = SQLOperator.AND + STATUS + SQLOperator.EQUAL
@@ -274,6 +279,7 @@ public class ConfigurationDAO {
 	public ConfigurationExpTracker getConfigurationBasedOnTableCode(
 			String tableType, String tableCode, String locale,
 			boolean onlyActive) {
+		open();
 		String constraintActive = "";
 		if (onlyActive)
 			constraintActive = SQLOperator.AND + STATUS + SQLOperator.EQUAL
@@ -300,8 +306,12 @@ public class ConfigurationDAO {
 				+ SQLOperator.SINGLE_QUOTE + constraintActive;
 		Log.d("query", queryConfigDesc);
 		Cursor csrConfigDesc = database.rawQuery(queryConfigDesc, null);
-		csrConfigDesc.moveToFirst();
-		ConfigurationExpTracker configDescTemp = cursorToConfigurationWithLocalizedDesc(csrConfigDesc);
+		ConfigurationExpTracker configDescTemp = null;
+		if(csrConfigDesc.getCount()>=1){
+			csrConfigDesc.moveToFirst();
+			configDescTemp = cursorToConfigurationWithLocalizedDesc(csrConfigDesc);
+			
+		}
 		csrConfigDesc.close();
 
 		return configDescTemp;
@@ -314,6 +324,7 @@ public class ConfigurationDAO {
 		values.put(TABLE_CODE, conf.getTableCode());
 		values.put(LOC_DESC, conf.getLocDesc());
 		values.put(STATUS, conf.getStatus());
+		open();
 		database.beginTransaction();
 		database.insert(CONFIGURATION_TABLE, null, values);
 
@@ -341,6 +352,7 @@ public class ConfigurationDAO {
 	}
 
 	public ConfigurationExpTracker findByPK(String tableType, String tableCode){
+		open();
 		Cursor dbQuery = database.query(CONFIGURATION_TABLE, ConfigurationExpTracker.allColumns,
 				TABLE_TYPE + SQLOperator.EQUAL + SQLOperator.SINGLE_QUOTE
 				+ tableType + SQLOperator.SINGLE_QUOTE
@@ -364,6 +376,7 @@ public class ConfigurationDAO {
 		values.put(TABLE_CODE, conf.getTableCode());
 		values.put(LOC_DESC, conf.getLocDesc());
 		values.put(STATUS, conf.getStatus());
+		open();
 		database.beginTransaction();
 		database.update(CONFIGURATION_TABLE, values,
 				TABLE_TYPE + SQLOperator.EQUAL + SQLOperator.SINGLE_QUOTE
@@ -412,7 +425,7 @@ public class ConfigurationDAO {
 		values.put(TABLE_CODE, confDesc.getTableCode());
 		values.put(DESC_LOCALE, confDesc.getDescLocale());
 		values.put(DESC, confDesc.getDescription());
-
+		open();
 		database.insert(CONFIG_DESC_TABLE, null, values);
 		Cursor cursor = database.query(CONFIG_DESC_TABLE,
 				ConfigurationDesc.allColumns, TABLE_TYPE + SQLOperator.EQUAL
@@ -437,7 +450,7 @@ public class ConfigurationDAO {
 		values.put(TABLE_CODE, confDesc.getTableCode());
 		values.put(DESC_LOCALE, confDesc.getDescLocale());
 		values.put(DESC, confDesc.getDescription());
-
+		open();
 		database.update(CONFIG_DESC_TABLE, values,
 				TABLE_TYPE + SQLOperator.EQUAL + SQLOperator.SINGLE_QUOTE
 						+ confDesc.getTableType() + SQLOperator.SINGLE_QUOTE
@@ -539,7 +552,7 @@ public class ConfigurationDAO {
 
 	public ConfigurationExpTracker getAllWithDesc(String tableType,
 			String tableCode) {
-
+		open();
 		Cursor crTemp = database.query(CONFIGURATION_TABLE + " "
 				+ CONFIGURATION_TABLE, ConfigurationExpTracker.allColumns,
 				CONFIGURATION_TABLE + SQLOperator.DOT + TABLE_TYPE
@@ -583,6 +596,7 @@ public class ConfigurationDAO {
 			String tableCode, int newStatus) {
 		ContentValues cv = new ContentValues();
 		cv.put(STATUS, newStatus);
+		open();
 		database.beginTransaction();
 		database.update(CONFIGURATION_TABLE, cv, TABLE_TYPE + SQLOperator.EQUAL
 				+ SQLOperator.SINGLE_QUOTE + tableType

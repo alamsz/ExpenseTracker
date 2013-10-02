@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
 import com.alamsz.inc.expensetracker.utility.AdUtility;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.StaticVariables;
@@ -30,15 +31,15 @@ public class TransferBalance extends ExpenseTrackerFragment {
 	
 	private void initializeTabContent(View layout) {
 		FormatHelper.setCurrentDateOnView((EditText) layout.findViewById(R.id.dateTransferText));
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+		ArrayAdapter<ConfigurationExpTracker> adapter = new ArrayAdapter<ConfigurationExpTracker>(
 				getActivity().getApplicationContext(), R.layout.spinner_item,
-				StaticVariables.fundCatList);
+				StaticVariables.listOfFundSource);
 		adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		
 		
-		ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
+		ArrayAdapter<ConfigurationExpTracker> adapter2 = new ArrayAdapter<ConfigurationExpTracker>(
 				getActivity().getApplicationContext(), R.layout.spinner_item,
-				StaticVariables.fundCatList);
+				StaticVariables.listOfFundSource);
 		adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		
 		

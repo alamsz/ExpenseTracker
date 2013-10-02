@@ -129,7 +129,12 @@ public class ExpenseTrackerChartView extends GraphicalView {
 				int b = Character.getNumericValue(confExp.getTableCode()
 						.charAt(2)) * 2 + 50;
 
-				simpleRenderer.setColor(colors[i]);
+				if(colors.length > i){
+					simpleRenderer.setColor(colors[i]);
+				}else{
+					simpleRenderer.setColor(Color.rgb(r,g,b));
+				}
+				
 
 				defaultRenderer.addSeriesRenderer(simpleRenderer);
 			}

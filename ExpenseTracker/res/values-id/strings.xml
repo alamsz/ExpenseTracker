@@ -165,4 +165,9 @@
  	<string name="payment_complete">Lunas</string>
  	<string name="payment_not_complete">Belum Lunas</string>
  	<string name="fund_type">Tipe Dana</string>
+ 	<string name="application_language_preference">Pilihan Bahasa Aplikasi</string>
+ 	<string name="language_preference">Pilihan Bahasa</string>
+ 	<string name="make_the_app_password_protected">Buat Aplikasi dilindungi password</string>
+ 	<string name="enable_password">Aktifkan Password</string>
+ 	<string name="set_password">Masukkan Password</string>
 </resources>

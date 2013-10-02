@@ -14,6 +14,7 @@ import android.util.Log;
 import com.alamsz.inc.expensetracker.TransactionAmountWrapper;
 import com.alamsz.inc.expensetracker.utility.FormatHelper;
 import com.alamsz.inc.expensetracker.utility.SQLOperator;
+import com.alamsz.inc.expensetracker.utility.StaticVariables;
 
 public class ExpenseTrackerDAO {
 	// Database fields
@@ -24,7 +25,11 @@ public class ExpenseTrackerDAO {
 			ExpenseTrackerDAO.AMOUNT, ExpenseTrackerDAO.TYPE,
 			ExpenseTrackerDAO.FUND_SOURCE,
 			ExpenseTrackerDAO.TRANSACTION_CATEGORY };
-	private String[] allColumnsExpTrack = { ExpenseTrackerDAO.ID,
+	public static final String WEEK_IN_MONTH = "week_in_month";
+	public static final String WEEK_IN_YEAR = "week_in_year";
+	public static final String MONTH = "month";
+	public static final String YEAR = "year";
+	public static String[] allColumnsExpTrack = { ExpenseTrackerDAO.ID,
 			ExpenseTrackerDAO.DATE_INPUT, ExpenseTrackerDAO.DESCRIPTION,
 			ExpenseTrackerDAO.AMOUNT, ExpenseTrackerDAO.TYPE,
 			ExpenseTrackerDAO.FUND_SOURCE, WEEK_IN_MONTH, WEEK_IN_YEAR, MONTH,
@@ -34,10 +39,7 @@ public class ExpenseTrackerDAO {
 	public static final String ID = "_id";
 	public static final String TRANSACTION_CATEGORY = "transaction_category";
 	public static final String FUND_SOURCE = "category";
-	public static final String WEEK_IN_MONTH = "week_in_month";
-	public static final String WEEK_IN_YEAR = "week_in_year";
-	public static final String MONTH = "month";
-	public static final String YEAR = "year";
+	
 	public static final String TYPE = "type";
 	public static final String AMOUNT = "amount";
 	public static final String DESCRIPTION = "description";
@@ -52,15 +54,23 @@ public class ExpenseTrackerDAO {
 
 	public boolean open() {
 		// close it when it still open
-		if (database != null) {
-			close();
-		}
-		// open or reopen the database
-		database = dbHandler.getWritableDatabase();
-		if (database.isOpen()) {
+		try{
+		if (StaticVariables.database != null && StaticVariables.database.isOpen()) {
+			database = StaticVariables.database;
+			return true;
+		}else{
+			// open or reopen the database
+			StaticVariables.database = dbHandler.getWritableDatabase();
+			database = StaticVariables.database;
 			return true;
 		}
-		return false;
+		}catch (Exception e) {
+			StaticVariables.database = dbHandler.getWritableDatabase();
+			database = StaticVariables.database;
+			return false;
+		}
+		
+		
 	}
 
 	public void close() {
@@ -68,7 +78,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public ExpenseTracker addFinanceHelper(ExpenseTracker finHelp) {
-
+		open();
 		ContentValues values = new ContentValues();
 		values.put(ExpenseTrackerDAO.DATE_INPUT, finHelp.getDateInput());
 		values.put(ExpenseTrackerDAO.DESCRIPTION, finHelp.getDescription());
@@ -128,6 +138,7 @@ public class ExpenseTrackerDAO {
 
 	public ExpenseTracker findByPKTransaction(long id) {
 		Cursor cursoExpTrack;
+		open();
 		database.beginTransaction();
 		cursoExpTrack = database.query(ExpenseTrackerDAO.EXPENSETRACKER_TABLE,
 				allColumnsExpTrack, ExpenseTrackerDAO.ID + SQLOperator.EQUAL
@@ -155,7 +166,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public ExpenseTracker modifyFinanceHelper(ExpenseTracker finHelp) {
-
+		open();
 		ContentValues values = new ContentValues();
 		values.put(ExpenseTrackerDAO.DATE_INPUT, finHelp.getDateInput());
 		values.put(ExpenseTrackerDAO.DESCRIPTION, finHelp.getDescription());
@@ -206,6 +217,7 @@ public class ExpenseTrackerDAO {
 	public boolean deleteFinanceHelper(ExpenseTracker finHelper) {
 
 		try {
+			open();
 			long id = finHelper.getId();
 			Log.d("id_Tobedeleted", String.valueOf(id));
 
@@ -232,6 +244,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public List<ExpenseTracker> getAllFinanceHelper() {
+		open();
 		List<ExpenseTracker> finHelperList = new ArrayList<ExpenseTracker>();
 		String getAllFinanceQuery = SQLOperator.SELECT + EXPENSETRACKER_TABLE
 				+ SQLOperator.DOT + SQLOperator.ALL_COLUMNS + SQLOperator.COMA
@@ -264,6 +277,7 @@ public class ExpenseTrackerDAO {
 
 	public List<ExpenseTracker> getListPerPeriod(String dateFrom,
 			String dateTo, String category, String transType, String transCat) {
+		open();
 		List<ExpenseTracker> finHelperList = new ArrayList<ExpenseTracker>();
 		long dateFromLong = 0;
 		long dateToFromLong = 0;
@@ -352,6 +366,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public String getBalance() {
+		open();
 		Cursor curSaldo = database.rawQuery(
 				"select sum(case when type='K' then -1*amount else amount end) as saldo from "
 						+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE, null);
@@ -367,6 +382,7 @@ public class ExpenseTrackerDAO {
 	 * @return
 	 */
 	public String getBalancePerCategory(String category) {
+		open();
 		Cursor curSaldo = database.rawQuery(
 				"select sum(case when type='K' then -1*amount else amount end) as saldo from "
 						+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE
@@ -384,6 +400,7 @@ public class ExpenseTrackerDAO {
 	 * @return
 	 */
 	public String getBalanceOtherThanCash() {
+		open();
 		Cursor curSaldo = database.rawQuery(
 				"select sum(case when type='K' then -1*amount else amount end) as saldo from "
 						+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE
@@ -396,6 +413,7 @@ public class ExpenseTrackerDAO {
 
 	public int calculateExpensePerCategory(String category, String fundSource,
 			int month, int year) {
+		open();
 		String queryString = "select sum(amount) as saldo from "
 				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE + SQLOperator.SPACE
 				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE
@@ -429,6 +447,7 @@ public class ExpenseTrackerDAO {
 
 	public Map<Integer, TransactionAmountWrapper> getWeeklyTransactionSummary(
 			int week, int month, int year, String fundType) {
+		open();
 		String queryString = SQLOperator.SELECT
 				+ "sum(case when type='K' then amount else 0 end) as expense, "
 				+ "sum(case when type='D' then amount else 0 end) as income, "
@@ -468,6 +487,7 @@ public class ExpenseTrackerDAO {
 
 	public Map<Integer, TransactionAmountWrapper> getMonthlyTransactionSummary(
 			int month, int year, String fundType) {
+		open();
 		String queryString = SQLOperator.SELECT
 				+ "sum(case when type='K' then amount else 0 end) as expense,sum(case when type='D' then amount else 0 end) as income, "
 				+ ExpenseTrackerDAO.WEEK_IN_MONTH + SQLOperator.FROM
@@ -506,6 +526,7 @@ public class ExpenseTrackerDAO {
 
 	public List<String[]> getDetailCategoryBasedOnType(int date, int week,
 			int month, int year, String type, String fundType) {
+		open();
 		String queryString = SQLOperator.SELECT + "sum(amount) as expense, "
 				+ ExpenseTrackerDAO.TRANSACTION_CATEGORY + SQLOperator.FROM
 				+ ExpenseTrackerDAO.EXPENSETRACKER_TABLE + " "
@@ -566,6 +587,7 @@ public class ExpenseTrackerDAO {
 	 */
 	private ExpenseTracker cursorToFinanceHelper(Cursor cursor,
 			Cursor cursorExpCat) {
+		
 		ExpenseTracker finHelper = new ExpenseTracker();
 		finHelper.setId(cursor.getLong(0));
 		finHelper.setDateInput(cursor.getLong(1));
@@ -601,6 +623,7 @@ public class ExpenseTrackerDAO {
 
 	public Map<Integer, TransactionAmountWrapper> getYearlyTransactionSummary(
 			int year, String fundType) {
+		open();
 		String queryString = SQLOperator.SELECT
 				+ "sum(case when type='K' then amount else 0 end) as expense"
 				+ ",sum(case when type='D' then amount else 0 end) as income, "
@@ -634,7 +657,7 @@ public class ExpenseTrackerDAO {
 
 	/**** Payable and Receivable section ****/
 	public PayRecMaster addPayRecRecord(PayRecMaster payRec) {
-
+		open();
 		ContentValues values = new ContentValues();
 		values.put(PayRecMaster.DATE_INPUT, payRec.getDateInput());
 		values.put(PayRecMaster.DESCRIPTION, payRec.getDescription());
@@ -662,7 +685,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public PayRecMaster modifyPayRecRecord(PayRecMaster payRec) {
-
+		open();
 		ContentValues values = new ContentValues();
 		values.put(PayRecMaster.DATE_INPUT, payRec.getDateInput());
 		values.put(PayRecMaster.DESCRIPTION, payRec.getDescription());
@@ -692,7 +715,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public boolean modifyPayRecRecordAmountPaid(long amountPaid, long id) {
-
+		open();
 		ContentValues values = new ContentValues();
 		;
 		values.put(PayRecMaster.AMOUNT_PAID, amountPaid);
@@ -711,7 +734,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public PayRecPayment addPayRecPaymentRecord(PayRecPayment payRec) {
-
+		open();
 		ContentValues values = new ContentValues();
 		values.put(PayRecMaster.ID_MASTER, payRec.getIdMaster());
 		values.put(PayRecMaster.ID_TRANS, payRec.getIdTrans());
@@ -785,6 +808,7 @@ public class ExpenseTrackerDAO {
 	 */
 
 	public boolean deletePayRecPayment(PayRecPayment payRecPayment) {
+		open();
 		database.beginTransaction();
 		PayRecPayment paymentTemp = findByPKPayRecPayment(payRecPayment.getId());
 		long amount = paymentTemp.getAmount();
@@ -814,6 +838,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public boolean deletePayRecMaster(PayRecMaster payRecMaster) {
+		open();
 		database.beginTransaction();
 		long insertId = database
 				.delete(PayRecMaster.PAYABLE_RECEIVABLE_DETAIL_TABLE,
@@ -825,6 +850,8 @@ public class ExpenseTrackerDAO {
 	}
 
 	public List<PayRecMaster> getPayRecMasterByType(String type) {
+	
+		open();
 		List<PayRecMaster> payRecMasterList = new ArrayList<PayRecMaster>();
 		String getAllPayRecMasterQuery = SQLOperator.SELECT
 				+ PayRecMaster.PAYABLE_RECEIVABLE_TABLE + SQLOperator.DOT
@@ -855,6 +882,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public List<PayRecPayment> getPayRecPaymentByMasterId(long pkId) {
+		open();
 		List<PayRecPayment> payRecDetailList = new ArrayList<PayRecPayment>();
 		String getAllPayRecDetailQuery = SQLOperator.SELECT
 				+ PayRecMaster.PAYABLE_RECEIVABLE_DETAIL_TABLE
@@ -884,6 +912,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public PayRecPayment findByPKPayRecPayment(long id) {
+		open();
 		Cursor cursor = database.query(
 				PayRecMaster.PAYABLE_RECEIVABLE_DETAIL_TABLE,
 				PayRecMaster.allColumnsDetail, PayRecMaster.ID
@@ -905,6 +934,7 @@ public class ExpenseTrackerDAO {
 	}
 
 	public PayRecMaster findByPKPayRecMaster(long id) {
+		open();
 		Cursor cursor = database.query(PayRecMaster.PAYABLE_RECEIVABLE_TABLE,
 				PayRecMaster.allColumnsMaster, PayRecMaster.ID
 						+ SQLOperator.EQUAL + id, null, null, null, null);

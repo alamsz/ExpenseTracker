@@ -24,6 +24,12 @@ public class AboutActivity extends SherlockFragmentActivity {
 
 		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(myUrl)));
 	}
+		
+	public void likeus(View view){
+		String myUrl ="https://www.facebook.com/AlamszInc?ref=stream";
+
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(myUrl)));
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
 import com.alamsz.inc.expensetracker.dao.DatabaseHandler;
 
 public final class FormatHelper {
@@ -221,5 +222,13 @@ public final class FormatHelper {
 		arrayofWeek.add(clone.get(Calendar.MONTH)+1);
 		arrayofWeek.add(clone.get(Calendar.YEAR));
 		return arrayofWeek;
+	}
+	
+	public static ConfigurationExpTracker initConfig(String tableType) {
+		ConfigurationExpTracker configIncCat = new ConfigurationExpTracker();
+		configIncCat.setTableType(tableType);
+		configIncCat.setTableCode("");
+		configIncCat.setLocDesc("");
+		return configIncCat;
 	}
 }

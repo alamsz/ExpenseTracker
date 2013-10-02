@@ -9,15 +9,18 @@ import java.util.List;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.alamsz.inc.expensetracker.fragment.HomeFragment;
  
 public abstract class TabSwipeActivity extends SherlockFragmentActivity {
  
@@ -73,7 +76,7 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
         return adapter.addTab( title, fragmentClass, args, drawable );
     }
  
-    private class TabsAdapter extends FragmentPagerAdapter implements TabListener, ViewPager.OnPageChangeListener {
+    private class TabsAdapter extends FragmentStatePagerAdapter implements TabListener, ViewPager.OnPageChangeListener {
  
         private final SherlockFragmentActivity mActivity;
         private final ActionBar mActionBar;
@@ -102,7 +105,8 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
             }
         }
  
-        private List mTabs = new ArrayList();
+        
+		private List mTabs = new ArrayList();
  
         public Tab addTab( CharSequence title, Class fragmentClass, Bundle args, Drawable drawable ) {
             final TabInfo tabInfo = new TabInfo( fragmentClass, args );
@@ -143,20 +147,33 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
         }
  
         public void onPageSelected(int position) {
+        	final TabInfo tabInfo = (TabInfo) mTabs.get( position );
             mActionBar.setSelectedNavigationItem( position );
             selectInSpinnerIfPresent(position, true);
             ExpenseTrackerActivity.positionTab=position;
-            //ExpenseTrackerFragment frag = (ExpenseTrackerFragment) getItem(position);
-            //frag.initialize();
+            
+             if(getItem(position) instanceof HomeFragment){
+            	HomeFragment homeFragment = (HomeFragment)getItem(position);
+            	TextView txtSaldoOther = (TextView) findViewById(R.id.saldoTabunganViewValue);
+            	TextView txtSaldoCash = (TextView) findViewById(R.id.saldoCashViewValue);
+            	TextView txtSaldo = (TextView) findViewById(R.id.saldoViewValue);
+            	TextView finTips = (TextView) findViewById(R.id.tipsValue);
+            	homeFragment.onRefresh(txtSaldoOther,txtSaldoCash,txtSaldo,finTips);
+            	mPager.getAdapter().notifyDataSetChanged();
+            	
+            }
+            
+         
+           
             
         }
  
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+      public void onTabSelected(Tab tab, FragmentTransaction ft) {
             TabInfo tabInfo = (TabInfo) tab.getTag();
             for ( int i = 0; i < mTabs.size(); i++ ) {
                 if ( mTabs.get( i ) == tabInfo ) {
                     mPager.setCurrentItem( i );
-                   
+                    
                 }
             }
         }

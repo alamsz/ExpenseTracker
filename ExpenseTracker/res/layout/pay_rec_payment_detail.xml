@@ -168,29 +168,16 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bluishbackground"
                     android:onClick="addOrModPayRecPayment"
-                    android:shadowColor="#7740A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/add"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/row4"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        android:padding="2dp" >
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ListView>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/footerConfDetail"

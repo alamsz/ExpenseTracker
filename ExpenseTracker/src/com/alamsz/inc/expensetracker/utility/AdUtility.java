@@ -51,7 +51,6 @@ public class AdUtility {
 				StaticVariables.mAdRequest = new AdRequest();
 			}
 			
-			// adRequest.addKeyword("sporting goods");
 			mAdView.loadAd(StaticVariables.mAdRequest);
 		}
 	}

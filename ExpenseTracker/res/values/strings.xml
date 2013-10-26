@@ -130,6 +130,7 @@
  	<string name="btn_show_list">Show in List</string>
  	<string name="btn_add">Add</string>
  	<string name="btn_mod">Modify</string>
+ 	<string name="btn_open">Open</string>
     
     <!--  configuration -->
  	<string name="preflang">en_US</string>

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,12 +23,9 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.alamsz.inc.expensetracker.R;
+import com.alamsz.inc.expensetracker.utility.AdUtility;
 import com.alamsz.inc.expensetracker.utility.FileArrayAdapter;
 import com.alamsz.inc.expensetracker.utility.FileItem;
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdRequest.ErrorCode;
 import com.google.ads.AdView;
 
 public class DirectoryChooserActivity extends SherlockFragmentActivity {
@@ -57,7 +53,7 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 		
 		Button saveOrOpenButton = (Button) findViewById(R.id.buttonSave);
 		if(fileClickable){
-			saveOrOpenButton.setText("Open");
+			saveOrOpenButton.setText(getString(R.string.btn_open));
 			saveOrOpenButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -67,7 +63,7 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 				}
 			});
 		}else{
-			saveOrOpenButton.setText("Save");
+			saveOrOpenButton.setText(getString(R.string.btn_add));
 			saveOrOpenButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -80,42 +76,8 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 	    
 		
 		mAdView = (AdView) this.findViewById(R.id.ad);
-	    mAdView.setAdListener(new AdListener() {
-			
-			@Override
-			public void onReceiveAd(Ad arg0) {
-				Log.d(getApplicationInfo().name, "Receiving ad : "+arg0.toString());
-				
-			}
-			
-			@Override
-			public void onPresentScreen(Ad arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLeaveApplication(Ad arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-				Log.d(getApplicationInfo().name, "Failed to receive ad : "+arg1.toString());
-				
-			}
-			
-			@Override
-			public void onDismissScreen(Ad arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-
-	    AdRequest adRequest = new AdRequest();
-	    adRequest.addKeyword("sporting goods");
-	    mAdView.loadAd(adRequest);
+	    AdUtility.displayAd(mAdView);
+	  
 	    getSupportActionBar().setDisplayShowHomeEnabled(true);
 	}
 

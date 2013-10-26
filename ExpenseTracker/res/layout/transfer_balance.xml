@@ -192,7 +192,10 @@
                 android:layout_gravity="center"
                 android:background="@drawable/bluishbackground"
                 android:onClick="transferBalance"
-                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:text="@string/btn_submit" />
         </LinearLayout>
     </ScrollView>

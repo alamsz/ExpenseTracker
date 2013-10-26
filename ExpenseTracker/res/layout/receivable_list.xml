@@ -41,7 +41,7 @@
             android:onClick="createNewReceivable"
             android:textAppearance="@style/TextAppearance.Sherlock"
             android:textStyle="bold" />
-"
+
     </LinearLayout>
 
     <ListView
@@ -60,7 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:paddingTop="10dp" >
+        android:paddingTop="10dp" 
+        android:gravity="center">
 
         <com.google.ads.AdView
             xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
@@ -69,7 +70,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
 </RelativeLayout>

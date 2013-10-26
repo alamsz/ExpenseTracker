@@ -25,7 +25,7 @@
  	<string name="mustNotEmpty">Field harus diisi</string>
  	<string name="expense">Pengeluaran</string>
  	<string name="income">Pemasukan</string>
- 	<string name="filename_textview">Filename:</string>
+ 	<string name="filename_textview">Nama File:</string>
  	
  	
  		<string name="total_expense">Total Pengeluaran :&#160;</string>
@@ -111,8 +111,9 @@
  	<string name="btn_show">Tampilkan</string>
  	<string name="btn_show_graph">Tampilkan dalam Grafik</string>
  	<string name="btn_show_list">Tampilkan dalam List</string>
- 	<string name="btn_add">Add</string>
- 	<string name="btn_mod">Modify</string>
+ 	<string name="btn_add">Tambah</string>
+ 	<string name="btn_mod">Ubah</string>
+ 	<string name="btn_open">Buka</string>
  	
  	<!--  configuration -->
  	<string name="preflang">in_ID</string>

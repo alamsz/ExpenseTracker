@@ -17,7 +17,7 @@ public class DateDialogFragment extends DialogFragment {
 		ondateSet = ondate;
 	}
 
-	private int year, month, day;
+	private int year = 2013, month = 10, day=23;
 
 	@Override
 	public void setArguments(Bundle args) {

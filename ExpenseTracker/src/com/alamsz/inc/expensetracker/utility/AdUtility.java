@@ -47,10 +47,12 @@ public class AdUtility {
 
 				}
 			});
-
-			AdRequest adRequest = new AdRequest();
+			if(StaticVariables.mAdRequest == null){
+				StaticVariables.mAdRequest = new AdRequest();
+			}
+			
 			// adRequest.addKeyword("sporting goods");
-			mAdView.loadAd(adRequest);
+			mAdView.loadAd(StaticVariables.mAdRequest);
 		}
 	}
 

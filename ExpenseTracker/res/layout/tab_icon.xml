@@ -2,7 +2,7 @@
     android:id="@+id/tabsLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tab_style"
+    android:background="@drawable/bluishbackground"
     android:gravity="center"
     android:orientation="vertical" >
 

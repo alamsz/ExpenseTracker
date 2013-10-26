@@ -47,6 +47,7 @@ public class ExpenseCategoryBudgetDAO {
 
 	public ExpenseCategoryBudget getExpenseCategoryBudget(String tableType,
 			String tableCode) {
+		open();
 		String expenseBudgetQuery = SQLOperator.SELECT
 				+ EXPENSE_CATEGORY_BUDGET_TABLE + SQLOperator.DOT
 				+ SQLOperator.ALL_COLUMNS + SQLOperator.FROM
@@ -79,6 +80,7 @@ public class ExpenseCategoryBudgetDAO {
 	}
 
 	private ExpenseCategoryBudget cursorToExpenseBudget(Cursor expBudgetCur) {
+		
 		ExpenseCategoryBudget expBudget = new ExpenseCategoryBudget();
 		expBudget.setTableType(expBudgetCur.getString(0));
 		expBudget.setTableCode(expBudgetCur.getString(1));
@@ -90,6 +92,7 @@ public class ExpenseCategoryBudgetDAO {
 	public ExpenseCategoryBudget addNewExpenseBudget(
 			ExpenseCategoryBudget budget) {
 		if (budget != null) {
+			open();
 			ContentValues values = new ContentValues();
 			values.put(ConfigurationDAO.TABLE_TYPE, budget.getTableType());
 			values.put(ConfigurationDAO.TABLE_CODE, budget.getTableCode());
@@ -108,6 +111,7 @@ public class ExpenseCategoryBudgetDAO {
 	public ExpenseCategoryBudget updateExpenseBudget(
 			ExpenseCategoryBudget budget) {
 		if (budget != null) {
+			open();
 			ContentValues values = new ContentValues();
 			values.put(ConfigurationDAO.TABLE_TYPE, budget.getTableType());
 			values.put(ConfigurationDAO.TABLE_CODE, budget.getTableCode());
@@ -130,6 +134,7 @@ public class ExpenseCategoryBudgetDAO {
 	}
 	
 	public void deleteExpenseBudget(ExpenseCategoryBudget expBudget){
+		open();
 		database.delete(EXPENSE_CATEGORY_BUDGET_TABLE, ConfigurationDAO.TABLE_TYPE + SQLOperator.EQUAL
 							+ SQLOperator.SINGLE_QUOTE + expBudget.getTableType()
 							+ SQLOperator.SINGLE_QUOTE + SQLOperator.AND

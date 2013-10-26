@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:id="@+id/directoryChooserContainer">
+    android:id="@+id/directoryChooserContainer"
+    android:background="@drawable/whitebackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                  
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="clickCancel"
                     android:text="@string/btn_cancel"
                     android:textSize="@dimen/textSize" />
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                  
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="clickSave"
                     android:text="@string/btn_save"
                     android:textSize="@dimen/textSize" />
@@ -93,8 +94,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bluishbackground" >
 
                 <com.google.ads.AdView
                     xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"

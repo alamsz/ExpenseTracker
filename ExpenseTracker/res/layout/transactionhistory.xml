@@ -6,6 +6,7 @@
     android:alpha="1"
     android:columnCount="5"
     android:orientation="vertical" 
+     android:background="@drawable/whitebackground"
     >
 
     <LinearLayout
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp" 
-         android:background="#DCF945">
+         android:background="@drawable/bluishbackground">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,7 +30,8 @@
                 android:text="@string/trans_hist"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold" />
+                android:textStyle="bold" 
+                android:textColor="#FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +46,8 @@
                     android:text="@string/date_from_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize" 
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
 
                 <TextView
                     android:id="@+id/dateToViewHist"
@@ -54,7 +57,8 @@
                     android:text="@string/date_to_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize" 
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +74,8 @@
                     android:text="@string/expense_cat_display"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
                 <TextView
                     android:id="@+id/typeCatHist"
                     android:layout_width="240dp"
@@ -79,7 +84,8 @@
                     android:text="@string/expense_type"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
              <TextView
                     android:id="@+id/totalExpense"
@@ -89,7 +95,8 @@
                     android:text="@string/total_expense"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
               <TextView
                     android:id="@+id/totalIncome"
                     android:layout_width="200dp"
@@ -98,7 +105,8 @@
                     android:text="@string/total_income"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
                <TextView
                     android:id="@+id/diffView"
                     android:layout_width="200dp"
@@ -107,7 +115,8 @@
                     android:text="@string/diff"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="@dimen/smallSize"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <ImageButton

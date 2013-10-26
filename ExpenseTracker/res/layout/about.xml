@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/whitebackground">
 
     <ImageView
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ABCDEF"
+                android:background="@drawable/grassbackground"
                 android:orientation="horizontal"
                 android:onClick="ratemyapp"
                 android:padding="5dp" >
@@ -50,7 +51,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#BCDEFA"
+                android:background="@drawable/chlorophylebackground"
                 android:contentDescription="@string/app_name"
                 android:orientation="horizontal"
                 android:onClick="likeus"

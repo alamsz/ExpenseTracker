@@ -191,8 +191,11 @@ public class DirectoryChooserActivity extends SherlockFragmentActivity {
 			FileItem o = adapter.getItem(position);
 			if (o.getImage().equalsIgnoreCase("directory_icon")
 					|| o.getImage().equalsIgnoreCase("directory_up")) {
-				currentDir = new File(o.getPath());
-				generateFolderView(currentDir);
+				if(o.getPath() != null){
+					currentDir = new File(o.getPath());
+					generateFolderView(currentDir);
+				}
+				
 			}else {
 				if(fileClickable){
 					currentDir = new File(o.getPath());

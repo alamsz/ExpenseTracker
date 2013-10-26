@@ -3,7 +3,6 @@ package com.alamsz.inc.expensetracker;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,7 +81,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 	boolean needToShow = false;
 	Spinner transCatSpinner;
 	TextView transCatText;
-	
+
 	String processMessage = "";
 	Spinner expCategorySpinner;
 	int messageDuration = 0;
@@ -96,6 +95,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		StaticVariables.monthStrArr = getResources().getStringArray(
 				R.array.months);
 		showUserSettings();
+		
 		initialiseTabHost(savedInstanceState);
 		if (savedInstanceState != null) {
 			return;
@@ -113,60 +113,58 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		// daoFinHelper = new ExpenseTrackerDAO(dbHandler);
 		// make sure that the tables are writeable
 		// daoFinHelper.open();
-		expTrackerService = new ExpenseTrackerService(FormatHelper.getDBHandler(dbHandler, this));
+		expTrackerService = new ExpenseTrackerService(
+				FormatHelper.getDBHandler(dbHandler, this));
 		configService = new ConfigurationService(dbHandler);
 		Log.d("Locale", StaticVariables.currencyLocale.toString());
 
-		
 		initializeAllConfiguration();
 		setTabId(positionTab);
 	}
 
-	
 	private void initializeAllConfiguration() {
 		ConfigurationService configurationService = new ConfigurationService(
 				dbHandler);
-		
+
 		StaticVariables.listOfConfIncCat = new ArrayList<ConfigurationExpTracker>();
 		StaticVariables.listOfConfExpCat = new ArrayList<ConfigurationExpTracker>();
-		StaticVariables.listOfConfIncCat.add(FormatHelper.initConfig(ConfigurationDAO.INCOME_CATEGORY));
-		StaticVariables.listOfConfExpCat.add(FormatHelper.initConfig(ConfigurationDAO.EXPENSE_CATEGORY));
+		StaticVariables.listOfConfIncCat.add(FormatHelper
+				.initConfig(ConfigurationDAO.INCOME_CATEGORY));
+		StaticVariables.listOfConfExpCat.add(FormatHelper
+				.initConfig(ConfigurationDAO.EXPENSE_CATEGORY));
 		StaticVariables.mapOfExpenseCatBasedOnTableCode = new HashMap<String, ConfigurationExpTracker>();
-		
+
 		StaticVariables.mapOfIncomeCatBasedOnTableCode = new HashMap<String, ConfigurationExpTracker>();
 		StaticVariables.prefLang = getString(R.string.preflang);
-		
-		
+
 		// set all configuration into static variables
 		StaticVariables.listOfConfExpCat.addAll(configurationService
 				.getExpenseCategoryListFromDB(true));
-		
 
 		for (Iterator<ConfigurationExpTracker> iterator = StaticVariables.listOfConfExpCat
 				.iterator(); iterator.hasNext();) {
 			ConfigurationExpTracker configs = iterator.next();
-			
+
 			StaticVariables.mapOfExpenseCatBasedOnTableCode.put(
 					configs.getTableCode(), configs);
-			
 
 		}
 
-		
 		// set all configuration into static variables
 		StaticVariables.listOfConfIncCat.addAll(configurationService
 				.getIncomeCategoryListFromDB(true));
-		
+
 		for (Iterator<ConfigurationExpTracker> iterator = StaticVariables.listOfConfIncCat
 				.iterator(); iterator.hasNext();) {
 			ConfigurationExpTracker configs = iterator.next();
-			
+
 			StaticVariables.mapOfIncomeCatBasedOnTableCode.put(
 					configs.getTableCode(), configs);
-			
+
 		}
 		StaticVariables.listOfFundSource = new ArrayList<ConfigurationExpTracker>();
-		StaticVariables.listOfFundSource.add(FormatHelper.initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
+		StaticVariables.listOfFundSource.add(FormatHelper
+				.initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
 		StaticVariables.listOfFundSource.addAll(configurationService
 				.getConfigurationListFromDB(
 						ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, true));
@@ -177,11 +175,9 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 
 			StaticVariables.mapOfFundCategory.put(configTemp.getTableCode(),
 					configTemp);
-			
-				
-			
+
 		}
-		//Collections.sort(StaticVariables.fundCatList);
+		// Collections.sort(StaticVariables.fundCatList);
 		// StaticVariables.mapOfFundCategory.put(ExpenseTracker.CAT_CASH,
 		// getString(R.string.C));
 		// StaticVariables.mapOfFundCategory.put(ExpenseTracker.CAT_SAVING,
@@ -191,7 +187,6 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		StaticVariables.mapOfTransType.put(ExpenseTracker.TYPE_DEBET,
 				getString(R.string.D));
 	}
-
 
 	protected void onSaveInstanceState(Bundle outState) {
 
@@ -261,7 +256,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 	}
 
 	public void exportToCSV(View view) {
-		
+
 		Intent intentDirChooser = new Intent(this,
 				DirectoryChooserActivity.class);
 		intentDirChooser.putExtra("fileClickable", false);
@@ -315,15 +310,14 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				null);
 		helpBuilder.setView(searchCriteriaLayout);
 		layout = searchCriteriaLayout;
-		List <ConfigurationExpTracker> fundSourceList = new ArrayList<ConfigurationExpTracker>();
-		fundSourceList.add(FormatHelper.initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
+		List<ConfigurationExpTracker> fundSourceList = new ArrayList<ConfigurationExpTracker>();
+		fundSourceList.add(FormatHelper
+				.initConfig(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE));
 		fundSourceList.addAll(configService.getConfigurationListFromDB(
-				ConfigurationDAO.FUND_SOURCE_TABLE_TYPE,
-				false));
+				ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false));
 		ArrayAdapter<ConfigurationExpTracker> adapter = new ArrayAdapter<ConfigurationExpTracker>(
-				this, R.layout.spinner_item,
-				fundSourceList);
-		
+				this, R.layout.spinner_item, fundSourceList);
+
 		adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
 		Spinner categorySpinner = (Spinner) layout
 				.findViewById(R.id.categorySpinnerSearch);
@@ -333,22 +327,22 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				.findViewById(R.id.typeSpinnerSearch);
 		transCatSpinner = (Spinner) layout
 				.findViewById(R.id.transCatSpinnerSearch);
-		List <ConfigurationExpTracker> expCatList = new ArrayList<ConfigurationExpTracker>();
-		expCatList.add(FormatHelper.initConfig(ConfigurationDAO.EXPENSE_CATEGORY));
+		List<ConfigurationExpTracker> expCatList = new ArrayList<ConfigurationExpTracker>();
+		expCatList.add(FormatHelper
+				.initConfig(ConfigurationDAO.EXPENSE_CATEGORY));
 		expCatList.addAll(configService.getConfigurationListFromDB(
-				ConfigurationDAO.EXPENSE_CATEGORY,
-				false));
+				ConfigurationDAO.EXPENSE_CATEGORY, false));
 		final ArrayAdapter<ConfigurationExpTracker> expenseCatAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 				this, R.layout.spinner_item, expCatList);
 		expenseCatAdapter
 				.setDropDownViewResource(R.layout.spinner_dropdown_item);
-		List <ConfigurationExpTracker> incCatList = new ArrayList<ConfigurationExpTracker>();
-		incCatList.add(FormatHelper.initConfig(ConfigurationDAO.INCOME_CATEGORY));
+		List<ConfigurationExpTracker> incCatList = new ArrayList<ConfigurationExpTracker>();
+		incCatList.add(FormatHelper
+				.initConfig(ConfigurationDAO.INCOME_CATEGORY));
 		incCatList.addAll(configService.getConfigurationListFromDB(
-				ConfigurationDAO.INCOME_CATEGORY,
-				false));
+				ConfigurationDAO.INCOME_CATEGORY, false));
 		final ArrayAdapter<ConfigurationExpTracker> incomeCatAdapter = new ArrayAdapter<ConfigurationExpTracker>(
-				this, R.layout.spinner_item,incCatList);
+				this, R.layout.spinner_item, incCatList);
 		ArrayList<ConfigurationExpTracker> arrayList = new ArrayList<ConfigurationExpTracker>();
 		final ArrayAdapter<ConfigurationExpTracker> emptyAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 				this, R.layout.spinner_item, arrayList);
@@ -418,24 +412,23 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		String dateFromValue = dateFrom.getText().toString();
 		String dateToValue = dateTo.getText().toString();
 
-		
-		
 		String categorySpinnerValue = "";
-			
-		if(getSpinnerPosition(categorySpinner) > 0){
-			
-			try{
-				categorySpinnerValue = categorySpinner.getSelectedItem().toString();
-				category = ((ConfigurationExpTracker)categorySpinner.getSelectedItem()).getTableCode();
-			}catch(Exception e){
-				
-				//processMessage = "error, please check fund source/destination configuration";
+
+		if (getSpinnerPosition(categorySpinner) > 0) {
+
+			try {
+				categorySpinnerValue = categorySpinner.getSelectedItem()
+						.toString();
+				category = ((ConfigurationExpTracker) categorySpinner
+						.getSelectedItem()).getTableCode();
+			} catch (Exception e) {
+
+				// processMessage =
+				// "error, please check fund source/destination configuration";
 			}
-			
-			
+
 		}
-		
-		
+
 		Spinner transCatSpinnerHist = (Spinner) layout
 				.findViewById(R.id.transCatSpinnerSearch);
 		Spinner transTypeSpinnerHist = (Spinner) layout
@@ -444,11 +437,12 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				.getSelectedItem();
 		String strTransTypeSpinnerHist = (String) transTypeSpinnerHist
 				.getSelectedItem();
-		
+
 		String transCatDisplay = "";
 		String strTransCatSpinnerHist = "";
-		if(confTransCatSpinnerHist != null && !confTransCatSpinnerHist.getLocDesc().isEmpty()){
-			transCatDisplay = " ("+ confTransCatSpinnerHist.getLocDesc() + ")";
+		if (confTransCatSpinnerHist != null
+				&& !confTransCatSpinnerHist.getLocDesc().isEmpty()) {
+			transCatDisplay = " (" + confTransCatSpinnerHist.getLocDesc() + ")";
 			strTransCatSpinnerHist = confTransCatSpinnerHist.getTableCode();
 		}
 		// set the transtype for display
@@ -456,7 +450,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		transTypeCat.setText(getString(R.string.expense_type) + " : "
 				+ strTransTypeSpinnerHist);
 		// set the constraint value
-		
+
 		if (strTransTypeSpinnerHist != null
 				&& !strTransTypeSpinnerHist.equals("")) {
 			strTransTypeSpinnerHist = strTransTypeSpinnerHist
@@ -477,7 +471,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 
 		ListView listPencatatKeuangan;
 		listPencatatKeuangan = (ListView) findViewById(R.id.expandableListView1);
-		if(listHistTransaction == null){
+		if (listHistTransaction == null) {
 			listHistTransaction = new ArrayList<ExpenseTracker>();
 		}
 		TransactionAdapter adapter = new TransactionAdapter(this,
@@ -527,29 +521,34 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				description.setText(finHelp.getDescription());
 				Spinner catSpin = (Spinner) searchCriteriaLayout
 						.findViewById(R.id.categorySpinnerRO);
-				
+
 				ArrayAdapter<ConfigurationExpTracker> fundSourceAdapter = new ArrayAdapter<ConfigurationExpTracker>(
 						getApplicationContext(), R.layout.spinner_item,
 						configService.getConfigurationListFromDB(
-								ConfigurationDAO.FUND_SOURCE_TABLE_TYPE,
-								false));
+								ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false));
 				fundSourceAdapter
-				.setDropDownViewResource(R.layout.spinner_item);
+						.setDropDownViewResource(R.layout.spinner_item);
 				catSpin.setAdapter(fundSourceAdapter);
-				//String categoryDescription = finHelp.getCategory().equals(
-				//		ExpenseTracker.CAT_SAVING) ? getString(R.string.T)
-				//		: getString(R.string.C);
+				// String categoryDescription = finHelp.getCategory().equals(
+				// ExpenseTracker.CAT_SAVING) ? getString(R.string.T)
+				// : getString(R.string.C);
 				int i = 0;
-				for (Iterator iterator = configService.getConfigurationListFromDB(ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false).iterator(); iterator
-						.hasNext();) {
-					ConfigurationExpTracker type = (ConfigurationExpTracker) iterator.next();
-					if(type != null && type.getTableCode()!=null && type.getTableCode().equals(finHelp.getCategory())){
+				for (Iterator iterator = configService
+						.getConfigurationListFromDB(
+								ConfigurationDAO.FUND_SOURCE_TABLE_TYPE, false)
+						.iterator(); iterator.hasNext();) {
+					ConfigurationExpTracker type = (ConfigurationExpTracker) iterator
+							.next();
+					if (type != null
+							&& type.getTableCode() != null
+							&& type.getTableCode()
+									.equals(finHelp.getCategory())) {
 						catSpin.setSelection(i);
 						break;
 					}
 					i++;
 				}
-				
+
 				Spinner typeSpin = (Spinner) searchCriteriaLayout
 						.findViewById(R.id.typeSpinnerRO);
 				ArrayAdapter<String> transTypeAdapter = (ArrayAdapter<String>) typeSpin
@@ -578,11 +577,9 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				ConfigurationExpTracker config = new ConfigurationExpTracker();
 				if (finHelp.getType().equals(ExpenseTracker.TYPE_DEBET)) {
 					transCatList = configService.getConfigurationListFromDB(
-							ConfigurationDAO.INCOME_CATEGORY,
-							false);
+							ConfigurationDAO.INCOME_CATEGORY, false);
 					config = (ConfigurationExpTracker) StaticVariables.mapOfIncomeCatBasedOnTableCode
 							.get(finHelp.getTransCategory());
-					
 
 					transCatText = getString(R.string.inc_category);
 					transCatCategory = getString(R.string.fund_desc);
@@ -590,11 +587,10 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				// set into expense category
 				else {
 					transCatList = configService.getConfigurationListFromDB(
-							ConfigurationDAO.EXPENSE_CATEGORY,
-							false);
+							ConfigurationDAO.EXPENSE_CATEGORY, false);
 					config = (ConfigurationExpTracker) StaticVariables.mapOfExpenseCatBasedOnTableCode
 							.get(finHelp.getTransCategory());
-					
+
 					transCatText = getString(R.string.exp_category);
 					transCatCategory = getString(R.string.fund_source);
 
@@ -605,16 +601,24 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				transCategoryAdapter
 						.setDropDownViewResource(R.layout.spinner_dropdown_item);
 				int itempos = 0;
-				for (Iterator iterator = transCatList.iterator(); iterator
-						.hasNext();) {
-					ConfigurationExpTracker configurationExpTracker = (ConfigurationExpTracker) iterator
-							.next();
-					if(configurationExpTracker.getTableCode().equals(config.getTableCode())){
-						break;
+				if (config != null) {
+					for (Iterator iterator = transCatList.iterator(); iterator
+							.hasNext();) {
+						ConfigurationExpTracker configurationExpTracker = (ConfigurationExpTracker) iterator
+								.next();
+						String tableCodeTemp = "";
+						if (configurationExpTracker != null) {
+							tableCodeTemp = configurationExpTracker
+									.getTableCode();
+						}
+						if (tableCodeTemp.equals(config.getTableCode())) {
+							break;
+						}
+						itempos++;
+
 					}
-					itempos++;
-					
 				}
+
 				transCatSpinner.setAdapter(transCategoryAdapter);
 				transCatSpinner.setSelection(itempos);
 				transCatView.setText(transCatText);
@@ -695,10 +699,10 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		}
 		Spinner incCategorySpinner = (Spinner) findViewById(R.id.incomeCategorySpinner);
 		ConfigurationExpTracker configTemp = null;
-		if(incCategorySpinner.getSelectedItem() != null){
-			configTemp = (ConfigurationExpTracker) incCategorySpinner.getSelectedItem();
+		if (incCategorySpinner.getSelectedItem() != null) {
+			configTemp = (ConfigurationExpTracker) incCategorySpinner
+					.getSelectedItem();
 		}
-		
 
 		String incCategory = configTemp == null ? "" : configTemp
 				.getTableCode();
@@ -707,12 +711,13 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 		if (getSpinnerPosition(categorySpinner) <= 0) {
 			validForProcess = false;
-		} 
-		//else if (categorySpinner.getSelectedItem().equals(
-			//	getString(R.string.T))) {
-		category = ((ConfigurationExpTracker)categorySpinner.getSelectedItem()).getTableCode();	
-		
-		//}
+		}
+		// else if (categorySpinner.getSelectedItem().equals(
+		// getString(R.string.T))) {
+		category = ((ConfigurationExpTracker) categorySpinner.getSelectedItem())
+				.getTableCode();
+
+		// }
 		financeHelper.setCategory(category);
 		String processMessage = getString(R.string.allFieldValidation);
 		int messageDuration = Toast.LENGTH_LONG;
@@ -770,22 +775,24 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		String categoryFromStr = "";
 		if (getSpinnerPosition(categoryFrom) <= 0) {
 			validForProcess = false;
-		} 
-		
-		if(getSpinnerPosition(categoryFrom) > 0){
-			
-			try{
-				categoryFromStr = ((ConfigurationExpTracker)categoryFrom.getSelectedItem()).getTableCode();;
-			}catch(Exception e){
+		}
+
+		if (getSpinnerPosition(categoryFrom) > 0) {
+
+			try {
+				categoryFromStr = ((ConfigurationExpTracker) categoryFrom
+						.getSelectedItem()).getTableCode();
+				;
+			} catch (Exception e) {
 				validForProcess = false;
 				processMessage = "error, please check fund source/destination configuration";
 			}
-			
-			
+
 		}
-		//else if (categoryFrom.getSelectedItem().equals(getString(R.string.T))) {
-			//categoryFromStr = ExpenseTracker.CAT_SAVING;
-		//}
+		// else if
+		// (categoryFrom.getSelectedItem().equals(getString(R.string.T))) {
+		// categoryFromStr = ExpenseTracker.CAT_SAVING;
+		// }
 		expTrackerFrom.setType(ExpenseTracker.TYPE_CREDIT);
 		expTrackerFrom.setCategory(categoryFromStr);
 		expTrackerFrom.setTransCategory("TRF");
@@ -793,22 +800,24 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		String categoryToStr = "";
 		if (getSpinnerPosition(categoryTo) <= 0) {
 			validForProcess = false;
-		} 
-		//else if (categoryTo.getSelectedItem().equals(getString(R.string.T))) {
-		//	categoryToStr = ExpenseTracker.CAT_SAVING;
-		//}
-		if(getSpinnerPosition(categoryTo)>0){
-			
-			try{
-				categoryToStr = ((ConfigurationExpTracker)categoryTo.getSelectedItem()).getTableCode();;
-			}catch(Exception e){
+		}
+		// else if (categoryTo.getSelectedItem().equals(getString(R.string.T)))
+		// {
+		// categoryToStr = ExpenseTracker.CAT_SAVING;
+		// }
+		if (getSpinnerPosition(categoryTo) > 0) {
+
+			try {
+				categoryToStr = ((ConfigurationExpTracker) categoryTo
+						.getSelectedItem()).getTableCode();
+				;
+			} catch (Exception e) {
 				validForProcess = false;
 				processMessage = "error, please check fund source/destination configuration";
 			}
-			
-			
+
 		}
-		
+
 		expTrackerTo.setType(ExpenseTracker.TYPE_DEBET);
 		expTrackerTo.setCategory(categoryToStr);
 		expTrackerTo.setTransCategory("TRF");
@@ -835,14 +844,13 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 
 		}
 
-		if (getSpinnerPosition(categoryFrom)> 0
-				&& getSpinnerPosition(categoryTo)>0
+		if (getSpinnerPosition(categoryFrom) > 0
+				&& getSpinnerPosition(categoryTo) > 0
 				&& categoryFromStr.equals(categoryToStr)) {
 			processMessage = getString(R.string.transfer_invalid);
 			validForProcess = false;
-		} else if (validForProcess
-				&& getSpinnerPosition(categoryFrom)> 0
-				&& getSpinnerPosition(categoryTo)>0) {
+		} else if (validForProcess && getSpinnerPosition(categoryFrom) > 0
+				&& getSpinnerPosition(categoryTo) > 0) {
 			expTrackerFrom.setAmount(Integer.parseInt(amount.getText()
 					.toString()));
 			expTrackerTo.setAmount(Integer
@@ -924,7 +932,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		case REQUEST_PATH:
 			if (resultCode == RESULT_OK) {
 				String curFileName = data.getStringExtra("getFullPathName");
-				expTrackerService.saveResultFile(curFileName+".xls",
+				expTrackerService.saveResultFile(curFileName + ".xls",
 						getApplicationContext(), transactionHistoryList);
 				Toast.makeText(
 						getApplicationContext(),
@@ -933,8 +941,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 
 			}
 			break;
-		
-		
+
 		case BACKUP_DB:
 			if (resultCode == RESULT_OK) {
 				boolean valid = false;
@@ -945,8 +952,10 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 							+ ".pkdb"));
 
 				}
-				String processMessage = String.format(getString(R.string.export_db_success), curFileName + ".pkdb");
-						
+				String processMessage = String.format(
+						getString(R.string.export_db_success), curFileName
+								+ ".pkdb");
+
 				if (valid) {
 
 				} else {
@@ -960,40 +969,50 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 			if (resultCode == RESULT_OK) {
 				dbData = data;
 				new AlertDialog.Builder(this)
-				.setTitle("")
-				.setMessage(String.format(getString(R.string.db_restore_confirmation),dbData.getStringExtra("getFullPathName")))
-				.setPositiveButton(getString(R.string.btn_yes),
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialog,
-									int which) {
-								boolean valid = false;
-								String curFileName = "";
-								if (DbExportImport.SdIsPresent()) {
-									curFileName = dbData.getStringExtra("getFullPathName");
-									valid = DbExportImport.restoreDb(new File(curFileName));
+						.setTitle("")
+						.setMessage(
+								String.format(
+										getString(R.string.db_restore_confirmation),
+										dbData.getStringExtra("getFullPathName")))
+						.setPositiveButton(getString(R.string.btn_yes),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										boolean valid = false;
+										String curFileName = "";
+										if (DbExportImport.SdIsPresent()) {
+											curFileName = dbData
+													.getStringExtra("getFullPathName");
+											valid = DbExportImport
+													.restoreDb(new File(
+															curFileName));
 
-								}
-								String processMessage = String.format(getString(R.string.restore_db_success), curFileName);
-								if (valid) {
+										}
+										String processMessage = String
+												.format(getString(R.string.restore_db_success),
+														curFileName);
+										if (valid) {
 
-								} else {
-									processMessage = String.format(getString(R.string.db_restore_fail),curFileName);
+										} else {
+											processMessage = String
+													.format(getString(R.string.db_restore_fail),
+															curFileName);
 
-								}
-								Toast.makeText(getApplicationContext(), processMessage, Toast.LENGTH_LONG).show();
-								
-							}
-						})
-				.setNegativeButton(getString(R.string.btn_no),
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialog,
-									int which) {
+										}
+										Toast.makeText(getApplicationContext(),
+												processMessage,
+												Toast.LENGTH_LONG).show();
 
-							}
-						}).show();
-				
+									}
+								})
+						.setNegativeButton(getString(R.string.btn_no),
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+
+									}
+								}).show();
+
 			}
 			break;
 		}
@@ -1014,18 +1033,21 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				localeArray[0] + " " + localeArray[1] + " "
 						+ newLocale.toString() + " "
 						+ StaticVariables.currencyLocale.toString());
-		Configuration config = getBaseContext().getResources().getConfiguration();
-		try{
-			
+		Configuration config = getBaseContext().getResources()
+				.getConfiguration();
+		try {
+
 			config.locale = new Locale(preflang);
-			getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-			
+			getBaseContext().getResources().updateConfiguration(config,
+					getBaseContext().getResources().getDisplayMetrics());
+
 			HomeFragment.financeTipsGood = sharedPrefs.getString(
 					"finance_tips_good", getString(R.string.finance_tips_good));
 			HomeFragment.financeTipsModerate = sharedPrefs.getString(
 					"finance_tips_moderate",
 					getString(R.string.finance_tips_warning));
-			HomeFragment.financeTipsBad = sharedPrefs.getString("finance_tips_bad",
+			HomeFragment.financeTipsBad = sharedPrefs.getString(
+					"finance_tips_bad",
 					getString(R.string.finance_tips_critical));
 			HomeFragment.financeTipsGoodLimit = sharedPrefs.getString(
 					"finance_tips_good_limit", "1000000");
@@ -1033,10 +1055,10 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 					"finance_tips_moderate_limit", "100000");
 			deleteEnabled = sharedPrefs.getBoolean("enable_delete", true);
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			Locale.setDefault(defaultLang);
 		}
-		
+
 	}
 
 	@Override
@@ -1049,11 +1071,13 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 	protected void onResume() {
 
 		super.onResume();
-		dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler, this);
+		dbHandler = FormatHelper.getDBHandler(ExpenseTrackerActivity.dbHandler,
+				this);
 		// daoFinHelper = new ExpenseTrackerDAO(dbHandler);
 		// make sure that the tables are writeable
 		// daoFinHelper.open();
-		expTrackerService = new ExpenseTrackerService(FormatHelper.getDBHandler(dbHandler, this));
+		expTrackerService = new ExpenseTrackerService(
+				FormatHelper.getDBHandler(dbHandler, this));
 		configService = new ConfigurationService(dbHandler);
 		showUserSettings();
 	}
@@ -1090,14 +1114,15 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		getSupportActionBar().setSelectedNavigationItem(4);
 
 	}
+
 	public void openPayableTab(View view) {
 		getSupportActionBar().setSelectedNavigationItem(5);
-		
 
 	}
+
 	public void openReceivableTab(View view) {
 		getSupportActionBar().setSelectedNavigationItem(6);
-		
+
 	}
 
 	public void openSettingTab(View view) {
@@ -1154,14 +1179,11 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 
 	}
 
-
-
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 	}
-
 
 	public void processExpense(View view) {
 		// Spinner catSpin = (Spinner)
@@ -1218,16 +1240,18 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		final Spinner categorySpinner = (Spinner) findViewById(R.id.expenseFundSourceSpinner);
 		if (getSpinnerPosition(categorySpinner) <= 0) {
 			validForProcess = false;
-		} 
-		//else if (categorySpinner.getSelectedItem().equals(
-			//	getString(R.string.T))) {
-		//int selectedItem = getSpinnerPosition(categorySpinner);
-		category = ((ConfigurationExpTracker)categorySpinner.getSelectedItem()).getTableCode();
-		//}
+		}
+		// else if (categorySpinner.getSelectedItem().equals(
+		// getString(R.string.T))) {
+		// int selectedItem = getSpinnerPosition(categorySpinner);
+		category = ((ConfigurationExpTracker) categorySpinner.getSelectedItem())
+				.getTableCode();
+		// }
 		financeHelper.setCategory(category);
 
 		expCategorySpinner = (Spinner) findViewById(R.id.expenseCategorySpinner);
-		ConfigurationExpTracker configTemp = (ConfigurationExpTracker) expCategorySpinner.getSelectedItem();
+		ConfigurationExpTracker configTemp = (ConfigurationExpTracker) expCategorySpinner
+				.getSelectedItem();
 
 		String expCategory = configTemp == null ? "" : configTemp
 				.getTableCode();
@@ -1248,52 +1272,34 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 				int currentExpense = expTrackerService
 						.calculateExpensePerCategory(month, year, expCategory);
 				/*
-				int budgetMonthly = configTemp.getExpBudget()
-						.getBudgetAmountMonthly();
-
-				if (budgetMonthly > 0
-						&& budgetMonthly < currentExpense
-								+ Integer.parseInt(amountStr)) {
-					needToShow = false;
-
-					new AlertDialog.Builder(this)
-							.setTitle(getString(R.string.over_budget_title))
-							.setMessage(
-									String.format(
-											getString(R.string.over_budget_confirmation),
-											configTemp.getLocDesc()))
-							.setPositiveButton(getString(R.string.btn_yes),
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											financeHelper = expTrackerService
-													.addFinanceHelper(financeHelper);
-
-											processMessage = String
-													.format(getString(R.string.transaction_success),
-															financeHelper
-																	.toString());
-											messageDuration = Toast.LENGTH_SHORT;
-											cleanUpFieldsAfterSaved(
-													description, amount,
-													categorySpinner,
-													expCategorySpinner);
-											Toast.makeText(
-													getApplicationContext(),
-													processMessage,
-													messageDuration).show();
-										}
-									})
-							.setNegativeButton(getString(R.string.btn_no),
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-
-										}
-									}).show();
-				}*/
+				 * int budgetMonthly = configTemp.getExpBudget()
+				 * .getBudgetAmountMonthly();
+				 * 
+				 * if (budgetMonthly > 0 && budgetMonthly < currentExpense +
+				 * Integer.parseInt(amountStr)) { needToShow = false;
+				 * 
+				 * new AlertDialog.Builder(this)
+				 * .setTitle(getString(R.string.over_budget_title)) .setMessage(
+				 * String.format( getString(R.string.over_budget_confirmation),
+				 * configTemp.getLocDesc()))
+				 * .setPositiveButton(getString(R.string.btn_yes), new
+				 * DialogInterface.OnClickListener() { public void onClick(
+				 * DialogInterface dialog, int which) { financeHelper =
+				 * expTrackerService .addFinanceHelper(financeHelper);
+				 * 
+				 * processMessage = String
+				 * .format(getString(R.string.transaction_success),
+				 * financeHelper .toString()); messageDuration =
+				 * Toast.LENGTH_SHORT; cleanUpFieldsAfterSaved( description,
+				 * amount, categorySpinner, expCategorySpinner); Toast.makeText(
+				 * getApplicationContext(), processMessage,
+				 * messageDuration).show(); } })
+				 * .setNegativeButton(getString(R.string.btn_no), new
+				 * DialogInterface.OnClickListener() { public void onClick(
+				 * DialogInterface dialog, int which) {
+				 * 
+				 * } }).show(); }
+				 */
 				// only process this if needed
 				if (needToShow) {
 					financeHelper = expTrackerService
@@ -1373,7 +1379,7 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		startActivity(intent);
 
 	}
-	
+
 	public void createNewReceivable(View view) {
 		Intent intent = new Intent(getApplicationContext(),
 				PayRecActivity.class);
@@ -1383,27 +1389,28 @@ public class ExpenseTrackerActivity extends TabSwipeActivity implements
 		startActivity(intent);
 
 	}
+
 	private int getSpinnerPosition(Spinner inputSpinner) {
 		int pos = inputSpinner.getSelectedItemPosition();
-		if(pos < 0){
+		if (pos < 0) {
 			pos = 0;
 		}
 		return pos;
 	}
-	
-	public void exportDB(View view){
+
+	public void exportDB(View view) {
 		Intent intentDirChooser = new Intent(this,
 				DirectoryChooserActivity.class);
 		intentDirChooser.putExtra("fileClickable", false);
 		startActivityForResult(intentDirChooser, BACKUP_DB);
-		
+
 	}
-	
-	public void restoreDB(View view){
+
+	public void restoreDB(View view) {
 		Intent intentDirChooser = new Intent(this,
 				DirectoryChooserActivity.class);
 		intentDirChooser.putExtra("fileClickable", true);
 		startActivityForResult(intentDirChooser, RESTORE_DB);
-		
+
 	}
 }

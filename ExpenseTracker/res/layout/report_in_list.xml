@@ -6,7 +6,8 @@
     android:alignmentMode="alignMargins"
     android:alpha="1"
     android:columnCount="5"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+     android:background="@drawable/whitebackground" >
 
     <LinearLayout
         android:id="@+id/header"
@@ -30,7 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/header"
+        android:id="@+id/headerReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -88,7 +89,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1"
+            googleads:adUnitId="56c32b0c0c2748a3"
             android:layout_weight="1" />
     </LinearLayout>
 

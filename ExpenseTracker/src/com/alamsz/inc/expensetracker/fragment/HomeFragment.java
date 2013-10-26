@@ -59,6 +59,7 @@ public class HomeFragment extends ExpenseTrackerFragment implements OnRefreshLis
 		StaticVariables.expenseOverBudget = getString(R.string.over_budget_expense);
 		StaticVariables.expenseOkayBudget = getString(R.string.okay_budget_expense);
 		StaticVariables.totalCategoryText = getString(R.string.total_category);
+		
 		// display the balance when this fragment view are called
 		displayHomeInformation(layout);
 
@@ -120,7 +121,7 @@ public class HomeFragment extends ExpenseTrackerFragment implements OnRefreshLis
 				.get(ExpenseTracker.CAT_CASH);
 		String cashDesc = configurationExpTrackerCash==null?"Cash":configurationExpTrackerCash.toString();
 		txtBalanceCash
-				.setText(String.format(getString(R.string.total_category),
+				.setText(String.format(StaticVariables.totalCategoryText,
 						cashDesc));
 		TextView txtBalanceSaving = (TextView) view
 				.findViewById(R.id.saldoTabunganView);

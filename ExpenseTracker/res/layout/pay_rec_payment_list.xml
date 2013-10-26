@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/whitebackground" >
 
     <LinearLayout
         android:id="@+id/headerPayRecList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
         android:orientation="horizontal"
         android:padding="5dp" >
 
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.Sherlock"
-            android:textStyle="bold" />
-
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="0dip"
+            android:layout_weight="8"
             android:layout_height="wrap_content"
-            android:background="#DCF945"
-            android:orientation="vertical"
-             >
+            android:background="@drawable/bluishbackground"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/payRecTitle"
-                android:layout_width="240dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/payable_payment_list"
                 android:textAppearance="@style/TextAppearance.Sherlock"
+                android:textColor="#FFF"
                 android:textStyle="bold" />
 
             <TextView
@@ -40,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="@string/payable_payment_list"
+                android:textColor="#FFF"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -70,7 +66,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#DCF945"
         android:orientation="horizontal"
         android:paddingTop="10dp" >
 
@@ -81,7 +76,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
 </RelativeLayout>

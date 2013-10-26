@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitebackground"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -9,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignMargins"
-        android:background="#DCF945"
         android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/balanceContent"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:alignmentMode="alignMargins"
+            android:background="@drawable/bluishbackground"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -32,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/today_text"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize"
                     android:textStyle="bold" />
 
@@ -41,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/total_category"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -49,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/total_category"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -57,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/total_balance"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
@@ -71,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/delimiter_doubledot"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -78,6 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/delimiter_doubledot"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -85,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/delimiter_doubledot"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -92,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="@string/delimiter_doubledot"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
 
@@ -108,6 +117,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text=""
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize"
                     android:textStyle="bold" />
 
@@ -117,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/total_balance"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -125,6 +136,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/total_balance"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
 
                 <TextView
@@ -133,6 +145,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="@string/total_balance"
+                    android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
         </LinearLayout>
@@ -164,8 +177,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:contentDescription="@string/app_name"
                     android:onClick="getPrevNews"
-                    android:src="@drawable/arrow_left" android:contentDescription="@string/app_name"/>
+                    android:src="@drawable/arrow_left" />
 
                 <TextView
                     android:id="@+id/tipsValue"
@@ -202,15 +216,14 @@
                     android:layout_height="50dp"
                     android:gravity="center"
                     googleads:adSize="BANNER"
-                    googleads:adUnitId="a151a83ca554dd1" />
+                    googleads:adUnitId="56c32b0c0c2748a3" />
             </LinearLayout>
         </LinearLayout>
 
         <ScrollView
             android:id="@+id/menulist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             >
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -220,7 +233,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ABCDEF"
+                    android:background="@drawable/steelbluebackground"
                     android:onClick="openExpenseTab"
                     android:orientation="horizontal"
                     android:padding="5dp" >
@@ -237,6 +250,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/expense"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -245,7 +259,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#BCDEFA"
+                    android:background="@drawable/navybluebackground"
                     android:contentDescription="@string/transaction"
                     android:onClick="openIncomeTab"
                     android:orientation="horizontal"
@@ -263,6 +277,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/income"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -271,7 +286,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#CDEFAB"
+                    android:background="@drawable/chlorophylebackground"
                     android:contentDescription="@string/transfer"
                     android:onClick="openTransferTab"
                     android:orientation="horizontal"
@@ -289,6 +304,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/transfer"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -297,7 +313,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#DEFABC"
+                    android:background="@drawable/grassbackground"
                     android:contentDescription="@string/trans_hist"
                     android:onClick="openTransactionHistTab"
                     android:orientation="horizontal"
@@ -315,6 +331,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/trans_hist"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -323,7 +340,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#CAADEF"
+                    android:background="@drawable/indigobackground"
                     android:contentDescription="@string/payable"
                     android:onClick="openPayableTab"
                     android:orientation="horizontal"
@@ -341,6 +358,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/payable"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -349,7 +367,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#CABDEF"
+                    android:background="@drawable/violetbackground"
                     android:contentDescription="@string/receivable"
                     android:onClick="openReceivableTab"
                     android:orientation="horizontal"
@@ -367,6 +385,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/receivable"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -375,7 +394,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EFABCD"
+                    android:background="@drawable/magentabackground"
                     android:contentDescription="@string/transaction"
                     android:onClick="openReportTab"
                     android:orientation="horizontal"
@@ -393,6 +412,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/report"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
@@ -401,7 +421,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FABCDE"
+                    android:background="@drawable/fuschiabackground"
                     android:contentDescription="@string/setting"
                     android:onClick="openSettingTab"
                     android:orientation="horizontal"
@@ -419,14 +439,16 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/setting"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
                 </LinearLayout>
-                 <LinearLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EDFABD"
+                    android:background="@drawable/amberbackground"
                     android:contentDescription="@string/backup_db"
                     android:onClick="exportDB"
                     android:orientation="horizontal"
@@ -444,14 +466,16 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/backup_db"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>
                 </LinearLayout>
-                 <LinearLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#EDFABC"
+                    android:background="@drawable/goldbackground"
                     android:contentDescription="@string/restore_db"
                     android:onClick="restoreDB"
                     android:orientation="horizontal"
@@ -469,6 +493,7 @@
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
                         android:text="@string/restore_db"
+                        android:textColor="#FFF"
                         android:textSize="20sp"
                         android:textStyle="bold" >
                     </TextView>

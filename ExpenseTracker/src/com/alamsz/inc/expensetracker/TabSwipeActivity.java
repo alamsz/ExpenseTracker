@@ -13,8 +13,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+import android.widget.ViewSwitcher;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -36,7 +38,7 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
         adapter = new TabsAdapter( this, mViewPager );
         mViewPager.setAdapter( adapter );
         mViewPager.setOnPageChangeListener( adapter );
- 
+        
         /*
          * We need to provide an ID for the ViewPager, otherwise we will get an exception like:
          *
@@ -90,8 +92,10 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
             super(activity.getSupportFragmentManager());
             this.mActivity = activity;
             this.mActionBar = activity.getSupportActionBar();
+           //this.mActionBar.setSplitBackgroundDrawable(getResources().getDrawable(R.drawable.bluishbackground));	
+				
             this.mPager = pager;
- 
+            this.mPager.setBackgroundResource(R.drawable.bluishbackground);
             mActionBar.setNavigationMode( ActionBar.NAVIGATION_MODE_TABS );
         }
  
@@ -118,10 +122,7 @@ public abstract class TabSwipeActivity extends SherlockFragmentActivity {
             tab.setTag( tabInfo );
             tab.setIcon(drawable);
             mTabs.add( tabInfo );
- 
             mActionBar.addTab( tab );
-            
-            
             notifyDataSetChanged();
             
             return tab;

@@ -2,23 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitebackground"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/confDetailHeaderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp" >
 
         <TextView
             android:id="@+id/confDetailTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/expense_category_list"
             android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -168,7 +172,7 @@
                     android:id="@+id/btnAddorUpdConfig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="addConfig"
                     android:shadowColor="#7740A8"
                     android:shadowDx="0"
@@ -181,8 +185,9 @@
                 <com.appbrain.AppBrainBanner
                     android:id="@+id/adConfDetailView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" 
-                    android:paddingTop="5dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="5dp" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

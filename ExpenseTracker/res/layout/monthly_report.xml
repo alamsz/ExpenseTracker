@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:background="#DCF945"
+            android:background="@drawable/bluishbackground"
             android:orientation="horizontal"
             android:paddingLeft="5dp" >
 
@@ -28,7 +28,8 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/period"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                android:textColor="#FFFFFF" />
 
             <Spinner
                 android:id="@+id/monthSpinner"
@@ -37,7 +38,8 @@
                 android:layout_weight="1"
                 android:entries="@array/months"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp" 
+                android:textColor="#FFFFFF"/>
 
             <ImageView
                 android:id="@+id/prevYearReport"
@@ -45,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/app_name"
                 android:onClick="getPrevYearReport"
-                android:src="@drawable/arrow_left" />
+                android:src="@drawable/arrow_left" 
+                android:textColor="#FFFFFF"/>
 
             <TextView
                 android:id="@+id/year"
@@ -55,7 +58,8 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:textStyle="bold" >
+                android:textStyle="bold" 
+                android:textColor="#FFFFFF">
             </TextView>
 
             <ImageView
@@ -72,10 +76,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:background="#DCF945"
+            android:background="@drawable/bluishbackground"
             android:gravity="left"
             android:orientation="horizontal"
-            android:paddingLeft="5dp" >
+            android:paddingLeft="5dp"
+             >
 
             <TextView
                 android:id="@+id/fundSource"
@@ -83,7 +88,8 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/fund_type"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize" 
+                android:textColor="#FFFFFF"/>
 
             <Spinner
                 android:id="@+id/fundSourceSpinner"
@@ -94,7 +100,8 @@
                 android:entryValues="@array/category_input_values"
                 android:prompt="@string/category_prompt"
                 android:spinnerMode="dialog"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize" 
+                android:textColor="#FFFFFF"/>
 
             <ImageButton
                 android:id="@+id/buttonChartReport"
@@ -114,7 +121,8 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/list"
                 android:onClick="getMonthlyReportList"
-                android:text="@string/btn_show_list" />
+                android:text="@string/btn_show_list" 
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 

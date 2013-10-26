@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
-     android:baselineAligned="false">
+    android:background="@drawable/bluishbackground"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-   
     <FrameLayout
         android:id="@android:id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

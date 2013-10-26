@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitebackground"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/confDetailHeaderTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/bluishbackground"
         android:orientation="horizontal"
         android:padding="10dp" >
 
         <TextView
             android:id="@+id/confDetailTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/expense_category_list"
             android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/confdetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/confDetailHeaderTitle" >
+        android:layout_height="0dp"
+        android:layout_below="@id/confDetailHeaderTitle"
+        android:layout_weight="6" >
 
         <RelativeLayout
             android:id="@+id/confDetailContainer"
@@ -70,13 +76,15 @@
                         android:layout_gravity="left"
                         android:text="@string/en_desc"
                         android:textSize="@dimen/textSize" />
-                     <TextView
+
+                    <TextView
                         android:id="@+id/textViewStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="left"
                         android:text="@string/status"
                         android:textSize="@dimen/textSize" />
+
                     <TextView
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
@@ -92,9 +100,7 @@
                         android:layout_gravity="left"
                         android:text="@string/weekly_budget"
                         android:textSize="@dimen/textSize"
-                         android:visibility="invisible" />
-
-                    
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,13 +134,13 @@
                         android:layout_gravity="left"
                         android:inputType="text"
                         android:textSize="@dimen/textSize" />
-                       <org.jraf.android.backport.switchwidget.Switch
+
+                    <org.jraf.android.backport.switchwidget.Switch
                         android:id="@+id/switchStatus"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        
-                        />
-                     <EditText
+                        android:layout_height="wrap_content" />
+
+                    <EditText
                         android:id="@+id/monthlyBudgetText"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
@@ -149,17 +155,16 @@
                         android:layout_gravity="left"
                         android:inputType="number"
                         android:textSize="@dimen/textSize"
-                         android:visibility="invisible" />
-
-                   
+                        android:visibility="invisible" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/confDetailButton"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_below="@id/confDetailContent"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="10dp" >
@@ -168,17 +173,15 @@
                     android:id="@+id/btnAddorUpdConfig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="addConfig"
-                    
-                    android:text="@string/add"
-                    android:textColor="#FFFFFF"
                     android:shadowColor="#7740A8"
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="5"
-                    android:textSize="@dimen/textSize"
-                     />
+                    android:text="@string/add"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/textSize" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
@@ -187,20 +190,20 @@
         android:id="@+id/footerConfDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/confdetail"
-        android:background="#DCF945"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="10dp" >
+        android:paddingTop="5dp" >
 
         <com.google.ads.AdView
             xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
             android:id="@+id/adConfDetailView"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

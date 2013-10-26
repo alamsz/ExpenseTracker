@@ -3,7 +3,8 @@
     android:id="@+id/reportContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+     android:background="@drawable/whitebackground">
 
     <LinearLayout
         android:id="@+id/titleView"
@@ -16,7 +17,7 @@
             android:id="@+id/reportRow1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DCF945"
+           android:background="@drawable/bluishbackground"
             android:gravity="left"
             android:orientation="horizontal" 
             android:paddingLeft="5dp">
@@ -26,7 +27,8 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/period"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize" 
+                android:textColor="#FFF"/>
             <ImageView
                 android:id="@+id/prevWeekReport"
                 android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:textStyle="bold" >
+                android:textStyle="bold" 
+                android:textColor="#FFF">
             </TextView>
 
             <ImageView
@@ -59,7 +62,7 @@
             android:id="@+id/reportRow2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DCF945"
+            android:background="@drawable/bluishbackground"
             android:gravity="left"
             android:orientation="horizontal" 
             android:paddingLeft="5dp">
@@ -70,7 +73,8 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/fund_type"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize" 
+                android:textColor="#FFF"/>
 
             <Spinner
                 android:id="@+id/fundSourceSpinner"

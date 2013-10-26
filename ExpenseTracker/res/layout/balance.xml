@@ -8,7 +8,7 @@
         android:id="@+id/headerBalanceCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
         android:orientation="horizontal"
         android:padding="10dp" >
 
@@ -19,7 +19,8 @@
             android:gravity="center"
             android:text="@string/expense_category_list"
             android:textAppearance="@style/TextAppearance.Sherlock"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <ScrollView

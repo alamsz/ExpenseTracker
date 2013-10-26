@@ -9,6 +9,7 @@ import java.util.Map;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.alamsz.inc.expensetracker.dao.ConfigurationExpTracker;
+import com.google.ads.AdRequest;
 
 public final class StaticVariables {
 	//public static final String financeTipsGood = getString(R.string.finance_tips_good);
@@ -41,4 +42,5 @@ public final class StaticVariables {
 	public static String expenseOverBudget = "";
 	public static String expenseOkayBudget = "";
 	public static String totalCategoryText = "";
+	public static AdRequest mAdRequest;
 }

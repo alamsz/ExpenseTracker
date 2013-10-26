@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/whitebackground"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/payRecDetailHeaderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="5dp" >
 
         <TextView
             android:id="@+id/payRecDetailTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/payable"
             android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -26,7 +29,8 @@
         android:id="@+id/payRecdetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/payRecDetailHeaderTitle" >
+        android:layout_weight="6"
+        android:paddingTop="5dp" >
 
         <LinearLayout
             android:id="@+id/payRecDetailContainer"
@@ -219,7 +223,7 @@
                     android:id="@+id/payRecBtnAddorUpdPayRec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="addOrModPayRec"
                     android:shadowColor="#7740A8"
                     android:shadowDx="0"
@@ -232,25 +236,12 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/row4"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        android:padding="2dp" >
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </ListView>
-    </LinearLayout>
+   
 
     <LinearLayout
         android:id="@+id/footerConfDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/payRecdetail"
+        android:layout_height="50dp"
         android:gravity="center_horizontal|bottom"
         android:orientation="horizontal"
         android:paddingTop="5dp" >
@@ -259,9 +250,9 @@
             xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
             android:id="@+id/adConfDetailView"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

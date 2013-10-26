@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+     android:background="@drawable/whitebackground" >
 
     <LinearLayout
         android:id="@+id/headerExpCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
         android:orientation="horizontal"
         android:padding="10dp" >
 
@@ -16,7 +17,8 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Sherlock"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="#FFFFFF"/>
 
         <TextView
             android:id="@+id/transCatTitle"
@@ -25,7 +27,8 @@
             android:gravity="center"
             android:text="@string/expense_category_list"
             android:textAppearance="@style/TextAppearance.Sherlock"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:layout_width="30dp"
@@ -35,7 +38,8 @@
             android:gravity="center"
             android:onClick="createNewCategory"
             android:textAppearance="@style/TextAppearance.Sherlock"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +56,7 @@
             android:id="@+id/listoftranscat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/headerExpCategory"
+          
             android:layout_weight="6"
             android:listSelector="@drawable/list_selector" >
         </ListView>
@@ -65,7 +69,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
 </RelativeLayout>

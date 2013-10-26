@@ -7,4 +7,5 @@
     android:layout_height="48dp"
     android:ellipsize="marquee"
     android:textSize="@dimen/textSize" 
-    android:textColor="#111"/>
+    android:textColor="#000"
+   />

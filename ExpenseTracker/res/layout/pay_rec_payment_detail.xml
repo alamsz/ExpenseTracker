@@ -2,23 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+     android:background="@drawable/whitebackground">
 
     <LinearLayout
         android:id="@+id/payRecPaymentDetailHeaderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DCF945"
+        android:background="@drawable/bluishbackground"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:padding="5dp" 
+        android:gravity="center">
 
         <TextView
             android:id="@+id/payRecPaymentDetailTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/payable"
             android:textAppearance="@style/TextAppearance.Sherlock"
+            android:textColor="#FFF"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -26,7 +29,8 @@
         android:id="@+id/payRecPaymentdetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/payRecPaymentDetailHeaderTitle" >
+        android:layout_below="@id/payRecPaymentDetailHeaderTitle"
+        android:paddingTop="5dp" >
 
         <LinearLayout
             android:id="@+id/payRecPaymentDetailContainer"
@@ -162,7 +166,7 @@
                     android:id="@+id/payRecPaymentBtnAddorUpdpayRecPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/buttoncustom"
+                    android:background="@drawable/bluishbackground"
                     android:onClick="addOrModPayRecPayment"
                     android:shadowColor="#7740A8"
                     android:shadowDx="0"
@@ -204,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             googleads:adSize="BANNER"
-            googleads:adUnitId="a151a83ca554dd1" />
+            googleads:adUnitId="56c32b0c0c2748a3" />
     </LinearLayout>
 
 </RelativeLayout>

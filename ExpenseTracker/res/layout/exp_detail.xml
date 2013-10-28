@@ -9,9 +9,9 @@
         android:id="@+id/confDetailHeaderTitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:layout_weight="1"
         android:background="@drawable/bluishbackground"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp" >
 
@@ -31,10 +31,10 @@
         android:id="@+id/confdetail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/confDetailHeaderTitle"
+       
         android:layout_weight="6" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/confDetailContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,38 +159,27 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/confDetailButton"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_below="@id/confDetailContent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp" >
+            
 
                 <Button
                     android:id="@+id/btnAddorUpdConfig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bluishbackground"
+                    android:background="@drawable/buttoncustom"
                     android:onClick="addConfig"
-                    android:shadowColor="#7740A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
                     android:text="@string/add"
                     android:textColor="#FFFFFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textSize="@dimen/textSize" />
-            </LinearLayout>
-        </RelativeLayout>
+            
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/footerConfDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/confdetail"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="5dp" >

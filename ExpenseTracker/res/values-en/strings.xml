@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!--  Label -->
-	<string name="fund_source">Fund Source</string>
+	<string name="app_name">PencatatKeuangan</string><string name="fund_source">Fund Source</string>
  	<string name="fund_desc">Fund Destination</string>
  	<string name="exp_category_prompt">Choose Expense Category</string>
  	<string name="inc_category_prompt">Choose Income Category</string>
@@ -10,7 +10,7 @@
  	<string name="exp_category_detail">Expense Category Detail</string>
  	<string name="inc_category_detail">Income Category Detail</string>
  	<string name="config_detail">Configuration Detail</string>
-    <string name="app_name">PencatatKeuangan</string>
+    
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="home">Home</string>
@@ -27,8 +27,7 @@
     <string name="expense_cat">Category</string>
     <string name="balance">Balance</string>
     <string name="transaction">Transaction</string>
-    <string name="weekly_budget">Weekly Budget</string>
- 	<string name="monthly_budget">Monthly Budget</string>
+    
     <string name="expense_type">Type</string>
     <string name="show_transaction">Show Transaction</string>
     <string name="mustNotEmpty">Field Must be Filled in</string>
@@ -54,6 +53,8 @@
     <string name="transfer_from">Transfer from</string>
  	<string name="transfer_to">Transfer to</string>
  	<string name="transfer">Transfer</string>
+ 	<string name="weekly_budget">Weekly Budget</string>
+ 	<string name="monthly_budget">Monthly Budget</string>
  	
  	 	<string name="setting">Setting</string>
  	<string name="report">Report</string>
@@ -129,6 +130,7 @@
  	<string name="btn_show_list">Show in List</string>
  	<string name="btn_add">Add</string>
  	<string name="btn_mod">Modify</string>
+ 	<string name="btn_open">Open</string>
     
     <!--  configuration -->
  	<string name="preflang">en_US</string>
@@ -168,4 +170,11 @@
  	<string name="make_the_app_password_protected">Make The App Password protected</string>
  	<string name="enable_password">Enable Password</string>
  	<string name="set_password">Set Password</string>
+ 	<string name="restore_db">Restore DB</string>
+ 	<string name="backup_db">Backup DB</string>
+ 	<string name="restore_db_success">Successfully restore Pencatat Keuangan database from %1s</string>
+ 	<string name="export_db_success">Successfully backup Pencatat Keuangan database to %1s</string>
+ 	<string name="db_export_fail">Backup database failed, Please check sdcard/ file is valid is valid</string>
+ 	<string name="db_restore_fail">Restore database failed, Please check sdcard/ file is valid is valid</string>
+ 	<string name="db_restore_confirmation">Restore will overwrite your current database with %1s, Are you sure to continue?</string>
 </resources>

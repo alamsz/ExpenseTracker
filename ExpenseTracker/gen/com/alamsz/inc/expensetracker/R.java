@@ -2071,6 +2071,7 @@ containing a value of this type.
         public static final int amount=0x7f060024;
         public static final int amount_paid=0x7f06009d;
         /**   Label 
+  Label 
          */
         public static final int app_name=0x7f06000f;
         public static final int application_language_preference=0x7f0600ab;
@@ -2159,8 +2160,6 @@ containing a value of this type.
         public static final int finance_tips_good=0x7f060048;
         public static final int finance_tips_warning=0x7f060049;
         public static final int fund_desc=0x7f060011;
-        /**   Label 
-         */
         public static final int fund_source=0x7f060010;
         public static final int fund_type=0x7f0600aa;
         public static final int hello_world=0x7f06001a;

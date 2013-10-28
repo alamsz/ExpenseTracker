@@ -212,12 +212,9 @@
                     android:id="@+id/incomeButtonProcess"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bluishbackground"
+                    android:background="@drawable/buttoncustom"
                     android:onClick="processIncome"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                   
                     android:text="@string/btn_submit" />
             </LinearLayout>
         </RelativeLayout>

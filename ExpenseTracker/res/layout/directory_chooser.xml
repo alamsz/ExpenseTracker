@@ -62,20 +62,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-             >
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/buttonCance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:background="@drawable/bluishbackground"
+                android:background="@drawable/buttoncustom"
                 android:onClick="clickCancel"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
                 android:text="@string/btn_cancel" />
 
             <Button
@@ -83,21 +78,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:background="@drawable/bluishbackground"
-                android:onClick="clickSave"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
                 android:layout_marginLeft="10dp"
+                android:background="@drawable/buttoncustom"
+                android:onClick="clickSave"
                 android:text="@string/btn_save" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
 
             <com.google.ads.AdView
                 xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"

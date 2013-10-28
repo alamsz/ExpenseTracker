@@ -172,12 +172,8 @@
                     android:id="@+id/btnAddorUpdConfig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bluishbackground"
+                    android:background="@drawable/buttoncustom"
                     android:onClick="addConfig"
-                    android:shadowColor="#7740A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
                     android:text="@string/add"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/textSize" />
